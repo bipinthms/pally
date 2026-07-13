@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { MapPin, Phone, Mail, Clock, Navigation } from "lucide-react";
 
 import { site } from "@/lib/site";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { Ornament } from "@/components/ornament";
@@ -21,35 +23,24 @@ const socials = [
   { href: site.social.youtube, icon: YoutubeIcon, label: "YouTube" },
 ];
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const locale = await getLocale();
+  const t = getDictionary(locale);
+
   const info = [
-    {
-      icon: MapPin,
-      title: "Visit Us",
-      lines: site.contact.addressLines,
-    },
-    {
-      icon: Phone,
-      title: "Call Us",
-      lines: [site.contact.phone],
-      href: `tel:${site.contact.phoneHref}`,
-    },
-    {
-      icon: Mail,
-      title: "Email Us",
-      lines: [site.contact.email],
-      href: `mailto:${site.contact.email}`,
-    },
+    { icon: MapPin, title: t.contact.visitUs, lines: site.contact.addressLines },
+    { icon: Phone, title: t.contact.callUs, lines: [site.contact.phone], href: `tel:${site.contact.phoneHref}` },
+    { icon: Mail, title: t.contact.emailUs, lines: [site.contact.email], href: `mailto:${site.contact.email}` },
   ];
 
   return (
     <>
       <PageHero
-        eyebrow="We'd love to hear from you"
-        title="Contact the Parish"
-        description="Whether you have a question, need a certificate, or simply wish to say hello — our parish office is here to help."
+        eyebrow={t.contact.heroEyebrow}
+        title={t.contact.heroTitle}
+        description={t.contact.heroDesc}
         imageKey="churchStone"
-        crumbs={[{ label: "Contact" }]}
+        crumbs={[{ label: t.nav.contact.label }]}
       />
 
       <section className="section-y">
@@ -57,40 +48,27 @@ export default function ContactPage() {
           {/* Info */}
           <Reveal>
             <span className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-600 dark:text-gold-400">
-              Get in touch
+              {t.contact.eyebrow}
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight sm:text-4xl">
-              A warm welcome awaits you
-            </h2>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
-              Reach out through any of the ways below, or send us a message using
-              the form. We look forward to connecting with you.
-            </p>
+            <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight sm:text-4xl">{t.contact.title}</h2>
+            <p className="mt-4 leading-relaxed text-muted-foreground">{t.contact.body}</p>
 
             <Ornament width="w-40" className="my-8 justify-start" />
 
             <div className="space-y-4">
               {info.map((c) => (
-                <div
-                  key={c.title}
-                  className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5"
-                >
+                <div key={c.title} className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5">
                   <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <c.icon className="size-5" />
                   </span>
                   <div>
                     <p className="font-serif text-lg font-semibold">{c.title}</p>
                     {c.href ? (
-                      <a
-                        href={c.href}
-                        className="text-sm text-muted-foreground transition hover:text-primary"
-                      >
+                      <a href={c.href} className="text-sm text-muted-foreground transition hover:text-primary">
                         {c.lines.join(", ")}
                       </a>
                     ) : (
-                      <p className="text-sm text-muted-foreground">
-                        {c.lines.join(", ")}
-                      </p>
+                      <p className="text-sm text-muted-foreground">{c.lines.join(", ")}</p>
                     )}
                   </div>
                 </div>
@@ -102,19 +80,19 @@ export default function ContactPage() {
                   <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-gold-600 dark:text-gold-400">
                     <Clock className="size-5" />
                   </span>
-                  <p className="font-serif text-lg font-semibold">Office Timings</p>
+                  <p className="font-serif text-lg font-semibold">{t.contact.officeTimings}</p>
                 </div>
                 <dl className="mt-4 space-y-2 text-sm">
                   <div className="flex justify-between gap-4">
-                    <dt className="text-muted-foreground">Mon – Fri</dt>
+                    <dt className="text-muted-foreground">{t.contact.monFri}</dt>
                     <dd className="text-right font-medium">{site.office.weekdays}</dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-muted-foreground">Saturday</dt>
+                    <dt className="text-muted-foreground">{t.contact.saturday}</dt>
                     <dd className="text-right font-medium">{site.office.saturday}</dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-muted-foreground">Sunday</dt>
+                    <dt className="text-muted-foreground">{t.contact.sunday}</dt>
                     <dd className="text-right font-medium">{site.office.sunday}</dd>
                   </div>
                 </dl>
@@ -122,7 +100,7 @@ export default function ContactPage() {
             </div>
 
             <div className="mt-6 flex items-center gap-3">
-              <span className="text-sm text-muted-foreground">Follow us</span>
+              <span className="text-sm text-muted-foreground">{t.common.followUs}</span>
               {socials.map((s) => (
                 <a
                   key={s.label}
@@ -158,7 +136,7 @@ export default function ContactPage() {
                 <Button asChild variant="outline" size="sm">
                   <a href={site.contact.mapLink} target="_blank" rel="noopener noreferrer">
                     <Navigation className="size-4" />
-                    Get Directions
+                    {t.common.getDirections}
                   </a>
                 </Button>
               </div>

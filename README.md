@@ -26,6 +26,18 @@ Home · About · Holy Mass · Clergy · Organizations · Gallery · Events ·
 Prayer Requests · Donations · Contact — plus a custom 404, loading state,
 `sitemap.xml`, `robots.txt` and a web manifest.
 
+## Languages (English & Malayalam)
+
+The site is fully bilingual. **English is the default**; visitors switch to
+**Malayalam (മലയാളം)** with the toggle in the navigation bar. The choice is
+saved in a cookie and the whole site — navigation, content, dates and forms —
+re-renders on the server in the chosen language (so both languages are
+SEO-indexable, with the correct `<html lang>`).
+
+- UI text lives in `src/lib/i18n/dictionary.ts` (`en` and `ml` objects).
+- Page/section content lives in `src/lib/data.ts` as `{ en, ml }` pairs.
+- To edit a translation, change the matching `en`/`ml` string — nothing else.
+
 ## Editing Content (no code required)
 
 All parish content lives in a few plain files so it can be updated without
