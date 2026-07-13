@@ -42,8 +42,8 @@ export const site = {
   },
 
   social: {
-    facebook: "https://www.facebook.com/",
-    instagram: "https://www.instagram.com/",
+    facebook: "https://www.facebook.com/alencherrypally/?ref=1",
+    instagram: "https://www.instagram.com/alencherry_pally/",
     youtube: "https://www.youtube.com/",
   },
 } as const;

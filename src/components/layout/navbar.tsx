@@ -59,7 +59,7 @@ export function Navbar() {
           : "border-b border-transparent py-4 text-cream",
       )}
     >
-      <div className="container-x flex items-center justify-between gap-4">
+      <div className="mx-auto flex w-full max-w-[95rem] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         <Link href="/" aria-label="St. Mary's Orthodox Syrian Church — home" className="shrink-0">
           <Wordmark
             markClassName=""
@@ -71,7 +71,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop navigation */}
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden min-w-0 items-center gap-0.5 xl:flex">
           {primaryNav.map((item) => {
             const active = isActive(pathname, item.href);
             return (
@@ -79,7 +79,7 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "group relative rounded-full whitespace-nowrap px-3 py-2 text-[0.9rem] font-medium transition-colors",
+                  "group relative rounded-full whitespace-nowrap px-2.5 py-2 text-[0.9rem] font-medium transition-colors",
                   active
                     ? solid
                       ? "text-primary"
@@ -99,7 +99,7 @@ export function Navbar() {
           })}
         </nav>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex shrink-0 items-center gap-1.5">
           <LanguageToggle className="mr-0.5 hidden sm:inline-flex" />
           <SearchDialog />
           <ThemeToggle />
@@ -107,7 +107,7 @@ export function Navbar() {
             asChild
             variant="gold"
             size="sm"
-            className="ml-1 hidden md:inline-flex"
+            className="ml-1 hidden sm:inline-flex"
           >
             <Link href="/donations">
               <Heart className="size-4" />
@@ -119,7 +119,7 @@ export function Navbar() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
-            className="inline-flex size-10 items-center justify-center rounded-full border border-current/15 text-current transition hover:bg-current/10 lg:hidden"
+            className="inline-flex size-10 items-center justify-center rounded-full border border-current/15 text-current transition hover:bg-current/10 xl:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
