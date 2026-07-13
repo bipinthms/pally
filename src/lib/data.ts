@@ -195,7 +195,7 @@ const upcomingFeastRaw = {
     "Our parish gathers for eight days of grace — the Ettu Nombu, procession and the solemn feast of the Nativity of the Blessed Virgin Mary.",
     "എട്ടു ദിവസത്തെ കൃപയ്ക്കായി ഞങ്ങളുടെ ഇടവക ഒരുമിക്കുന്നു — നോമ്പ്, പ്രദക്ഷിണം, പരിശുദ്ധ കന്യാമറിയത്തിന്റെ ജനനത്തിന്റെ ആഘോഷ തിരുനാൾ.",
   ),
-  image: "churchDusk" as ImageKey,
+  image: "churchAlt" as ImageKey,
 };
 
 const eventsRaw: {
@@ -297,13 +297,13 @@ const eventsRaw: {
 ];
 
 const parishPriestRaw = {
-  name: B("Rev. Fr. Thomas Varghese", "റവ. ഫാ. തോമസ് വർഗീസ്"),
+  name: B("Rev. Fr. Varghese T Varghese", "റവ. ഫാ. വർഗീസ് ടി വർഗീസ്"),
   role: B("Parish Priest (Vicar)", "ഇടവക വികാരി"),
   image: "priest1" as ImageKey,
-  since: B("Since 2021", "2021 മുതൽ"),
+  since: B("", ""),
   bio: B(
-    "Ordained in 1998, Fr. Thomas has served parishes across the Diocese with a heart for the poor and a love for the liturgy. He shepherds our parish with gentle wisdom, guiding its spiritual and pastoral life.",
-    "1998-ൽ പട്ടം സ്വീകരിച്ച ഫാ. തോമസ്, ദരിദ്രരോടുള്ള സ്നേഹത്തോടും ആരാധനക്രമത്തോടുള്ള താൽപ്പര്യത്തോടും കൂടെ അതിരൂപതയിലുടനീളം ഇടവകകളിൽ സേവനം ചെയ്തിട്ടുണ്ട്. സൗമ്യമായ വിവേകത്തോടെ അദ്ദേഹം ഞങ്ങളുടെ ഇടവകയെ പരിപാലിക്കുന്നു.",
+    "Fr. Varghese shepherds St. Mary's with a heart for the poor and a deep love for the Holy Qurbana. With gentle wisdom he guides the spiritual and pastoral life of the parish, welcoming all who come seeking God's grace.",
+    "ദരിദ്രരോടുള്ള സ്നേഹത്തോടും വിശുദ്ധ കുർബ്ബാനയോടുള്ള ആഴമായ താൽപ്പര്യത്തോടും കൂടെ ഫാ. വർഗീസ് വിശുദ്ധ മറിയം പള്ളിയെ പരിപാലിക്കുന്നു. സൗമ്യമായ വിവേകത്തോടെ അദ്ദേഹം ഇടവകയുടെ ആത്മീയവും അജപാലനപരവുമായ ജീവിതം നയിക്കുന്നു.",
   ),
   quote: B(
     "A parish is a family gathered around the altar — here, everyone has a place at the Lord's table.",
@@ -312,13 +312,13 @@ const parishPriestRaw = {
 };
 
 const assistantPriestRaw = {
-  name: B("Rev. Fr. Joseph Kurian", "റവ. ഫാ. ജോസഫ് കുര്യൻ"),
-  role: B("Assistant Parish Priest", "അസി. വികാരി"),
+  name: B("Rev. Fr. Aji", "റവ. ഫാ. അജി"),
+  role: B("Assistant Priest", "സഹ വികാരി"),
   image: "priest2" as ImageKey,
-  since: B("Since 2024", "2024 മുതൽ"),
+  since: B("", ""),
   bio: B(
-    "Fr. Joseph accompanies our youth and family ministries with energy and joy. He coordinates the OCYM, Sunday School and the parish choir, drawing young hearts closer to Christ.",
-    "ഫാ. ജോസഫ് ഊർജ്ജത്തോടും സന്തോഷത്തോടും കൂടെ ഞങ്ങളുടെ യുവജന-കുടുംബ ശുശ്രൂഷകളെ അനുഗമിക്കുന്നു. ഒസിവൈഎം, വേദപാഠം, ഇടവക ഗായകസംഘം എന്നിവ ഏകോപിപ്പിച്ച് അദ്ദേഹം യുവഹൃദയങ്ങളെ ക്രിസ്തുവിനോട് അടുപ്പിക്കുന്നു.",
+    "Fr. Aji accompanies our youth and family ministries with energy and joy. He coordinates the OCYM, MGOCSM, Sunday School and the parish choir, drawing young hearts closer to Christ.",
+    "ഫാ. അജി ഊർജ്ജത്തോടും സന്തോഷത്തോടും കൂടെ ഞങ്ങളുടെ യുവജന-കുടുംബ ശുശ്രൂഷകളെ അനുഗമിക്കുന്നു. ഒസിവൈഎം, എംജിഒസിഎസ്എം, വേദപാഠം, ഇടവക ഗായകസംഘം എന്നിവ ഏകോപിപ്പിച്ച് അദ്ദേഹം യുവഹൃദയങ്ങളെ ക്രിസ്തുവിനോട് അടുപ്പിക്കുന്നു.",
   ),
   quote: B(
     "Faith grows brightest when the young are given room to serve.",
@@ -430,22 +430,22 @@ const organizationsRaw: {
 ];
 
 const galleryRaw: { image: ImageKey; title: Bi; category: GalleryCategory; span?: "tall" | "wide" }[] = [
-  { image: "heroInterior", title: B("Morning light through the nave", "നടുത്തളത്തിലൂടെ പ്രഭാത വെളിച്ചം"), category: "Church", span: "tall" },
-  { image: "candles", title: B("Votive candles at Our Lady's altar", "അമ്മയുടെ അൾത്താരയിലെ നേർച്ചത്തിരികൾ"), category: "Liturgy" },
+  { image: "heroInterior", title: B("Our church aglow at night", "രാത്രിയിൽ പ്രകാശിക്കുന്ന ഞങ്ങളുടെ പള്ളി"), category: "Church", span: "tall" },
+  { image: "candles", title: B("Intercession of the Theotokos", "ദൈവമാതാവിന്റെ മാധ്യസ്ഥ്യം"), category: "Liturgy" },
   { image: "churchDusk", title: B("The parish church at dusk", "സന്ധ്യയിൽ ഇടവക പള്ളി"), category: "Church", span: "wide" },
-  { image: "celebration", title: B("Parish feast celebrations", "ഇടവക പെരുന്നാൾ ആഘോഷങ്ങൾ"), category: "Feasts" },
-  { image: "cathedralArches", title: B("Arches of the sanctuary", "മദ്ബഹായുടെ കമാനങ്ങൾ"), category: "Heritage", span: "tall" },
-  { image: "candlesPrayer", title: B("Prayer & quiet worship", "പ്രാർത്ഥനയും മൗന ധ്യാനവും"), category: "Liturgy" },
-  { image: "gathering", title: B("The parish family gathers", "ഇടവക കുടുംബം ഒരുമിക്കുന്നു"), category: "Community", span: "wide" },
-  { image: "ornateCeiling", title: B("Ornamented ceiling detail", "അലങ്കൃത മേൽക്കൂര"), category: "Heritage" },
-  { image: "scripture", title: B("The Word proclaimed", "വചനം പ്രഘോഷിക്കപ്പെടുന്നു"), category: "Liturgy" },
-  { image: "churchStone", title: B("Weathered stone & memory", "പഴമയുടെ കല്ലും ഓർമ്മയും"), category: "Heritage", span: "tall" },
-  { image: "churchWarm", title: B("Christmas at the parish", "ഇടവകയിലെ ക്രിസ്മസ്"), category: "Feasts" },
-  { image: "peacefulPath", title: B("Grounds & garden of prayer", "പ്രാർത്ഥനയുടെ മുറ്റവും തോട്ടവും"), category: "Community", span: "wide" },
-  { image: "stainedGlass", title: B("Light through coloured glass", "വർണ്ണച്ചില്ലിലൂടെ വെളിച്ചം"), category: "Church" },
-  { image: "archDetail", title: B("Colonnade & cloister", "തൂണുകളും ഇടനാഴിയും"), category: "Heritage" },
-  { image: "churchWide", title: B("The congregation at Holy Qurbana", "കുർബ്ബാനയിലെ സമൂഹം"), category: "Liturgy", span: "tall" },
-  { image: "columnLight", title: B("Pillars of the old church", "പഴയ പള്ളിയുടെ തൂണുകൾ"), category: "Church" },
+  { image: "celebration", title: B("Honouring our parishioners", "ഇടവകാംഗങ്ങളെ ആദരിക്കുന്നു"), category: "Community" },
+  { image: "cathedralArches", title: B("The golden madbaha (sanctuary)", "സ്വർണ്ണ മദ്ബഹാ"), category: "Heritage", span: "tall" },
+  { image: "candlesPrayer", title: B("Prayer at the Marian shrine", "മറിയത്തിന്റെ നടയിലെ പ്രാർത്ഥന"), category: "Liturgy" },
+  { image: "gathering", title: B("A parish gathering", "ഒരു ഇടവക കൂട്ടായ്മ"), category: "Community", span: "wide" },
+  { image: "churchAlt5", title: B("Shleeha Nombu — the Apostles' Fast", "ശ്ലീഹാ നോമ്പ്"), category: "Feasts" },
+  { image: "churchWarm", title: B("The Word proclaimed", "വചനം പ്രഘോഷിക്കപ്പെടുന്നു"), category: "Liturgy" },
+  { image: "churchExterior", title: B("Evening splendour", "സന്ധ്യാ ശോഭ"), category: "Church", span: "tall" },
+  { image: "churchAlt2", title: B("Parish feast — the flag hoisting", "ഇടവക പെരുന്നാൾ — കൊടിയേറ്റ്"), category: "Feasts" },
+  { image: "peacefulPath", title: B("Our young ones together", "ഞങ്ങളുടെ യുവജനങ്ങൾ ഒരുമിച്ച്"), category: "Community", span: "wide" },
+  { image: "stainedGlass", title: B("A blessing at the altar", "ബലിപീഠത്തിലെ ആശീർവാദം"), category: "Liturgy" },
+  { image: "archDetail", title: B("The ancient processional cross", "പുരാതന പ്രദക്ഷിണ കുരിശ്"), category: "Heritage", span: "tall" },
+  { image: "scripture", title: B("Sunday School certificate day", "വേദപാഠ സർട്ടിഫിക്കറ്റ് വിതരണം"), category: "Community" },
+  { image: "churchAlt3", title: B("His Holiness the Catholicos", "പരിശുദ്ധ കാതോലിക്കാ ബാവ"), category: "Heritage" },
 ];
 
 const videosRaw: { title: Bi; poster: ImageKey; youtubeId: string; duration: string }[] = [

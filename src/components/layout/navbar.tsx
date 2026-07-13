@@ -65,6 +65,8 @@ export function Navbar() {
             markClassName=""
             className={cn(
               "[&_span.font-serif]:transition-colors",
+              // Compact the wordmark on phones so the language button fits.
+              "max-sm:[&_[data-wordmark-sub]]:hidden max-sm:[&_span.font-serif]:text-base",
               !solid && "[&_span.font-serif]:text-cream",
             )}
           />
@@ -99,8 +101,9 @@ export function Navbar() {
           })}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-1.5">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
           <LanguageToggle className="mr-0.5 hidden sm:inline-flex" />
+          <LanguageToggle variant="compact" className="sm:hidden" />
           <SearchDialog />
           <ThemeToggle />
           <Button
@@ -164,9 +167,6 @@ export function Navbar() {
                 );
               })}
               <div className="mt-3 flex flex-col gap-2">
-                <div className="flex justify-center pb-1">
-                  <LanguageToggle />
-                </div>
                 <Button asChild variant="gold" className="w-full">
                   <Link href="/donations">
                     <Heart className="size-4" /> {t.common.donate}

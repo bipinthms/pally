@@ -1,4 +1,5 @@
 import * as React from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
@@ -47,7 +48,6 @@ export function ParishMark({
 /** Wordmark used in the navbar / footer. */
 export function Wordmark({
   className,
-  markClassName,
   subtitle = true,
 }: {
   className?: string;
@@ -56,15 +56,24 @@ export function Wordmark({
 }) {
   return (
     <span className={cn("flex items-center gap-3", className)}>
-      <span className="flex size-11 items-center justify-center rounded-full bg-gradient-to-br from-maroon-700 to-maroon-900 text-gold-300 shadow-sm ring-1 ring-gold-500/30">
-        <ParishMark className={cn("h-6 w-6", markClassName)} />
+      <span className="relative flex size-11 shrink-0 overflow-hidden rounded-full shadow-sm ring-1 ring-gold-500/30">
+        <Image
+          src="/images/logo.jpg"
+          alt="St. Mary's Orthodox Syrian Church, Alayamon"
+          fill
+          sizes="44px"
+          className="object-cover"
+        />
       </span>
       <span className="flex flex-col leading-none">
         <span className="font-serif text-lg font-semibold tracking-tight text-foreground">
           St. Mary&apos;s Church
         </span>
         {subtitle && (
-          <span className="mt-0.5 text-[0.62rem] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400">
+          <span
+            data-wordmark-sub
+            className="mt-0.5 text-[0.62rem] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400"
+          >
             Orthodox Syrian · Alayamon
           </span>
         )}

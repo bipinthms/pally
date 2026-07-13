@@ -95,7 +95,7 @@ const orgJsonLd = {
   telephone: site.contact.phone,
   email: site.contact.email,
   foundingDate: String(site.established),
-  image: image("churchDusk", { w: 1200, q: 75 }),
+  image: `${site.url}${image("churchDusk")}`,
   address: {
     "@type": "PostalAddress",
     streetAddress: "Alenchery Onthupacha Road, Alayamon, Anchal",

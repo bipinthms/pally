@@ -50,7 +50,7 @@ export default async function EventsPage() {
         startDate: e.date,
         ...(e.endDate ? { endDate: e.endDate } : {}),
         description: e.excerpt,
-        image: image(e.image, { w: 1200, q: 72 }),
+        image: `${site.url}${image(e.image)}`,
         eventStatus: "https://schema.org/EventScheduled",
         eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
         location: {

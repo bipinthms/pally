@@ -6,9 +6,36 @@ import { useLocale } from "@/lib/i18n/provider";
 import { locales, localeNames } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
 
-/** Compact EN / മല segmented toggle. */
-export function LanguageToggle({ className }: { className?: string }) {
+/**
+ * `full`    — segmented EN / മല control (desktop).
+ * `compact` — single pill showing the current language; tap toggles (mobile).
+ */
+export function LanguageToggle({
+  className,
+  variant = "full",
+}: {
+  className?: string;
+  variant?: "full" | "compact";
+}) {
   const { locale, setLocale } = useLocale();
+
+  if (variant === "compact") {
+    const other = locales.find((l) => l !== locale) ?? locale;
+    return (
+      <button
+        type="button"
+        onClick={() => setLocale(other)}
+        aria-label={`Switch language to ${localeNames[other].label}`}
+        className={cn(
+          "inline-flex h-10 items-center gap-1.5 rounded-full border border-current/15 px-3 text-current transition-colors hover:bg-current/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500",
+          className,
+        )}
+      >
+        <Languages className="size-[15px] opacity-70" aria-hidden="true" />
+        <span className="text-xs font-semibold">{localeNames[locale].short}</span>
+      </button>
+    );
+  }
 
   return (
     <div
