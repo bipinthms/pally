@@ -61,11 +61,11 @@ export function Wordmark({
       </span>
       <span className="flex flex-col leading-none">
         <span className="font-serif text-lg font-semibold tracking-tight text-foreground">
-          Alencherry Pally
+          St. Mary&apos;s Church
         </span>
         {subtitle && (
           <span className="mt-0.5 text-[0.62rem] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400">
-            Syro-Malabar Church
+            Orthodox Syrian · Alayamon
           </span>
         )}
       </span>

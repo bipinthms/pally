@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "Donations & Giving",
   description:
-    "Support the worship, upkeep and charitable works of Alencherry Pally through UPI, bank transfer or online giving. Every gift is received with gratitude.",
+    "Support the worship, upkeep and charitable works of St. Mary's Church, Alayamon through UPI, bank transfer or online giving. Every gift is received with gratitude.",
 };
 
 async function upiQr(upiId: string) {

@@ -60,7 +60,7 @@ export function Navbar() {
       )}
     >
       <div className="container-x flex items-center justify-between gap-4">
-        <Link href="/" aria-label="Alencherry Pally — home" className="shrink-0">
+        <Link href="/" aria-label="St. Mary's Orthodox Syrian Church — home" className="shrink-0">
           <Wordmark
             markClassName=""
             className={cn(

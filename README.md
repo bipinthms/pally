@@ -1,8 +1,12 @@
-# Alencherry Pally — Parish Website
+# St. Mary's Orthodox Syrian Church, Alayamon — Parish Website
 
-A premium, modern website for **Alencherry Pally**, a Syro-Malabar Catholic
-Church in Kerala, India. Designed to feel peaceful, spiritual and welcoming while
-honouring the heritage of the St. Thomas Christians.
+A premium, modern website for **St. Mary's Orthodox Syrian Church**, a Malankara
+Orthodox Syrian parish in Alayamon (Alanchery, Anchal, Kollam district, Kerala —
+under the Thiruvananthapuram Diocese). Designed to feel peaceful, spiritual and
+welcoming while honouring the heritage of the St. Thomas Christians.
+
+Contact: Alenchery Onthupacha Road, Alayamon, Anchal, Kollam, Kerala 691306 ·
++91-0475-2274526 · the church opens daily at 6:00 AM for worship.
 
 ## Tech Stack
 

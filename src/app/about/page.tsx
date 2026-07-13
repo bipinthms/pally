@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "About the Parish",
   description:
-    "The history, mission, vision and patron saint of Alencherry Pally — a Syro-Malabar Catholic parish rooted in the tradition of the St. Thomas Christians of Kerala.",
+    "The history, mission, vision and patron saint of St. Mary's Church, Alayamon — a Malankara Orthodox Syrian parish rooted in the tradition of the St. Thomas Christians of Kerala.",
 };
 
 export default async function AboutPage() {

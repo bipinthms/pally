@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 export const metadata: Metadata = {
   title: "Events & News",
   description:
-    "Upcoming feasts, celebrations and parish news at Alencherry Pally, with a calendar of the events in the life of our community.",
+    "Upcoming feasts, celebrations and parish news at St. Mary's Church, Alayamon, with a calendar of the events in the life of our community.",
 };
 
 export default async function EventsPage() {
@@ -58,7 +58,7 @@ export default async function EventsPage() {
           name: e.location,
           address: {
             "@type": "PostalAddress",
-            addressLocality: "Ernakulam",
+            addressLocality: "Anchal",
             addressRegion: "Kerala",
             addressCountry: "IN",
           },

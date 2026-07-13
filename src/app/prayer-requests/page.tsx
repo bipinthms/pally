@@ -12,7 +12,7 @@ import { PrayerForm } from "@/components/prayer/prayer-form";
 export const metadata: Metadata = {
   title: "Prayer Requests",
   description:
-    "Submit a prayer request to Alencherry Pally. Our priests and prayer community will lift up your intention at Holy Mass and in daily prayer.",
+    "Submit a prayer request to St. Mary's Orthodox Syrian Church, Alayamon. Our priests and prayer community will lift up your intention at the Holy Qurbana and in daily prayer.",
 };
 
 export default async function PrayerRequestsPage() {
@@ -23,15 +23,15 @@ export default async function PrayerRequestsPage() {
     locale === "ml"
       ? [
           { icon: Church, title: "കുർബ്ബാനയിൽ ഓർക്കുന്നു", body: "വിശുദ്ധ കുർബ്ബാനയിൽ ബലിപീഠത്തിൽ നിയോഗങ്ങൾ സമർപ്പിക്കുന്നു." },
-          { icon: Users, title: "പ്രാർത്ഥിക്കുന്ന കൂട്ടായ്മ", body: "ഞങ്ങളുടെ പ്രാർത്ഥനാ ഗ്രൂപ്പുകളും മറിയത്തിന്റെ സേനയും ഓരോ അപേക്ഷയ്ക്കും വേണ്ടി മാധ്യസ്ഥം വഹിക്കുന്നു." },
+          { icon: Users, title: "പ്രാർത്ഥിക്കുന്ന കൂട്ടായ്മ", body: "ഞങ്ങളുടെ പ്രാർത്ഥനാ കൂട്ടായ്മ ഓരോ അപേക്ഷയ്ക്കും വേണ്ടി മാധ്യസ്ഥം വഹിക്കുന്നു." },
           { icon: ShieldCheck, title: "രഹസ്യമായി സൂക്ഷിക്കുന്നു", body: "നിങ്ങളുടെ അപേക്ഷ ഭക്തിയോടും വിവേകത്തോടും കൂടെ കൈകാര്യം ചെയ്യുന്നു." },
-          { icon: Clock, title: "ദൈനംദിന പ്രാർത്ഥന", body: "ദിവസേനയുള്ള ജപമാലയിലും നൊവേനകളിലും നിയോഗങ്ങൾ ഓർക്കുന്നു." },
+          { icon: Clock, title: "ദൈനംദിന പ്രാർത്ഥന", body: "ദിവസേനയുള്ള മാധ്യസ്ഥ്യ പ്രാർത്ഥനയിൽ നിയോഗങ്ങൾ ഓർക്കുന്നു." },
         ]
       : [
-          { icon: Church, title: "Remembered at Mass", body: "Intentions are lifted up at the altar during the Holy Qurbana." },
-          { icon: Users, title: "A praying community", body: "Our prayer groups and Legion of Mary intercede for every request." },
+          { icon: Church, title: "Remembered at the Qurbana", body: "Intentions are lifted up at the altar during the Holy Qurbana." },
+          { icon: Users, title: "A praying community", body: "Our Prayer Fellowship intercedes for every request." },
           { icon: ShieldCheck, title: "Held in confidence", body: "Your request is treated with reverence and discretion." },
-          { icon: Clock, title: "Daily prayer", body: "Intentions are remembered in the daily rosary and novenas." },
+          { icon: Clock, title: "Daily prayer", body: "Intentions are remembered in daily intercessory prayer." },
         ];
 
   return (

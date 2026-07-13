@@ -12,9 +12,9 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 
 export const metadata: Metadata = {
-  title: "Holy Mass Timings",
+  title: "Holy Qurbana Timings",
   description:
-    "Sunday and weekday Holy Mass timings, confession, Eucharistic adoration and special feast schedules at Alencherry Pally, a Syro-Malabar Catholic church.",
+    "Sunday and weekday Holy Qurbana timings, confession, prayer and special feast schedules at St. Mary's Orthodox Syrian Church, Alayamon.",
 };
 
 function MassTable({

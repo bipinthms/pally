@@ -15,7 +15,7 @@ import { Ornament } from "@/components/ornament";
 export const metadata: Metadata = {
   title: "Our Clergy",
   description:
-    "Meet the priests who shepherd Alencherry Pally — our parish priest, assistant priest, and the former vicars who have served our community.",
+    "Meet the priests who shepherd St. Mary's Church, Alayamon — our parish priest, assistant priest, and the former vicars who have served our community.",
 };
 
 function ClergyFeature({ person, flip = false }: { person: Clergy; flip?: boolean }) {

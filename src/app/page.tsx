@@ -57,7 +57,7 @@ export default async function HomePage() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)]">
               <Image
                 src={image("churchExterior", { w: 900, q: 70 })}
-                alt="Alencherry Pally church"
+                alt="St. Mary's Orthodox Syrian Church"
                 fill
                 sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"

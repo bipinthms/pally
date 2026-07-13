@@ -15,7 +15,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Parish Organizations",
   description:
-    "The ministries and movements of Alencherry Pally — KCYM, SMYM, Mathruvedi, Pithruvedi, CML, the Parish Choir, Sunday School, Legion of Mary and more.",
+    "The ministries and movements of St. Mary's Church, Alayamon — Sunday School, OCYM, MGOCSM, Martha Mariam Samajam, the Parish Choir, Prayer Fellowship, Edavaka Mission and more.",
 };
 
 export default async function OrganizationsPage() {
