@@ -25,7 +25,10 @@ const FILES = {
   assistant: "assistant.jpg",
 } as const;
 
-const f = (name: keyof typeof FILES) => `/images/${FILES[name]}`;
+/** GitHub Pages publishes this repository beneath /pally/. */
+export const assetPath = (path: string) => `/pally${path}`;
+
+const f = (name: keyof typeof FILES) => assetPath(`/images/${FILES[name]}`);
 
 /**
  * Named slots used throughout the site, each pointing at a local photo.

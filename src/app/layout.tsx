@@ -3,7 +3,7 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 
 import { site } from "@/lib/site";
-import { image } from "@/lib/images";
+import { assetPath, image } from "@/lib/images";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { LanguageProvider } from "@/lib/i18n/provider";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -69,8 +69,8 @@ export const metadata: Metadata = {
     images: [image("heroInterior", { w: 1200, h: 630, q: 75 })],
   },
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    apple: "/favicon.svg",
+    icon: [{ url: assetPath("/favicon.svg"), type: "image/svg+xml" }],
+    apple: assetPath("/favicon.svg"),
   },
   robots: {
     index: true,

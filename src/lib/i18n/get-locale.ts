@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
-import { defaultLocale, locales, LOCALE_COOKIE, type Locale } from "./config";
+import { defaultLocale, type Locale } from "./config";
 
-/** Server-side: resolve the active locale from the cookie (English default). */
+/**
+ * Static hosts such as GitHub Pages have no request cookies at build time.
+ * The client-side provider restores a saved language preference after load.
+ */
 export async function getLocale(): Promise<Locale> {
-  const store = await cookies();
-  const value = store.get(LOCALE_COOKIE)?.value as Locale | undefined;
-  return value && locales.includes(value) ? value : defaultLocale;
+  return defaultLocale;
 }

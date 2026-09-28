@@ -1,6 +1,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { assetPath } from "@/lib/images";
 
 /**
  * A stylised St. Thomas Cross (Mar Thoma Sliba) — the emblem of the
@@ -58,7 +59,7 @@ export function Wordmark({
     <span className={cn("flex items-center gap-3", className)}>
       <span className="relative flex size-11 shrink-0 overflow-hidden rounded-full shadow-sm ring-1 ring-gold-500/30">
         <Image
-          src="/images/logo.jpg"
+          src={assetPath("/images/logo.jpg")}
           alt="St. Mary's Orthodox Syrian Church, Alayamon"
           fill
           sizes="44px"

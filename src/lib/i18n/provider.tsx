@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
-import { LOCALE_COOKIE, type Locale } from "./config";
+import { LOCALE_COOKIE, defaultLocale, locales, type Locale } from "./config";
 import { dictionaries, type Dict } from "./dictionary";
 
 type Ctx = {
@@ -20,21 +19,33 @@ export function LanguageProvider({
   locale: Locale;
   children: React.ReactNode;
 }) {
-  const router = useRouter();
+  const [activeLocale, setActiveLocale] = React.useState(locale);
+
+  // A static export cannot read cookies on the server. Restore a previously
+  // selected language in the browser once the page has hydrated.
+  React.useEffect(() => {
+    const saved = document.cookie
+      .split("; ")
+      .find((entry) => entry.startsWith(`${LOCALE_COOKIE}=`))
+      ?.split("=")[1] as Locale | undefined;
+
+    const restored = saved && locales.includes(saved) ? saved : defaultLocale;
+    document.documentElement.lang = restored;
+    setActiveLocale(restored);
+  }, []);
 
   const setLocale = React.useCallback(
     (l: Locale) => {
       document.cookie = `${LOCALE_COOKIE}=${l};path=/;max-age=31536000;samesite=lax`;
       document.documentElement.lang = l;
-      // Re-render server components with the new cookie.
-      router.refresh();
+      setActiveLocale(l);
     },
-    [router],
+    [],
   );
 
   const value = React.useMemo<Ctx>(
-    () => ({ locale, t: dictionaries[locale], setLocale }),
-    [locale, setLocale],
+    () => ({ locale: activeLocale, t: dictionaries[activeLocale], setLocale }),
+    [activeLocale, setLocale],
   );
 
   return (
