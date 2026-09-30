@@ -38,7 +38,7 @@ const en = {
   langSwitch: "Language",
   home: {
     heroSubtitle:
-      "A peaceful home of prayer, heritage and community — where all are welcomed into the grace of God.",
+      "International Martha Mariam Pilgrim Center",
     estLine: "Est.",
     massTimings: "Holy Qurbana Timings",
     planVisit: "Plan Your Visit",
@@ -54,6 +54,7 @@ const en = {
     statFamilies: "Families",
     statMinistries: "Ministries",
     statQurbana: "Holy Qurbana",
+    statQurbanaDays: "Sunday & Wednesday",
     yearsWord: "Years",
     yearsSub: "of faith & grace",
     discoverStory: "Discover Our Story",
@@ -64,11 +65,11 @@ const en = {
     sundayHolyMass: "Sunday Holy Qurbana",
     weekdayMass: "Weekday Qurbana",
     confession: "Confession",
-    confessionDetail: "Before the Holy Qurbana",
+    confessionDetail: "Every Saturday 5:00 PM",
     adoration: "Evening Prayer",
-    adorationDetail: "Sandhya Namaskaram, daily",
-    rosary: "Intercessory Prayers",
-    rosaryDetail: "To St. Mary & the saints",
+    adorationDetail: "Sandhya Namaskaram, daily at 6:00 PM",
+    rosary: "Intercessory Prayers (Ardram)",
+    rosaryDetail: "To St. Mary, Wednesday 6:00 PM",
     viewFullSchedule: "View Full Schedule",
     annEyebrow: "Parish bulletin",
     annTitle: "Latest Announcements",
@@ -134,8 +135,6 @@ const en = {
       "The celebration of the Holy Qurbana is the heartbeat of our week. The Holy Qurbana is offered in Malayalam unless otherwise noted.",
     sundayHolyMass: "Sunday Holy Qurbana",
     weekdayHolyMass: "Weekday Holy Qurbana",
-    infoNote:
-      "On major feast days and first Fridays, an additional evening Qurbana is offered at 6:00 PM. Please refer to the weekly bulletin or the parish notice board for any changes.",
     devEyebrow: "Grace & mercy",
     devTitle: "Confession, Prayer & Devotions",
     devSubtitle:
@@ -153,6 +152,11 @@ const en = {
     formerTitle: "Former Vicars",
     formerSubtitle:
       "We remember with thanksgiving the priests who have shepherded our parish through the years.",
+    managingEyebrow: "Serving the parish",
+    managingTitle: "Managing Committee",
+    managingSubtitle:
+      "Together with the Vicar, our elected committee cares for the administration and temporal life of the parish.",
+    membersTitle: "Committee Members",
   },
   orgs: {
     heroEyebrow: "Serve & belong",
@@ -178,6 +182,9 @@ const en = {
     subtitle: "Filter by category to explore, and tap any image to view it in full.",
     videosTitle: "Parish Videos",
     videosSubtitle: "Relive the feasts and celebrations of our parish family.",
+    tabPhotos: "Photos",
+    tabOrgs: "Organizations",
+    viewPhotos: "View photos",
   },
   events: {
     heroEyebrow: "Life of the parish",
@@ -372,7 +379,7 @@ const ml: Dict = {
   langSwitch: "ഭാഷ",
   home: {
     heroSubtitle:
-      "പ്രാർത്ഥനയുടെയും പൈതൃകത്തിന്റെയും കൂട്ടായ്മയുടെയും സമാധാനഭവനം — ദൈവകൃപയിലേക്ക് എല്ലാവരെയും സ്വാഗതം ചെയ്യുന്നു.",
+      "അന്താരാഷ്ട്ര മർത്ത മറിയം തീർത്ഥാടന കേന്ദ്രം",
     estLine: "സ്ഥാപിതം",
     massTimings: "കുർബ്ബാന സമയക്രമം",
     planVisit: "സന്ദർശനം ആസൂത്രണം ചെയ്യുക",
@@ -388,6 +395,7 @@ const ml: Dict = {
     statFamilies: "കുടുംബങ്ങൾ",
     statMinistries: "കൂട്ടായ്മകൾ",
     statQurbana: "വിശുദ്ധ കുർബ്ബാന",
+    statQurbanaDays: "ഞായർ & ബുധൻ",
     yearsWord: "വർഷം",
     yearsSub: "വിശ്വാസത്തിന്റെയും കൃപയുടെയും",
     discoverStory: "ഞങ്ങളുടെ കഥ അറിയുക",
@@ -398,11 +406,11 @@ const ml: Dict = {
     sundayHolyMass: "ഞായർ കുർബ്ബാന",
     weekdayMass: "ആഴ്ചദിവസ കുർബ്ബാന",
     confession: "കുമ്പസാരം",
-    confessionDetail: "വിശുദ്ധ കുർബ്ബാനയ്ക്കു മുമ്പ്",
+    confessionDetail: "എല്ലാ ശനിയാഴ്ചയും 5:00 PM",
     adoration: "സന്ധ്യാ പ്രാർത്ഥന",
-    adorationDetail: "ദിവസേന സന്ധ്യാ നമസ്കാരം",
-    rosary: "മാധ്യസ്ഥ്യ പ്രാർത്ഥന",
-    rosaryDetail: "വിശുദ്ധ മറിയത്തോടും പുണ്യവാന്മാരോടും",
+    adorationDetail: "ദിവസേന വൈകിട്ട് 6:00-ന് സന്ധ്യാ നമസ്കാരം",
+    rosary: "മാധ്യസ്ഥ്യ പ്രാർത്ഥന (ആർദ്രം)",
+    rosaryDetail: "വിശുദ്ധ മറിയത്തോട്, ബുധനാഴ്ച 6:00 PM",
     viewFullSchedule: "മുഴുവൻ സമയക്രമം കാണുക",
     annEyebrow: "ഇടവക അറിയിപ്പ്",
     annTitle: "പുതിയ അറിയിപ്പുകൾ",
@@ -468,8 +476,6 @@ const ml: Dict = {
       "വിശുദ്ധ കുർബ്ബാനയുടെ ആഘോഷമാണ് ഞങ്ങളുടെ ആഴ്ചയുടെ ഹൃദയമിടിപ്പ്. മറ്റുവിധത്തിൽ സൂചിപ്പിച്ചിട്ടില്ലെങ്കിൽ കുർബ്ബാന മലയാളത്തിലാണ്.",
     sundayHolyMass: "ഞായർ കുർബ്ബാന",
     weekdayHolyMass: "ആഴ്ചദിവസ കുർബ്ബാന",
-    infoNote:
-      "കടമയുള്ള തിരുനാളുകളിലും ഒന്നാം വെള്ളിയാഴ്ചകളിലും വൈകുന്നേരം 6:00-ന് അധിക കുർബ്ബാന ഉണ്ടായിരിക്കും. മാറ്റങ്ങൾക്കായി ആഴ്ചയിലെ അറിയിപ്പോ ഇടവക നോട്ടീസ് ബോർഡോ കാണുക.",
     devEyebrow: "കൃപയും കരുണയും",
     devTitle: "കുമ്പസാരം, പ്രാർത്ഥന, ഭക്തിക്രമങ്ങൾ",
     devSubtitle: "ആഴ്ചയിലുടനീളം പ്രാർത്ഥനയ്ക്കും അനുരഞ്ജനത്തിനും കർത്താവിനോട് അടുക്കാനുമുള്ള അവസരങ്ങൾ.",
@@ -485,6 +491,10 @@ const ml: Dict = {
     formerEyebrow: "നന്ദിയോടെ",
     formerTitle: "മുൻ വികാരിമാർ",
     formerSubtitle: "വർഷങ്ങളിലൂടെ ഞങ്ങളുടെ ഇടവകയെ പരിപാലിച്ച വൈദികരെ നന്ദിയോടെ ഓർക്കുന്നു.",
+    managingEyebrow: "ഇടവകയുടെ സേവനത്തിൽ",
+    managingTitle: "മാനേജിംഗ് കമ്മിറ്റി",
+    managingSubtitle: "വികാരിയോടൊപ്പം, തിരഞ്ഞെടുക്കപ്പെട്ട കമ്മിറ്റി ഇടവകയുടെ ഭരണകാര്യങ്ങൾ നിർവഹിക്കുന്നു.",
+    membersTitle: "കമ്മിറ്റി അംഗങ്ങൾ",
   },
   orgs: {
     heroEyebrow: "സേവിക്കുക, ചേരുക",
@@ -510,6 +520,9 @@ const ml: Dict = {
     subtitle: "വിഭാഗം അനുസരിച്ച് അരിച്ചെടുക്കുക, ഏതെങ്കിലും ചിത്രം പൂർണ്ണമായി കാണാൻ ടാപ്പ് ചെയ്യുക.",
     videosTitle: "ഇടവക വീഡിയോകൾ",
     videosSubtitle: "ഞങ്ങളുടെ ഇടവക കുടുംബത്തിന്റെ പെരുന്നാളുകളും ആഘോഷങ്ങളും വീണ്ടും അനുഭവിക്കുക.",
+    tabPhotos: "ചിത്രങ്ങൾ",
+    tabOrgs: "സംഘടനകൾ",
+    viewPhotos: "ചിത്രങ്ങൾ കാണുക",
   },
   events: {
     heroEyebrow: "ഇടവക ജീവിതം",

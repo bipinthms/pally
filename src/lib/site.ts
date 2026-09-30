@@ -11,7 +11,7 @@ export const site = {
   patron: "St. Mary, the Theotokos",
   diocese: "Thiruvananthapuram Diocese",
   rite: "Malankara Orthodox Syrian Church",
-  established: 1898,
+  established: 1937,
   description:
     "St. Mary's Orthodox Syrian Church, Alayamon is an active Malankara Orthodox Syrian parish in Alanchery (Anchal, Kollam) — a peaceful home of prayer, worship, counselling and spiritual guidance, welcoming all who seek God's grace.",
   url: "https://stmarysalayamon.org",
@@ -25,10 +25,10 @@ export const site = {
       "Kerala 691306, India",
     ],
     addressShort: "Alayamon, Anchal, Kollam, Kerala 691306",
-    phone: "+91 475 2274526",
-    phoneHref: "+914752274526",
-    whatsapp: "919000000000", // digits only, country code first — replace with the parish mobile
-    email: "office@stmarysalayamon.org",
+    phone: "+91 88914 12360",
+    phoneHref: "+918891412360",
+    whatsapp: "918891412360", // digits only, country code first
+    email: "alencherrychurch@gmail.com",
     mapEmbed:
       "https://www.google.com/maps?q=St+Mary%27s+Orthodox+Church+Alayamon+Anchal+Kollam+Kerala+691306&output=embed",
     mapLink:

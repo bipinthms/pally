@@ -72,9 +72,11 @@ export function EventCard({ event }: { event: ChurchEvent }) {
 }
 
 export function OrgCard({ org }: { org: Organization }) {
+  const { t } = useLocale();
   return (
-    <article
+    <Link
       id={org.slug}
+      href={`/gallery#org-${org.slug}`}
       className="card-hover group relative flex h-full scroll-mt-28 flex-col overflow-hidden rounded-2xl border border-border bg-card"
     >
       <div className="relative h-40 overflow-hidden">
@@ -109,8 +111,12 @@ export function OrgCard({ org }: { org: Organization }) {
           </span>
           <Badge variant="muted">{org.audience}</Badge>
         </div>
+        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
+          {t.gallery.viewPhotos}
+          <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+        </span>
       </div>
-    </article>
+    </Link>
   );
 }
 

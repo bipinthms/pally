@@ -7,10 +7,13 @@
 const FILES = {
   churchDusk: "church-dusk.jpg",
   churchNight: "church-night.jpg",
-  churchNight2: "church-night-2.jpg",
+  churchNight2: "church-day.jpg",
   interiorAltar: "interior-altar.jpg",
   interiorShrine: "interior-shrine.jpg",
   intercession: "intercession.jpg",
+  intercession2: "intercession2.jpg",
+  intercession3: "intercession3.jpg",
+  intercession4: "intercession4.jpg",
   feast: "feast.jpg",
   apostlesFast: "apostles-fast.jpg",
   antiqueCross: "antique-cross.jpg",
@@ -23,6 +26,9 @@ const FILES = {
   blessing: "blessing.jpg",
   vicar: "vicar.jpg",
   assistant: "assistant.jpg",
+  committee: "commitee_members.jpg",
+  metropolitan: "dr-geevarghese-yulios-metropolitian.jpg",
+  mathewsIII: "baselios-marthoma-mathews-III.jpg",
 } as const;
 
 /** GitHub Pages publishes this repository beneath /pally/. */
@@ -62,6 +68,9 @@ export const IMAGES = {
   candlesPrayer: f("interiorShrine"),
   scripture: f("sundaySchool"),
   peacefulPath: f("youthFloor"),
+  ardramPoster: f("intercession2"),
+  marianShrine: f("intercession3"),
+  marianIcon: f("intercession4"),
 
   // Community / events
   gathering: f("youthMen"),
@@ -75,6 +84,13 @@ export const IMAGES = {
   priest5: f("blessing"),
   priest6: f("preaching"),
   priest7: f("vicar"),
+
+  // Church hierarchy
+  catholicos: f("mathewsIII"),
+  diocesanMetropolitan: f("metropolitan"),
+
+  // Managing committee group photo
+  committeeMembers: f("committee"),
 } as const;
 
 export type ImageKey = keyof typeof IMAGES;

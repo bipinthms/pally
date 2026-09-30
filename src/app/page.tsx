@@ -27,7 +27,6 @@ import { Ornament } from "@/components/ornament";
 import { OrgCard } from "@/components/cards";
 import { Hero } from "@/components/home/hero";
 import { FeastBanner } from "@/components/home/feast-banner";
-import { Testimonials } from "@/components/home/testimonials";
 
 export default async function HomePage() {
   const locale = await getLocale();
@@ -36,9 +35,8 @@ export default async function HomePage() {
 
   const stats = [
     { value: String(site.established), label: t.home.statEstablished },
-    { value: "850+", label: t.home.statFamilies },
-    { value: "12", label: t.home.statMinistries },
-    { value: t.home.statQurbana, label: t.home.sundayMass },
+    { value: "270+", label: t.home.statFamilies },
+    { value: t.home.statQurbana, label: t.home.statQurbanaDays },
   ];
 
   const massBlocks = [
@@ -78,7 +76,7 @@ export default async function HomePage() {
               <Church className="size-7 text-primary" />
               <div className="leading-tight">
                 <p className="font-serif text-lg font-bold text-foreground">
-                  {new Date().getFullYear() - site.established}+ {t.home.yearsWord}
+                  89+ {t.home.yearsWord}
                 </p>
                 <p className="text-xs text-muted-foreground">{t.home.yearsSub}</p>
               </div>
@@ -101,9 +99,9 @@ export default async function HomePage() {
               <p className="leading-relaxed">{t.home.welcomeP2}</p>
             </div>
 
-            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
               {stats.map((s) => (
-                <div key={s.label} className="rounded-2xl border border-border bg-card p-4 text-center">
+                <div key={s.label} className="rounded-2xl last:col-span-2 sm:last:col-span-1 border border-border bg-card p-4 text-center">
                   <p className="font-serif text-2xl font-bold text-primary">{s.value}</p>
                   <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">{s.label}</p>
                 </div>
@@ -314,16 +312,6 @@ export default async function HomePage() {
                 <ArrowRight className="size-4" />
               </Link>
             </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------- Testimonials ---------------- */}
-      <section className="section-y bg-secondary/40">
-        <div className="container-x">
-          <SectionHeading eyebrow={t.home.testiEyebrow} title={t.home.testiTitle} />
-          <div className="mt-14">
-            <Testimonials />
           </div>
         </div>
       </section>

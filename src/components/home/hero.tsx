@@ -28,7 +28,7 @@ export function Hero() {
   const { heroVerse } = getData(locale);
 
   const chips = [
-    { icon: CalendarClock, label: t.home.sundayMass, value: "6:00 · 8:00 · 10:00 AM" },
+    { icon: CalendarClock, label: t.home.sundayMass, value: "7:00 - 10:00 AM" },
     { icon: MapPin, label: t.common.location, value: "Alayamon, Anchal" },
   ];
 
@@ -58,9 +58,11 @@ export function Hero() {
         >
           <motion.span
             variants={rise}
-            className="inline-flex items-center gap-2 rounded-full border border-gold-400/30 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.22em] text-gold-200 backdrop-blur"
+            className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.22em] text-gold-200 backdrop-blur"
           >
             <Sparkles className="size-3.5" />
+            {site.rite}
+            <span aria-hidden>·</span>
             {site.diocese}
           </motion.span>
 
@@ -68,7 +70,7 @@ export function Hero() {
             variants={rise}
             className="mt-7 font-serif text-sm font-medium uppercase tracking-[0.35em] text-gold-300/90"
           >
-            {t.home.estLine} {site.established} · {site.rite}
+            {t.home.estLine} {site.established}
           </motion.p>
 
           <motion.h1

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Sun, Sunrise, Info, type LucideIcon } from "lucide-react";
+import { Sun, Sunrise, type LucideIcon } from "lucide-react";
 
 import { getData, type MassSlot } from "@/lib/data";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -79,11 +79,6 @@ export default async function HolyMassPage() {
             <Reveal delay={0.1}>
               <MassTable title={t.mass.weekdayHolyMass} icon={Sunrise} slots={weekdayMass} accent="from-gold-600 to-gold-800" />
             </Reveal>
-          </div>
-
-          <div className="mt-6 flex items-start gap-3 rounded-2xl border border-gold-500/30 bg-gold-500/5 p-5 text-sm text-muted-foreground">
-            <Info className="mt-0.5 size-5 shrink-0 text-gold-600 dark:text-gold-400" />
-            <p>{t.mass.infoNote}</p>
           </div>
         </div>
       </section>

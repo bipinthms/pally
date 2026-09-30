@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
   // Export each route as a directory index so direct GitHub Pages URLs work.
   trailingSlash: true,
   reactStrictMode: true,
+  // Let other devices on the LAN load dev-server assets (next dev only).
+  allowedDevOrigins: ["192.168.1.48"],
   images: {
     // Static exports have no Next.js image optimisation server.
     unoptimized: true,

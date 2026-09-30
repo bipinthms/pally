@@ -39,6 +39,7 @@ export type Organization = {
   meeting: string;
   icon: string;
   image: ImageKey;
+  photos: ImageKey[];
   audience: string;
 };
 export type GalleryCategory = "Church" | "Feasts" | "Liturgy" | "Community" | "Heritage";
@@ -93,42 +94,35 @@ const versesRaw: { text: Bi; ref: Bi }[] = [
 ];
 
 const sundayMassRaw = [
-  { day: B("Saturday (Vigil)", "ശനി (തലേന്ന്)"), times: ["6:00 PM"], note: B("Malayalam", "മലയാളം") },
-  { day: B("Sunday", "ഞായർ"), times: ["6:00 AM", "8:00 AM", "10:00 AM"], note: B("Malayalam", "മലയാളം") },
-  { day: B("Sunday", "ഞായർ"), times: ["5:30 PM"], note: B("English", "ഇംഗ്ലീഷ്") },
+  { day: B("Sunday", "ഞായർ"), times: ["7:00 AM"], note: B("Malayalam", "മലയാളം") },
 ];
 
 const weekdayMassRaw = [
-  { day: B("Monday", "തിങ്കൾ"), times: ["6:30 AM"], note: B("Malayalam", "മലയാളം") },
-  { day: B("Tuesday", "ചൊവ്വ"), times: ["6:30 AM"], note: B("Intercession of the saints", "പുണ്യവാന്മാരുടെ മാധ്യസ്ഥ്യം") },
   { day: B("Wednesday", "ബുധൻ"), times: ["6:30 AM"], note: B("Intercession of St. Mary", "വിശുദ്ധ മറിയത്തിന്റെ മാധ്യസ്ഥ്യം") },
-  { day: B("Thursday", "വ്യാഴം"), times: ["6:30 AM"], note: B("Evening prayer follows", "സന്ധ്യാ പ്രാർത്ഥന തുടർന്ന്") },
-  { day: B("Friday", "വെള്ളി"), times: ["6:30 AM"], note: B("Passion prayers (Lent)", "പീഡാനുഭവ പ്രാർത്ഥന (നോമ്പ്)") },
-  { day: B("Saturday", "ശനി"), times: ["6:30 AM"], note: B("Remembrance of the departed", "മൃതാത്മാക്കളുടെ ഓർമ്മ") },
 ];
 
 const devotionsRaw = [
   {
     title: B("Holy Confession", "വിശുദ്ധ കുമ്പസാരം"),
-    detail: B("Half an hour before the Holy Qurbana", "വിശുദ്ധ കുർബ്ബാനയ്ക്ക് അര മണിക്കൂർ മുമ്പ്"),
-    extra: B("Saturdays 5:00 – 6:00 PM · or by appointment with the vicar", "ശനിയാഴ്ച 5:00 – 6:00 PM · അല്ലെങ്കിൽ വികാരിയുമായി മുൻകൂട്ടി"),
+    detail: B("Every Saturday · 5:00 – 6:00 PM", "എല്ലാ ശനിയാഴ്ചയും · 5:00 – 6:00 PM"),
+    extra: B("Or by appointment with the vicar", "അല്ലെങ്കിൽ വികാരിയുമായി മുൻകൂട്ടി സമയം നിശ്ചയിച്ച്"),
     icon: "HeartHandshake",
   },
   {
-    title: B("Morning & Evening Prayer", "പ്രഭാത, സന്ധ്യാ പ്രാർത്ഥന"),
-    detail: B("Daily — Prabhata & Sandhya Namaskaram", "ദിവസേന — പ്രഭാത, സന്ധ്യാ നമസ്കാരം"),
-    extra: B("The canonical hours prayed morning and dusk", "പ്രഭാതത്തിലും സന്ധ്യയിലും യാമപ്രാർത്ഥനകൾ"),
+    title: B("Evening Prayer", "സന്ധ്യാ പ്രാർത്ഥന"),
+    detail: B("Daily — Sandhya Namaskaram", "ദിവസേന — സന്ധ്യാ നമസ്കാരം"),
+    extra: B("Every day · 6:00 PM", "എല്ലാ ദിവസവും · 6:00 PM"),
     icon: "Church",
   },
   {
-    title: B("Intercessory Prayers", "മാധ്യസ്ഥ്യ പ്രാർത്ഥന"),
-    detail: B("To St. Mary and all the saints", "വിശുദ്ധ മറിയത്തോടും സകല പുണ്യവാന്മാരോടും"),
-    extra: B("Weekly intercessions and memorial prayers", "പ്രതിവാര മാധ്യസ്ഥ്യവും ഓർമ്മ പ്രാർത്ഥനയും"),
+    title: B("Intercessory Prayers (Ardram)", "മാധ്യസ്ഥ്യ പ്രാർത്ഥന (ആർദ്രം)"),
+    detail: B("To St. Mary", "വിശുദ്ധ മറിയത്തോട്"),
+    extra: B("Every Wednesday · 6:00 PM", "എല്ലാ ബുധനാഴ്ചയും · 6:00 PM"),
     icon: "Sparkles",
   },
   {
     title: B("Anointing & Home Visits", "രോഗീലേപനവും ഭവന സന്ദർശനവും"),
-    detail: B("For the sick and elderly, on request", "രോഗികൾക്കും വൃദ്ധർക്കും, അഭ്യർത്ഥന പ്രകാരം"),
+    detail: B("For the sick and elderly", "രോഗികൾക്കും വൃദ്ധർക്കും"),
     extra: B("Please call the parish office to arrange a visit", "സന്ദർശനം ക്രമീകരിക്കാൻ ഇടവക ഓഫീസിൽ വിളിക്കുക"),
     icon: "Cross",
   },
@@ -190,7 +184,7 @@ const announcementsRaw = [
 const upcomingFeastRaw = {
   title: B("Nativity of Mary — Parish Feast", "പരിശുദ്ധ അമ്മയുടെ ജനനത്തിരുനാൾ — ഇടവക പെരുന്നാൾ"),
   malayalam: B("Ettu Perunnal", "എട്ട് പെരുന്നാൾ"),
-  date: "2026-09-08T08:00:00+05:30",
+  date: "2027-09-08T08:00:00+05:30",
   blurb: B(
     "Our parish gathers for eight days of grace — the Ettu Nombu, procession and the solemn feast of the Nativity of the Blessed Virgin Mary.",
     "എട്ടു ദിവസത്തെ കൃപയ്ക്കായി ഞങ്ങളുടെ ഇടവക ഒരുമിക്കുന്നു — നോമ്പ്, പ്രദക്ഷിണം, പരിശുദ്ധ കന്യാമറിയത്തിന്റെ ജനനത്തിന്റെ ആഘോഷ തിരുനാൾ.",
@@ -296,6 +290,21 @@ const eventsRaw: {
   },
 ];
 
+const prelatesRaw = [
+  {
+    name: B("H.H. Baselios Marthoma Mathews III", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് തൃതീയൻ കാതോലിക്കാ ബാവ"),
+    title: B("Catholicos of the East & Malankara Metropolitan", "പൗരസ്ത്യ കാതോലിക്കായും മലങ്കര മെത്രാപ്പോലീത്തായും"),
+    image: "catholicos" as ImageKey,
+    file: "baselios-marthoma-mathews-III.jpg",
+  },
+  {
+    name: B("H.G. Dr. Geevarghese Mar Yulios Metropolitan", "അഭി. ഡോ. ഗീവർഗീസ് മാർ യൂലിയോസ് മെത്രാപ്പോലീത്ത"),
+    title: B("Diocesan Metropolitan", "ഭദ്രാസന മെത്രാപ്പോലീത്ത"),
+    image: "diocesanMetropolitan" as ImageKey,
+    file: "dr-geevarghese-yulios-metropolitian.jpg",
+  },
+];
+
 const parishPriestRaw = {
   name: B("Rev. Fr. Varghese T Varghese", "റവ. ഫാ. വർഗീസ് ടി വർഗീസ്"),
   role: B("Parish Priest (Vicar)", "ഇടവക വികാരി"),
@@ -326,6 +335,37 @@ const assistantPriestRaw = {
   ),
 };
 
+// TODO: replace placeholder names with the current committee members
+const managingCommitteeRaw = [
+  { name: B("Trustee Name", "ട്രസ്റ്റിയുടെ പേര്"), role: B("Trustee", "ട്രസ്റ്റി") },
+  { name: B("Secretary Name", "സെക്രട്ടറിയുടെ പേര്"), role: B("Secretary", "സെക്രട്ടറി") },
+  { name: B("Convener Name", "കൺവീനറുടെ പേര്"), role: B("Perunnal Convener", "പെരുന്നാൾ കൺവീനർ") },
+];
+
+// TODO: replace placeholder names; photos go in public/images/committee/
+const committeeMembersRaw = [
+  { name: B("Member 1", "അംഗം 1"), photo: "committee/member-01.jpg" },
+  { name: B("Member 2", "അംഗം 2"), photo: "committee/member-02.jpg" },
+  { name: B("Member 3", "അംഗം 3"), photo: "committee/member-03.jpg" },
+  { name: B("Member 4", "അംഗം 4"), photo: "committee/member-04.jpg" },
+  { name: B("Member 5", "അംഗം 5"), photo: "committee/member-05.jpg" },
+  { name: B("Member 6", "അംഗം 6"), photo: "committee/member-06.jpg" },
+  { name: B("Member 7", "അംഗം 7"), photo: "committee/member-07.jpg" },
+  { name: B("Member 8", "അംഗം 8"), photo: "committee/member-08.jpg" },
+  { name: B("Member 9", "അംഗം 9"), photo: "committee/member-09.jpg" },
+  { name: B("Member 10", "അംഗം 10"), photo: "committee/member-10.jpg" },
+  { name: B("Member 11", "അംഗം 11"), photo: "committee/member-11.jpg" },
+  { name: B("Member 12", "അംഗം 12"), photo: "committee/member-12.jpg" },
+  { name: B("Member 13", "അംഗം 13"), photo: "committee/member-13.jpg" },
+  { name: B("Member 14", "അംഗം 14"), photo: "committee/member-14.jpg" },
+  { name: B("Member 15", "അംഗം 15"), photo: "committee/member-15.jpg" },
+  { name: B("Member 16", "അംഗം 16"), photo: "committee/member-16.jpg" },
+  { name: B("Member 17", "അംഗം 17"), photo: "committee/member-17.jpg" },
+  { name: B("Member 18", "അംഗം 18"), photo: "committee/member-18.jpg" },
+  { name: B("Member 19", "അംഗം 19"), photo: "committee/member-19.jpg" },
+  { name: B("Member 20", "അംഗം 20"), photo: "committee/member-20.jpg" },
+];
+
 const formerVicarsRaw = [
   { name: B("Rev. Fr. Mathew Chackalackal", "റവ. ഫാ. മാത്യു ചക്കാലക്കൽ"), years: "2015 – 2021" },
   { name: B("Rev. Fr. Antony Puthussery", "റവ. ഫാ. അന്തോണി പുത്തൻശ്ശേരി"), years: "2009 – 2015" },
@@ -337,7 +377,7 @@ const formerVicarsRaw = [
 
 const organizationsRaw: {
   slug: string; name: string; malayalam?: Bi; short: Bi; description: Bi;
-  meeting: Bi; icon: string; image: ImageKey; audience: Bi;
+  meeting: Bi; icon: string; image: ImageKey; photos: ImageKey[]; audience: Bi;
 }[] = [
   {
     slug: "sunday-school", name: "Sunday School",
@@ -348,18 +388,8 @@ const organizationsRaw: {
       "രൂപത വേദപാഠ സിലബസ് പിന്തുടർന്ന്, കുട്ടികൾക്കായി വിശുദ്ധ ഗ്രന്ഥവും വിശ്വാസവും ഓർത്തഡോക്സ് പാരമ്പര്യവും ചിട്ടയായി പഠിപ്പിക്കുന്നു.",
     ),
     meeting: B("Sundays · after Holy Qurbana", "ഞായറാഴ്ചകൾ · വിശുദ്ധ കുർബ്ബാനയ്ക്കു ശേഷം"),
-    icon: "BookOpen", image: "cathedralArches", audience: B("Grades 1–12", "ക്ലാസ് 1–12"),
-  },
-  {
-    slug: "balajana-sakhyam", name: "Balajana Sakhyam",
-    malayalam: B("Children's Movement", "ബാലജന സഖ്യം"),
-    short: B("Spiritual movement for children", "കുട്ടികളുടെ ആത്മീയ പ്രസ്ഥാനം"),
-    description: B(
-      "The children's wing of the Church — little ones growing in prayer, mission awareness and love for the Lord.",
-      "സഭയുടെ ബാല വിഭാഗം — പ്രാർത്ഥനയിലും മിഷൻ അവബോധത്തിലും കർത്താവിനോടുള്ള സ്നേഹത്തിലും വളരുന്ന കുഞ്ഞുങ്ങൾ.",
-    ),
-    meeting: B("Sundays · during Sunday School", "ഞായറാഴ്ചകൾ · വേദപാഠ സമയത്ത്"),
-    icon: "Sprout", image: "scripture", audience: B("Children", "കുട്ടികൾ"),
+    icon: "BookOpen", image: "cathedralArches", photos: ["scripture", "cathedralArches", "celebration"],
+    audience: B("Grades 1–12", "ക്ലാസ് 1–12"),
   },
   {
     slug: "ocym", name: "OCYM",
@@ -370,7 +400,8 @@ const organizationsRaw: {
       "പ്രാർത്ഥന, ധ്യാനം, പഠനം, ജീവകാരുണ്യ പ്രവർത്തനങ്ങൾ എന്നിവയിലൂടെ യുവതീയുവാക്കളെ ശിഷ്യരും സേവന നേതാക്കളുമായി രൂപപ്പെടുത്തുന്നു.",
     ),
     meeting: B("Second Sunday · after Holy Qurbana", "രണ്ടാം ഞായർ · വിശുദ്ധ കുർബ്ബാനയ്ക്കു ശേഷം"),
-    icon: "Flame", image: "candlesPrayer", audience: B("Youth (18–35)", "യുവജനം (18–35)"),
+    icon: "Flame", image: "candlesPrayer", photos: ["gathering", "peacefulPath", "candlesPrayer"],
+    audience: B("Youth (18–35)", "യുവജനം (18–35)"),
   },
   {
     slug: "mgocsm", name: "MGOCSM",
@@ -381,10 +412,11 @@ const organizationsRaw: {
       "മാർ ഗ്രിഗോറിയോസ് ഓർത്തഡോക്സ് ക്രിസ്ത്യൻ സ്റ്റുഡന്റ് മൂവ്‌മെന്റ് — സ്കൂൾ, കോളേജ് വിദ്യാർത്ഥികളെ വിശ്വാസത്തിലും പഠന കൂട്ടായ്മകളിലും സേവനത്തിലും വളർത്തുന്നു.",
     ),
     meeting: B("Fourth Sunday · 4:00 PM", "നാലാം ഞായർ · 4:00 PM"),
-    icon: "Users", image: "gathering", audience: B("Students", "വിദ്യാർത്ഥികൾ"),
+    icon: "Users", image: "gathering", photos: ["peacefulPath", "gathering", "churchWarm"],
+    audience: B("Students", "വിദ്യാർത്ഥികൾ"),
   },
   {
-    slug: "martha-mariam", name: "Martha Mariam Samajam",
+    slug: "martha-mariam", name: "Martha Mariam Vanitha Samajam",
     malayalam: B("Women's Fellowship", "വനിതാ സമാജം"),
     short: B("Fellowship of women", "വനിതാ കൂട്ടായ്മ"),
     description: B(
@@ -392,7 +424,8 @@ const organizationsRaw: {
       "പ്രാർത്ഥനയിലും പരിശീലനത്തിലും ജീവകാരുണ്യത്തിലും ഒന്നിച്ച ഇടവക വനിതകൾ — ഓരോ ക്രിസ്തീയ ഭവനത്തിന്റെയും നിശ്ശബ്ദ ശക്തി.",
     ),
     meeting: B("First Sunday · after Holy Qurbana", "ഒന്നാം ഞായർ · വിശുദ്ധ കുർബ്ബാനയ്ക്കു ശേഷം"),
-    icon: "Heart", image: "peacefulPath", audience: B("Women", "വനിതകൾ"),
+    icon: "Heart", image: "peacefulPath", photos: ["marianIcon", "candles", "celebration"],
+    audience: B("Women", "വനിതകൾ"),
   },
   {
     slug: "prayer-fellowship", name: "Prayer Fellowship",
@@ -403,7 +436,8 @@ const organizationsRaw: {
       "സ്തുതിക്കും മാധ്യസ്ഥ്യത്തിനും വചനത്തിനുമായി ഒരുമിക്കുന്ന ഇടവകാംഗങ്ങൾ — പരസ്പരം ആവശ്യങ്ങൾ കർത്താവിനു മുമ്പിൽ സമർപ്പിക്കുന്നു.",
     ),
     meeting: B("Wednesday · 5:00 PM", "ബുധൻ · 5:00 PM"),
-    icon: "Sparkles", image: "candles", audience: B("All parishioners", "എല്ലാ ഇടവകാംഗങ്ങൾക്കും"),
+    icon: "Sparkles", image: "candles", photos: ["ardramPoster", "marianShrine", "marianIcon", "candles"],
+    audience: B("All parishioners", "എല്ലാ ഇടവകാംഗങ്ങൾക്കും"),
   },
   {
     slug: "choir", name: "Parish Choir",
@@ -414,7 +448,8 @@ const organizationsRaw: {
       "ഇടവകയുടെ പ്രാർത്ഥനയെ ഗാനത്തിലുയർത്തുന്നു — മലങ്കര ഓർത്തഡോക്സ് ആരാധനക്രമത്തിന്റെ വിശുദ്ധ സംഗീതത്തിൽ സമൂഹത്തെ നയിക്കുന്നു.",
     ),
     meeting: B("Friday · 7:00 PM rehearsal", "വെള്ളി · 7:00 PM പരിശീലനം"),
-    icon: "Music", image: "churchWarm", audience: B("All ages", "എല്ലാ പ്രായക്കാർക്കും"),
+    icon: "Music", image: "churchWarm", photos: ["churchWarm", "stainedGlass", "cathedralArches"],
+    audience: B("All ages", "എല്ലാ പ്രായക്കാർക്കും"),
   },
   {
     slug: "edavaka-mission", name: "Edavaka Mission",
@@ -425,7 +460,65 @@ const organizationsRaw: {
       "ഇടവകയുടെ മിഷൻ വിഭാഗം — ബൈബിൾ പഠനം, കുടുംബ സന്ദർശനം, കരുണയുടെ പ്രവൃത്തികൾ എന്നിവയിലൂടെ വിശ്വാസം ആഴപ്പെടുത്തുന്നു.",
     ),
     meeting: B("Third Sunday · after Holy Qurbana", "മൂന്നാം ഞായർ · വിശുദ്ധ കുർബ്ബാനയ്ക്കു ശേഷം"),
-    icon: "Shield", image: "churchStone", audience: B("All parishioners", "എല്ലാ ഇടവകാംഗങ്ങൾക്കും"),
+    icon: "Shield", image: "churchStone", photos: ["celebration", "churchWarm", "churchStone"],
+    audience: B("All parishioners", "എല്ലാ ഇടവകാംഗങ്ങൾക്കും"),
+  },
+  {
+    slug: "balasamajam", name: "Balasamajam",
+    malayalam: B("Children's Fellowship", "ബാലസമാജം"),
+    short: B("Fellowship of children", "കുട്ടികളുടെ കൂട്ടായ്മ"),
+    description: B(
+      "The children of the parish gathering in prayer, song and Bible stories — learning to love the Lord and one another from their earliest years.",
+      "പ്രാർത്ഥനയിലും ഗാനങ്ങളിലും ബൈബിൾ കഥകളിലും ഒന്നിച്ചുകൂടുന്ന ഇടവകയിലെ കുട്ടികൾ — ചെറുപ്രായം മുതലേ കർത്താവിനെയും പരസ്പരവും സ്നേഹിക്കാൻ പഠിക്കുന്നു.",
+    ),
+    meeting: B("Sundays · after Holy Qurbana", "ഞായറാഴ്ചകൾ · വിശുദ്ധ കുർബ്ബാനയ്ക്കു ശേഷം"),
+    icon: "Sprout", image: "peacefulPath", photos: ["peacefulPath", "scripture", "gathering"],
+    audience: B("Children", "കുട്ടികൾ"),
+  },
+  {
+    slug: "upavasa-prarthana", name: "Upavasa Prarthana",
+    malayalam: B("Fasting Prayer", "ഉപവാസ പ്രാർത്ഥന"),
+    short: B("Prayer with fasting", "ഉപവാസത്തോടെയുള്ള പ്രാർത്ഥന"),
+    description: B(
+      "Parishioners joining in prayer with fasting — seeking God's mercy and interceding for the needs of the parish and the world.",
+      "ഉപവാസത്തോടെ പ്രാർത്ഥനയിൽ ഒന്നിക്കുന്ന ഇടവകാംഗങ്ങൾ — ദൈവകരുണ തേടി ഇടവകയുടെയും ലോകത്തിന്റെയും ആവശ്യങ്ങൾക്കായി മാധ്യസ്ഥ്യം വഹിക്കുന്നു.",
+    ),
+    meeting: B("Schedule to be announced", "സമയക്രമം പിന്നീട് അറിയിക്കും"),
+    icon: "Cross", image: "marianShrine", photos: ["marianShrine", "candles", "candlesPrayer"],
+    audience: B("All parishioners", "എല്ലാ ഇടവകാംഗങ്ങൾക്കും"),
+  },
+  {
+    slug: "moms", name: "MOMS",
+    short: B("Parish fellowship", "ഇടവക കൂട്ടായ്മ"),
+    description: B(
+      "A fellowship of the parish, gathering its members in prayer, fellowship and service.",
+      "പ്രാർത്ഥനയിലും കൂട്ടായ്മയിലും സേവനത്തിലും അംഗങ്ങളെ ഒന്നിപ്പിക്കുന്ന ഇടവക കൂട്ടായ്മ.",
+    ),
+    meeting: B("Schedule to be announced", "സമയക്രമം പിന്നീട് അറിയിക്കും"),
+    icon: "HeartHandshake", image: "celebration", photos: ["celebration", "gathering", "churchDusk"],
+    audience: B("Members", "അംഗങ്ങൾ"),
+  },
+  {
+    slug: "sjof", name: "SJOF",
+    short: B("Parish fellowship", "ഇടവക കൂട്ടായ്മ"),
+    description: B(
+      "A fellowship of the parish, gathering its members in prayer, fellowship and service.",
+      "പ്രാർത്ഥനയിലും കൂട്ടായ്മയിലും സേവനത്തിലും അംഗങ്ങളെ ഒന്നിപ്പിക്കുന്ന ഇടവക കൂട്ടായ്മ.",
+    ),
+    meeting: B("Schedule to be announced", "സമയക്രമം പിന്നീട് അറിയിക്കും"),
+    icon: "Users", image: "gathering", photos: ["gathering", "churchWarm", "churchExterior"],
+    audience: B("Members", "അംഗങ്ങൾ"),
+  },
+  {
+    slug: "sdof", name: "SDOF",
+    short: B("Parish fellowship", "ഇടവക കൂട്ടായ്മ"),
+    description: B(
+      "A fellowship of the parish, gathering its members in prayer, fellowship and service.",
+      "പ്രാർത്ഥനയിലും കൂട്ടായ്മയിലും സേവനത്തിലും അംഗങ്ങളെ ഒന്നിപ്പിക്കുന്ന ഇടവക കൂട്ടായ്മ.",
+    ),
+    meeting: B("Schedule to be announced", "സമയക്രമം പിന്നീട് അറിയിക്കും"),
+    icon: "Shield", image: "churchExterior", photos: ["churchExterior", "stainedGlass", "archDetail"],
+    audience: B("Members", "അംഗങ്ങൾ"),
   },
 ];
 
@@ -499,7 +592,7 @@ const missionVisionRaw = {
 };
 
 const timelineRaw = [
-  { year: "1898", title: B("A community is born", "ഒരു കൂട്ടായ്മ പിറക്കുന്നു"), body: B("The faithful of Alayamon gather to build a place of worship, laying the first foundations of the parish.", "അലയമണിലെ വിശ്വാസികൾ ഒരു ആരാധനാലയം പണിയാൻ ഒരുമിക്കുന്നു, ഇടവകയുടെ ആദ്യ അടിത്തറ പാകുന്നു.") },
+  { year: "1937", title: B("A community is born", "ഒരു കൂട്ടായ്മ പിറക്കുന്നു"), body: B("The faithful of Alayamon gather to build a place of worship, laying the first foundations of the parish.", "അലയമണിലെ വിശ്വാസികൾ ഒരു ആരാധനാലയം പണിയാൻ ഒരുമിക്കുന്നു, ഇടവകയുടെ ആദ്യ അടിത്തറ പാകുന്നു.") },
   { year: "1921", title: B("The first church rises", "ആദ്യ പള്ളി ഉയരുന്നു"), body: B("The original church is consecrated, its laterite walls and tiled roof echoing the Kerala Christian style.", "കേരള ക്രിസ്തീയ ശൈലിയിലുള്ള വെട്ടുകല്ലു ചുവരുകളും ഓടുമേഞ്ഞ മേൽക്കൂരയുമുള്ള ആദ്യ പള്ളി വെഞ്ചരിക്കപ്പെടുന്നു.") },
   { year: "1956", title: B("Establishment as a parish", "ഇടവകയായി സ്ഥാപനം"), body: B("The community is established as a full parish, with its own resident vicar and registers.", "സ്വന്തം വികാരിയോടും രേഖകളോടും കൂടെ കൂട്ടായ്മ ഒരു പൂർണ്ണ ഇടവകയായി ഔപചാരികമായി സ്ഥാപിക്കപ്പെടുന്നു.") },
   { year: "1972", title: B("A school for the young", "കുട്ടികൾക്കായി ഒരു വിദ്യാലയം"), body: B("The parish opens a school, extending its mission of faith and education to the whole village.", "ഇടവക ഒരു വിദ്യാലയം തുറന്ന്, വിശ്വാസത്തിന്റെയും വിദ്യാഭ്യാസത്തിന്റെയും ദൗത്യം ഗ്രാമം മുഴുവൻ വ്യാപിപ്പിക്കുന്നു.") },
@@ -563,8 +656,11 @@ export type ParishData = {
   announcements: Announcement[];
   upcomingFeast: { title: string; malayalam: string; date: string; blurb: string; image: ImageKey };
   events: ChurchEvent[];
+  prelates: { name: string; title: string; image: ImageKey; file: string }[];
   parishPriest: Clergy;
   assistantPriest: Clergy;
+  managingCommittee: { name: string; role: string }[];
+  committeeMembers: { name: string; photo: string }[];
   formerVicars: { name: string; years: string }[];
   organizations: Organization[];
   gallery: GalleryItem[];
@@ -608,6 +704,7 @@ export function getData(locale: Locale): ParishData {
       time: L(e.time), location: L(e.location), category: e.category,
       image: e.image, excerpt: L(e.excerpt), featured: e.featured,
     })),
+    prelates: prelatesRaw.map((p) => ({ name: L(p.name), title: L(p.title), image: p.image, file: p.file })),
     parishPriest: {
       name: L(parishPriestRaw.name), role: L(parishPriestRaw.role), image: parishPriestRaw.image,
       since: L(parishPriestRaw.since), bio: L(parishPriestRaw.bio), quote: L(parishPriestRaw.quote),
@@ -616,11 +713,13 @@ export function getData(locale: Locale): ParishData {
       name: L(assistantPriestRaw.name), role: L(assistantPriestRaw.role), image: assistantPriestRaw.image,
       since: L(assistantPriestRaw.since), bio: L(assistantPriestRaw.bio), quote: L(assistantPriestRaw.quote),
     },
+    managingCommittee: managingCommitteeRaw.map((m) => ({ name: L(m.name), role: L(m.role) })),
+    committeeMembers: committeeMembersRaw.map((m) => ({ name: L(m.name), photo: m.photo })),
     formerVicars: formerVicarsRaw.map((v) => ({ name: L(v.name), years: v.years })),
     organizations: organizationsRaw.map((o) => ({
       slug: o.slug, name: o.name, malayalam: o.malayalam ? L(o.malayalam) : undefined,
       short: L(o.short), description: L(o.description), meeting: L(o.meeting),
-      icon: o.icon, image: o.image, audience: L(o.audience),
+      icon: o.icon, image: o.image, photos: o.photos, audience: L(o.audience),
     })),
     gallery: galleryRaw.map((g) => ({ image: g.image, title: L(g.title), category: g.category, span: g.span })),
     videos: videosRaw.map((v) => ({ title: L(v.title), poster: v.poster, youtubeId: v.youtubeId, duration: v.duration })),
