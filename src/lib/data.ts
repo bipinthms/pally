@@ -42,6 +42,7 @@ export type Organization = {
   photos: ImageKey[];
   audience: string;
 };
+export type MissionProject = { name: string; malayalam: string; tagline: string; description: string; icon: string };
 export type GalleryCategory = "Church" | "Feasts" | "Liturgy" | "Community" | "Heritage";
 export type GalleryItem = {
   image: ImageKey;
@@ -51,7 +52,7 @@ export type GalleryItem = {
 };
 export type ParishVideo = { title: string; poster: ImageKey; youtubeId: string; duration: string };
 export type Testimonial = { quote: string; name: string; role: string };
-export type TimelineEvent = { year: string; title: string; body: string };
+export type TimelineEvent = { year: string; date?: string; title: string; body: string };
 
 export const galleryCategories = [
   "All", "Church", "Feasts", "Liturgy", "Community", "Heritage",
@@ -256,6 +257,28 @@ const eventsRaw: {
     featured: true,
   },
   {
+    slug: "parumala-relics-2026",
+    title: B("Relics of St. Gregorios of Parumala enshrined", "പരുമല മാർ ഗ്രീഗോറിയോസിന്റെ തിരുശേഷിപ്പ് സ്ഥാപിച്ചു"),
+    date: "2026-09-04", time: B("During the Parish Feast", "ഇടവക പെരുന്നാളിനോടനുബന്ധിച്ച്"),
+    location: B("Parish Church", "ഇടവക പള്ളി"),
+    category: "News", image: "relicsStGregorios",
+    excerpt: B(
+      "H.H. Baselios Marthoma Mathews III, Catholicos of the East and Malankara Metropolitan, enshrined the relics of St. Gregorios of Parumala in our church.",
+      "പൗരസ്ത്യ കാതോലിക്കായും മലങ്കര മെത്രാപ്പോലീത്തയുമായ പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് തൃതീയൻ കാതോലിക്കാ ബാവ പരുമല മാർ ഗ്രീഗോറിയോസ് തിരുമേനിയുടെ തിരുശേഷിപ്പ് നമ്മുടെ പള്ളിയിൽ സ്ഥാപിച്ചു.",
+    ),
+  },
+  {
+    slug: "navathi-inauguration",
+    title: B("Navathi (90th Anniversary) Inaugurated", "നവതി ആഘോഷങ്ങളുടെ ഉദ്ഘാടനം"),
+    date: "2026-09-05", time: B("During the Parish Feast", "ഇടവക പെരുന്നാളിനോടനുബന്ധിച്ച്"),
+    location: B("Parish Church", "ഇടവക പള്ളി"),
+    category: "News", image: "navathiInauguration",
+    excerpt: B(
+      "The Navathi celebrations marking 90 years since the consecration of our church in 1937 were formally inaugurated.",
+      "1937-ൽ നമ്മുടെ ദേവാലയം കൂദാശ ചെയ്തതിന്റെ 90 വർഷങ്ങൾ അനുസ്മരിക്കുന്ന നവതി ആഘോഷങ്ങൾ ഔദ്യോഗികമായി ഉദ്ഘാടനം ചെയ്തു.",
+    ),
+  },
+  {
     slug: "sunday-school-day",
     title: B("Sunday School Annual Day", "വേദപാഠ വാർഷികം"),
     date: "2026-09-20", time: B("8:00 AM", "8:00 AM"),
@@ -286,6 +309,28 @@ const eventsRaw: {
     excerpt: B(
       "The choir leads a carol service before the joyful celebration of the Lord's Nativity at the Midnight Qurbana.",
       "പാതിര കുർബ്ബാനയിൽ കർത്താവിന്റെ ജനനത്തിന്റെ സന്തോഷകരമായ ആഘോഷത്തിനു മുമ്പ് ഗായകസംഘം കരോൾ നയിക്കുന്നു.",
+    ),
+  },
+  {
+    slug: "st-george-feast-2027",
+    title: B("Feast of St. George", "വിശുദ്ധ ഗീവർഗീസ് സഹദായുടെ പെരുന്നാൾ"),
+    date: "2027-05-06", time: B("See parish notices", "ഇടവക അറിയിപ്പുകൾ കാണുക"),
+    location: B("Parish Church", "ഇടവക പള്ളി"),
+    category: "Feast", image: "candles",
+    excerpt: B(
+      "The parish commemorates the great martyr St. George with festal Holy Qurbana and intercessory prayers.",
+      "മഹാരക്തസാക്ഷിയായ വിശുദ്ധ ഗീവർഗീസ് സഹദായെ ഇടവക തിരുനാൾ കുർബ്ബാനയോടും മദ്ധ്യസ്ഥ പ്രാർത്ഥനയോടും കൂടി അനുസ്മരിക്കുന്നു.",
+    ),
+  },
+  {
+    slug: "st-gregorios-feast-2026",
+    title: B("Feast of St. Gregorios of Parumala", "പരുമല മാർ ഗ്രീഗോറിയോസിന്റെ പെരുന്നാൾ"),
+    date: "2026-11-08", time: B("See parish notices", "ഇടവക അറിയിപ്പുകൾ കാണുക"),
+    location: B("Parish Church", "ഇടവക പള്ളി"),
+    category: "Feast", image: "catholicos",
+    excerpt: B(
+      "We celebrate the memory of St. Gregorios of Parumala, whose holy relics are enshrined in our church, with festal Holy Qurbana and intercession.",
+      "നമ്മുടെ പള്ളിയിൽ തിരുശേഷിപ്പ് സ്ഥാപിച്ചിരിക്കുന്ന പരുമല മാർ ഗ്രീഗോറിയോസ് തിരുമേനിയുടെ ഓർമ്മ തിരുനാൾ കുർബ്ബാനയോടും മദ്ധ്യസ്ഥ പ്രാർത്ഥനയോടും കൂടി ആഘോഷിക്കുന്നു.",
     ),
   },
 ];
@@ -376,8 +421,8 @@ const formerVicarsRaw: { name: Bi; role?: Bi; years: string; note?: Bi }[] = [
   { name: B("Rev. Fr. C. Kurian", "റവ. ഫാ. സി. കുര്യൻ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1971 – 1972" },
   { name: B("Rev. Fr. P. V. Samuel", "റവ. ഫാ. പി. വി. ശമുവേൽ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1972 – 1973" },
   { name: B("Rev. Fr. P. V. Samuel", "റവ. ഫാ. പി. വി. ശമുവേൽ"), role: B("Vicar", "വികാരി"), years: "1973 – 1975" },
-  { name: B("Rev. Fr. W. A. Cheriyan", "റവ. ഫാ. ഡബ്ല്യു. എ. ചെറിയാൻ"), role: B("Vicar", "വികാരി"), years: "1975 – 1976", note: B("H.G. Zachariah Mar Anthonios Metropolitan", "അഭി. സഖറിയാ മാർ അന്തോണിയോസ് മെത്രാപ്പോലീത്ത") },
-  { name: B("Rev. Fr. P. M. Koshy", "റവ. ഫാ. പി. എം. കോശി"), role: B("Vicar", "വികാരി"), years: "1976 – 1977" },
+  { name: B("Rev. Fr. W. A. Cheriyan", "റവ. ഫാ. ഡബ്ല്യു. എ. ചെറിയാൻ"), role: B("Vicar", "വികാരി"), years: "1975", note: B("H.G. Zachariah Mar Anthonios Metropolitan", "അഭി. സഖറിയാ മാർ അന്തോണിയോസ് മെത്രാപ്പോലീത്ത") },
+  { name: B("Rev. Fr. P. M. Koshy", "റവ. ഫാ. പി. എം. കോശി"), role: B("Vicar", "വികാരി"), years: "1975 – 1977" },
   { name: B("Rev. Fr. P. G. Kurian", "റവ. ഫാ. പി. ജി. കുര്യൻ"), role: B("Vicar", "വികാരി"), years: "1977 – 1979" },
   { name: B("Rev. Fr. P. C. John", "റവ. ഫാ. പി. സി. ജോൺ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1977 – 1979" },
   { name: B("Rev. Fr. K. P. Philip", "റവ. ഫാ. കെ. പി. ഫിലിപ്പ്"), role: B("Vicar", "വികാരി"), years: "1979 – 1981" },
@@ -389,14 +434,14 @@ const formerVicarsRaw: { name: Bi; role?: Bi; years: string; note?: Bi }[] = [
   { name: B("Rev. Fr. Joseph Samuel Karukayil", "റവ. ഫാ. ജോസഫ് ശമുവേൽ കറുകയിൽ"), role: B("Vicar", "വികാരി"), years: "1994 – 1997" },
   { name: B("Rev. Fr. C. D. Rajan", "റവ. ഫാ. സി. ഡി. രാജൻ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1994 – 1997" },
   { name: B("Rev. Fr. Anil John", "റവ. ഫാ. അനിൽ ജോൺ"), role: B("Vicar", "വികാരി"), years: "1997 – 2000" },
-  { name: B("Rev. Fr. Johnson Mulamuttil", "റവ. ഫാ. ജോൺസൺ മുളമൂട്ടിൽ"), role: B("Vicar", "വികാരി"), years: "2000 – 2003" },
+  { name: B("Rev. Fr. C. Johnson Mulamuttil", "റവ. ഫാ. ജോൺസൺ മുളമൂട്ടിൽ"), role: B("Vicar", "വികാരി"), years: "2000 – 2003" },
   { name: B("Rev. Fr. Mathew Abraham", "റവ. ഫാ. മാത്യു ഏബ്രഹാം"), role: B("Vicar", "വികാരി"), years: "2003 – 2005" },
   { name: B("Rev. Fr. John Philip", "റവ. ഫാ. ജോൺ ഫിലിപ്പ്"), role: B("Vicar", "വികാരി"), years: "2005 – 2009" },
   { name: B("Rev. Fr. John Daniel", "റവ. ഫാ. ജോൺ ഡാനിയേൽ"), role: B("Vicar", "വികാരി"), years: "2009" },
-  { name: B("Rev. Fr. Jacob Panicker", "റവ. ഫാ. ജേക്കബ് പണിക്കർ"), role: B("Vicar", "വികാരി"), years: "2009 – 2012" },
+  { name: B("Rev. Fr. K. G. Jacob Panicker", "റവ. ഫാ. ജേക്കബ് പണിക്കർ"), role: B("Vicar", "വികാരി"), years: "2009 – 2012" },
   { name: B("Rev. Fr. Sam Kanjickal", "റവ. ഫാ. സാം കാഞ്ഞിക്കൽ"), role: B("Vicar", "വികാരി"), years: "2012 – 2015" },
   { name: B("Rev. Fr. Mathew Thomas", "റവ. ഫാ. മാത്യു തോമസ്"), role: B("Vicar", "വികാരി"), years: "2015 – 2018" },
-  { name: B("Rev. Fr. Varghese Abraham", "റവ. ഫാ. വർഗീസ് ഏബ്രഹാം"), years: "2018 –" },
+  { name: B("Rev. Fr. Varghese Abraham", "റവ. ഫാ. വർഗീസ് ഏബ്രഹാം"), years: "2018 – 2024" },
 ];
 
 const organizationsRaw: {
@@ -546,6 +591,117 @@ const organizationsRaw: {
   },
 ];
 
+const missionProjectsRaw: { name: Bi; tagline: Bi; description: Bi; icon: string }[] = [
+  {
+    name: B("Ardram", "ആർദ്രം"),
+    tagline: B("Intercessory Prayer", "മധ്യസ്ഥ പ്രാർത്ഥന"),
+    description: B(
+      "Every Wednesday at 6:00 PM, following the evening prayer, intercessory prayer to St. Mary (Marth Mariam) and the serving of nercha.",
+      "എല്ലാ ബുധനാഴ്ചയും വൈകുന്നേരം ആറുമണിക്ക് സന്ധ്യാ നമസ്കാരത്തെ തുടർന്ന് മർത്തമറിയം മാതാവിനോടുള്ള മധ്യസ്ഥ പ്രാർത്ഥനയും നേർച്ച വിളമ്പും.",
+    ),
+    icon: "Flame",
+  },
+  {
+    name: B("Aashrayam", "ആശ്രയം"),
+    tagline: B("Pension Scheme", "പെൻഷൻ പദ്ധതി"),
+    description: B(
+      "A monthly pension of ₹1,000 for ten people facing financial hardship — eight within the parish and two from outside it. Prayer group secretaries identify the beneficiaries.",
+      "സാമ്പത്തീക ബുദ്ധിമുട്ട് അനുഭവിക്കുന്ന പത്തുപേർക്ക് പ്രതിമാസം ആയിരം രൂപ പെൻഷൻ നൽകുന്ന പദ്ധതി. ഇടവകയിലെ എട്ട് പേർക്കും ഇടവകയ്ക്ക് പുറത്തുള്ള രണ്ടു പേർക്കും ആയിട്ടാണ് ഈ പദ്ധതി. (ഗുണഭോക്‌താക്കളെ കണ്ടെത്താനുള്ള ചുമതല പ്രാർത്ഥനായോഗം സെക്രട്ടറിമാർക്കാകും.)",
+    ),
+    icon: "HandCoins",
+  },
+  {
+    name: B("Aalambam", "ആലംമ്പം"),
+    tagline: B("Quarterly Gathering", "ത്രൈമാസ സംഗമം"),
+    description: B(
+      "Once every three months, parents and brethren long unable to come to church through illness or age are brought to worship, receive Holy Qurbana, spend time in the church and join a fellowship meal.",
+      "രോഗശയ്യയിലും വാർധക്യസഹജമായ അവശതകളാലും ദീർഘകാലമായി ദേവാലയത്തിൽ വരാൻ സാധിക്കാതിരിക്കുന്ന മാതാപിതാക്കളെയും സഹോദരങ്ങളെയും മൂന്നു മാസത്തിലൊരു തവണ ദേവാലയത്തിൽ കൊണ്ടുവന്ന് ആരാധനയിൽ പങ്കെടുപ്പിച്ച് വിശുദ്ധ കുർബാന അനുഭവിക്കാനും തുടർന്ന് ദേവാലയത്തിൽ അല്പസമയം ചിലവഴിച്ചു സ്നേഹവിരുന്നിലും പങ്കെടുക്കാനുമുള്ള പദ്ധതി.",
+    ),
+    icon: "Accessibility",
+  },
+  {
+    name: B("Alivu", "അലിവ്"),
+    tagline: B("Marth Mariam Relief Fund", "മർത്തമറിയം സഹായ നിധി"),
+    description: B(
+      "A relief fund supporting the varied needs of those who are financially disadvantaged.",
+      "സാമ്പത്തികമായി പിന്നോക്കം നിൽക്കുന്നവർക്കുള്ള വിവിധ ആവശ്യങ്ങൾക്കുള്ള സഹായ പദ്ധതി.",
+    ),
+    icon: "HandHeart",
+  },
+  {
+    name: B("Aaswas", "ആശ്വാസ്‌"),
+    tagline: B("Home Visits", "ഭവന സന്ദർശനം"),
+    description: B(
+      "Visiting the bedridden to comfort them and spend time in their company.",
+      "രോഗശയ്യയിൽ ആയിരിക്കുന്നവരെ സന്ദർശിച്ച് ആശ്വസിപ്പിക്കുന്നതിനും കുറച്ചു സമയം അവരോടൊപ്പം ചിലവഴിക്കുന്നതിനും ഉള്ള പദ്ധതി.",
+    ),
+    icon: "HeartPulse",
+  },
+  {
+    name: B("Anugraham", "അനുഗ്രഹം"),
+    tagline: B("Education Assistance", "വിദ്യാഭ്യാസ സഹായ പദ്ധതി"),
+    description: B(
+      "Support for the education of children from financially disadvantaged families.",
+      "സാമ്പത്തിക പിന്നോക്കാവസ്ഥ ഉള്ളവരുടെ കുട്ടികളുടെ വിദ്യാഭ്യാസത്തിനുള്ള സഹായ പദ്ധതി.",
+    ),
+    icon: "GraduationCap",
+  },
+  {
+    name: B("Aamodam", "ആമോദം"),
+    tagline: B("Creative Fellowship", "സർഗ്ഗാത്മക കൂട്ടായ്മ"),
+    description: B(
+      "A fellowship that draws children more fully into worship and develops their creative gifts.",
+      "കുട്ടികളെ കൂടുതലായി ആരാധനയിൽ പങ്കാളികളാക്കാനും അവരുടെ സർഗ്ഗാത്മക കഴിവുകൾ വികസിപ്പിക്കാനുമുള്ള കൂട്ടായ്മ.",
+    ),
+    icon: "Palette",
+  },
+  {
+    name: B("Abhayam", "അഭയം"),
+    tagline: B("Housing Project", "ഭവന നിർമ്മാണ പദ്ധതി"),
+    description: B(
+      "Building homes in the hope that, God willing, no one in our parish will be without a home before the church's 90th anniversary.",
+      "ദൈവേഷ്ടമായാൽ നമ്മുടെ പള്ളിയുടെ നവതിക്ക് മുൻപ് നമ്മുടെ ഇടവകയിൽ ഭവന രഹിതരായി ആരും തന്നെ ഉണ്ടാകരുത് എന്നുള്ള ആഗ്രഹത്താൽ ഭവനങ്ങൾ നിർമ്മിക്കുന്നതിനുള്ള പദ്ധതി.",
+    ),
+    icon: "House",
+  },
+  {
+    name: B("Aalayam", "ആലയം"),
+    tagline: B("Library", "വായനശാല"),
+    description: B(
+      "Fostering a love of reading among children.",
+      "കുട്ടികളിൽ വായനാശീലം സൃഷ്ടിക്കുന്നതിനുള്ള പദ്ധതി.",
+    ),
+    icon: "Library",
+  },
+  {
+    name: B("Abhivridhi", "അഭിവൃദ്ധി"),
+    tagline: B("Farming Fellowship", "കാർഷിക കൂട്ടായ്മ"),
+    description: B(
+      "Helping every family in the parish become self-sufficient in vegetables and supporting them in farming.",
+      "ഇടവകയിലെ എല്ലാ കുടുംബങ്ങളിലും പച്ചക്കറികൾക്ക് സ്വയംപര്യാപ്തത നേടുന്നതിനും കൃഷി കാര്യങ്ങളിൽ സഹായിക്കുന്നതിനുമുള്ള കൂട്ടായ്മ.",
+    ),
+    icon: "Sprout",
+  },
+  {
+    name: B("Athmabodhana Sangham", "ആത്മബോധന സംഘം"),
+    tagline: B("Ministry of the Word", "വചന ശുശ്രുഷാ സംഘം"),
+    description: B(
+      "The fellowship of the parish's evangelists, leading the ministry of the Word in prayer groups and spiritual movements.",
+      "ഇടവകയിലെ സുവിശേഷ പ്രവർത്തകരുടെ കൂട്ടായ്മ. പ്രാർത്ഥനയോഗങ്ങളിലെയും ആത്‌മീയ പ്രസ്ഥാനങ്ങളിലും വചന ശുശ്രുഷയ്ക്ക് നേതൃത്വം നൽകുന്ന സംഘം.",
+    ),
+    icon: "BookOpen",
+  },
+  {
+    name: B("Aneede", "ആനീദേ"),
+    tagline: B("Incense Prayer", "ധൂപ പ്രാർത്ഥന"),
+    description: B(
+      "Every Sunday during Holy Qurbana, incense is offered together in remembrance of the names of the departed.",
+      "എല്ലാ ഞായറാഴ്ച്ചയും വിശുദ്ധ കുർബ്ബാനയിൽ വാങ്ങിപ്പോയവരുടെ പേരുകൾ ഓർത്ത് പൊതുവായി ധൂപാർപ്പണം നടത്തുവാനുള്ള പദ്ധതി.",
+    ),
+    icon: "Cross",
+  },
+];
+
 const galleryRaw: { image: ImageKey; title: Bi; category: GalleryCategory; span?: "tall" | "wide" }[] = [
   { image: "heroInterior", title: B("Our church aglow at night", "രാത്രിയിൽ പ്രകാശിക്കുന്ന ഞങ്ങളുടെ പള്ളി"), category: "Church", span: "tall" },
   { image: "candles", title: B("Intercession of the Theotokos", "ദൈവമാതാവിന്റെ മാധ്യസ്ഥ്യം"), category: "Liturgy" },
@@ -615,13 +771,24 @@ const missionVisionRaw = {
   ],
 };
 
-const timelineRaw = [
-  { year: "1937", title: B("A community is born", "ഒരു കൂട്ടായ്മ പിറക്കുന്നു"), body: B("The faithful of Alencherry gather to build a place of worship, laying the first foundations of the parish.", "ആലഞ്ചേരിയിലെ വിശ്വാസികൾ ഒരു ആരാധനാലയം പണിയാൻ ഒരുമിക്കുന്നു, ഇടവകയുടെ ആദ്യ അടിത്തറ പാകുന്നു.") },
-  { year: "1921", title: B("The first church rises", "ആദ്യ പള്ളി ഉയരുന്നു"), body: B("The original church is consecrated, its laterite walls and tiled roof echoing the Kerala Christian style.", "കേരള ക്രിസ്തീയ ശൈലിയിലുള്ള വെട്ടുകല്ലു ചുവരുകളും ഓടുമേഞ്ഞ മേൽക്കൂരയുമുള്ള ആദ്യ പള്ളി വെഞ്ചരിക്കപ്പെടുന്നു.") },
-  { year: "1956", title: B("Establishment as a parish", "ഇടവകയായി സ്ഥാപനം"), body: B("The community is established as a full parish, with its own resident vicar and registers.", "സ്വന്തം വികാരിയോടും രേഖകളോടും കൂടെ കൂട്ടായ്മ ഒരു പൂർണ്ണ ഇടവകയായി ഔപചാരികമായി സ്ഥാപിക്കപ്പെടുന്നു.") },
-  { year: "1972", title: B("A school for the young", "കുട്ടികൾക്കായി ഒരു വിദ്യാലയം"), body: B("The parish opens a school, extending its mission of faith and education to the whole village.", "ഇടവക ഒരു വിദ്യാലയം തുറന്ന്, വിശ്വാസത്തിന്റെയും വിദ്യാഭ്യാസത്തിന്റെയും ദൗത്യം ഗ്രാമം മുഴുവൻ വ്യാപിപ്പിക്കുന്നു.") },
-  { year: "1998", title: B("Centenary of faith", "വിശ്വാസത്തിന്റെ ശതാബ്ദി"), body: B("The parish celebrates one hundred years of God's providence with a year of jubilee and thanksgiving.", "ജൂബിലിയുടെയും കൃതജ്ഞതയുടെയും വർഷത്തോടെ ഇടവക ദൈവപരിപാലനയുടെ നൂറു വർഷം ആഘോഷിക്കുന്നു.") },
-  { year: "2009", title: B("The new church", "പുതിയ പള്ളി"), body: B("A larger church is built and blessed to welcome the growing congregation, preserving the old sanctuary.", "വളരുന്ന സമൂഹത്തെ സ്വീകരിക്കാൻ, പഴയ മദ്ബഹാ സംരക്ഷിച്ചുകൊണ്ട് വലിയ ഒരു പള്ളി പണിത് വെഞ്ചരിക്കുന്നു.") },
+// From the parish history plaque ("ഇടവകയുടെ നാൾവഴികൾ"), unveiled 21 April 2024.
+const timelineRaw: { year: string; date?: Bi; title: Bi; body: Bi }[] = [
+  { year: "1934", date: B("29 January", "ജനുവരി 29"), title: B("The forefathers' covenant", "പൂർവ്വികരുടെ കരാർ"), body: B("George Ummen of Bethel Bungalow, Eapen of Kandathil, Kochu Koshy of Poykavilayil, Koshy of Bethel Vadakkethil, Ummen of Vattavilayil Mukalupurathu, Tharian of Kalangazhikathu, Joseph of Kochukonathu Puthenveettil, Chacko of Thekkethil Veedu and Chacko of Kizhakkekara Charuvila Veedu drew up and registered an agreement to establish the first church.", "ബെഥേൽ ബംഗ്ലാവിൽ ജോർജ്ജ് ഉമ്മൻ, കണ്ടത്തിൽ ഈപ്പൻ, പൊയ്കവിളയിൽ കൊച്ചു കോശി, ബെഥേൽ വടക്കേതിൽ കോശി, വട്ടവിളയിൽ മുകളുപുറത്ത് ഉമ്മൻ, കളങ്ങഴികത്ത് തര്യൻ, കൊച്ചുകോണത്ത് പുത്തൻവീട്ടിൽ ജോസഫ്, തെക്കേതിൽ വീട്ടിൽ ചാക്കോ, കിഴക്കേക്കര ചരുവിള വീട്ടിൽ ചാക്കോ എന്നീ പൂർവ്വികർ പ്രഥമ ദേവാലയം സ്ഥാപിക്കുന്നതിന് കരാർ തയ്യാറാക്കി രജിസ്റ്റർ ചെയ്തു.") },
+  { year: "1937", date: B("28 April", "ഏപ്രിൽ 28"), title: B("The first church consecrated", "പ്രഥമ ദേവാലയ കൂദാശ"), body: B("St. Mary's Orthodox Church, Alencherry was consecrated by H.G. Puthenkavil Geevarghese Mar Philoxenos Metropolitan and included in the Diocese of Kollam. First vicar: Ayoor Mavilazhikathu Koshy Kathanar.", "ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് ദേവാലയം പുത്തൻകാവിൽ ഗീവർഗ്ഗീസ് മാർ പീലക്സീനോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്ത് കൊല്ലം ഭദ്രാസനത്തിൽ ഉൾപ്പെടുത്തി. പ്രഥമ വികാരി: ആയൂർ മാവിലഴികത്ത് കോശി കത്തനാർ.") },
+  { year: "1937", date: B("21 November", "നവംബർ 21"), title: B("Icon from Mount Athos", "മൗണ്ട് ആതോസിൽ നിന്നൊരു ചിത്രം"), body: B("Shimona, a monk of the Mount Athos monastery, dedicated an icon of the Mother of God and a cross to the church.", "മൗണ്ട് ആതോസ് ആശ്രമാംഗമായ ശിമോന ദൈവമാതാവിന്റെ ചിത്രവും കുരിശും സമർപ്പിച്ചു.") },
+  { year: "1937", date: B("18 December", "ഡിസംബർ 18"), title: B("The metal-clad cross", "ലോഹചട്ടയുള്ള കുരിശ്"), body: B("Shimona dedicated a wooden cross encased in metal.", "ശിമോന ലോഹചട്ടയുള്ള തടികുരിശ് സമർപ്പിച്ചു.") },
+  { year: "1965", date: B("1 September", "സെപ്റ്റംബർ 1"), title: B("Ettunombu feast begins", "എട്ടുനോമ്പ് പെരുന്നാൾ"), body: B("The Ettunombu (eight-day Lent) feast was celebrated for the first time.", "എട്ടുനോമ്പ് പെരുന്നാൾ ആരംഭിച്ചു.") },
+  { year: "1966", date: B("13 February", "ഫെബ്രുവരി 13"), title: B("The second church", "രണ്ടാം ദേവാലയം"), body: B("H.G. Mathews Mar Coorilos consecrated the second church.", "അഭിവന്ദ്യ മാത്യൂസ് മാർ കൂറിലോസ് തിരുമേനി രണ്ടാം ദേവാലയം കൂദാശ ചെയ്തു.") },
+  { year: "1979", title: B("Diocese of Thiruvananthapuram", "തിരുവനന്തപുരം ഭദ്രാസനം"), body: B("The church was included in the Diocese of Thiruvananthapuram.", "ദേവാലയം തിരുവനന്തപുരം ഭദ്രാസനത്തിൽ ഉൾപ്പെടുത്തി.") },
+  { year: "1982", date: B("1 September", "സെപ്റ്റംബർ 1"), title: B("Shrine of the Mother of God", "ദൈവമാതാവിന്റെ ധ്യാന മന്ദിരം"), body: B("H.G. Geevarghese Mar Dioscoros Metropolitan consecrated the meditation shrine (Dhyana Mandiram) of the Mother of God.", "ദൈവമാതാവിന്റെ ധ്യാന മന്ദിരം അഭിവന്ദ്യ ഗീവർഗ്ഗീസ് മാർ ദിയസ്കോറോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
+  { year: "2001", date: B("6 September", "സെപ്റ്റംബർ 6"), title: B("Foundation of the third church", "മൂന്നാം ദേവാലയത്തിന് ശിലാസ്ഥാപനം"), body: B("H.H. Baselios Marthoma Mathews II Catholicos laid the foundation stone for the third church.", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് ദ്വിതീയൻ കാതോലിക്കാ ബാവ മൂന്നാം ദേവാലയത്തിന് ശിലാസ്ഥാപന കർമ്മം നിർവഹിച്ചു.") },
+  { year: "2003", title: B("The second meditation shrine", "രണ്ടാം ധ്യാന മന്ദിരം"), body: B("H.G. Zacharias Mar Athanasios Metropolitan consecrated the second meditation shrine (Dhyana Mandiram) of the Mother of God.", "ദൈവമാതാവിന്റെ രണ്ടാം ധ്യാന മന്ദിരം അഭിവന്ദ്യ സഖറിയാസ് മാർ അത്താനാസ്യോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
+  { year: "2006", date: B("30–31 August", "ഓഗസ്റ്റ് 30, 31"), title: B("The third church consecrated", "മൂന്നാം ദേവാലയ കൂദാശ"), body: B("H.H. Baselios Marthoma Didymos I Catholicos consecrated the third church.", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ ദിദിമോസ് പ്രഥമൻ കാതോലിക്കാ ബാവ മൂന്നാം ദേവാലയം കൂദാശ ചെയ്തു.") },
+  { year: "2010", date: B("3 September", "സെപ്റ്റംബർ 3"), title: B("International Martha Mariam pilgrimage centre", "അന്താരാഷ്ട്ര മർത്തമറിയം തീർത്ഥാടന കേന്ദ്രം"), body: B("The church was declared an International Martha Mariam Pilgrimage Centre by H.H. Baselios Marthoma Didymos I Catholicos.", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ ദിദിമോസ് പ്രഥമൻ കാതോലിക്കാ ബാവ അന്താരാഷ്ട്ര മർത്തമറിയം തീർത്ഥാടന കേന്ദ്രമായി പ്രഖ്യാപിച്ചു.") },
+  { year: "2011", date: B("28 August", "ഓഗസ്റ്റ് 28"), title: B("Shrine renewed", "ധ്യാന മന്ദിരം നവീകരിച്ചു"), body: B("H.G. Dr. Gabriel Mar Gregorios Metropolitan consecrated the renovated meditation shrine of the Mother of God.", "നവീകരിച്ച ദൈവമാതാവിന്റെ ധ്യാന മന്ദിരം അഭി. ഡോ. ഗബ്രിയേൽ മാർ ഗ്രീഗോറിയോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
+  { year: "2019", date: B("24–25 August", "ഓഗസ്റ്റ് 24, 25"), title: B("Madbaha and Haikala renewed", "മദ്ബഹായും ഹൈക്കലായും"), body: B("H.G. Dr. Gabriel Mar Gregorios Metropolitan consecrated the renovated Madbaha (sanctuary) and Haikala (nave).", "പുനർനവീകരിച്ച മദ്ബഹായും ഹൈക്കലായും അഭി. ഡോ. ഗബ്രിയേൽ മാർ ഗ്രീഗോറിയോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
+  { year: "2024", date: B("21 April", "ഏപ്രിൽ 21"), title: B("St. Jude Chapel", "സെന്റ് ജൂഡ് ചാപ്പൽ"), body: B("H.G. Dr. Gabriel Mar Gregorios Metropolitan laid the foundation stone for the St. Jude Chapel.", "സെന്റ് ജൂഡ് ചാപ്പലിന് അഭി. ഡോ. ഗബ്രിയേൽ മാർ ഗ്രീഗോറിയോസ് മെത്രാപ്പോലീത്താ ശിലാസ്ഥാപന കർമ്മം നിർവഹിച്ചു.") },
+  { year: "2026", date: B("4 September", "സെപ്റ്റംബർ 4"), title: B("Relics of St. Gregorios of Parumala enshrined", "പരുമല മാർ ഗ്രീഗോറിയോസിന്റെ തിരുശേഷിപ്പ് സ്ഥാപിച്ചു"), body: B("H.H. Baselios Marthoma Mathews III, Catholicos of the East and Malankara Metropolitan, enshrined the relics of St. Gregorios of Parumala.", "പൗരസ്ത്യ കാതോലിക്കായും മലങ്കര മെത്രാപ്പോലീത്തയുമായ പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് തൃതീയൻ കാതോലിക്കാ ബാവ പരുമല മാർ ഗ്രീഗോറിയോസ് തിരുമേനിയുടെ തിരുശേഷിപ്പ് സ്ഥാപിച്ചു.") },
   { year: "Today", title: B("A living parish", "ജീവനുള്ള ഇടവക"), body: B("Home to hundreds of families and a dozen ministries, the parish continues its journey of faith and service.", "നൂറുകണക്കിന് കുടുംബങ്ങളുടെയും നിരവധി കൂട്ടായ്മകളുടെയും ഭവനമായി, ഇടവക വിശ്വാസത്തിന്റെയും സേവനത്തിന്റെയും യാത്ര തുടരുന്നു.") },
 ];
 
@@ -689,6 +856,7 @@ export type ParishData = {
   sacristans: { name: string; photo: string }[];
   formerVicars: { name: string; role?: string; years: string; note?: string }[];
   organizations: Organization[];
+  missionProjects: MissionProject[];
   gallery: GalleryItem[];
   videos: ParishVideo[];
   testimonials: Testimonial[];
@@ -751,6 +919,9 @@ export function getData(locale: Locale): ParishData {
       short: L(o.short), description: L(o.description), meeting: L(o.meeting),
       icon: o.icon, image: o.image, photos: o.photos, audience: L(o.audience),
     })),
+    missionProjects: missionProjectsRaw.map((m) => ({
+      name: L(m.name), malayalam: m.name.ml, tagline: L(m.tagline), description: L(m.description), icon: m.icon,
+    })),
     gallery: galleryRaw.map((g) => ({ image: g.image, title: L(g.title), category: g.category, span: g.span })),
     videos: videosRaw.map((v) => ({ title: L(v.title), poster: v.poster, youtubeId: v.youtubeId, duration: v.duration })),
     testimonials: testimonialsRaw.map((t) => ({ quote: L(t.quote), name: L(t.name), role: L(t.role) })),
@@ -759,7 +930,7 @@ export function getData(locale: Locale): ParishData {
       vision: L(missionVisionRaw.vision),
       values: missionVisionRaw.values.map((v) => ({ title: L(v.title), body: L(v.body), icon: v.icon })),
     },
-    timeline: timelineRaw.map((t) => ({ year: t.year, title: L(t.title), body: L(t.body) })),
+    timeline: timelineRaw.map((t) => ({ year: t.year, date: t.date && L(t.date), title: L(t.title), body: L(t.body) })),
     patronSaint: {
       name: L(patronSaintRaw.name), title: L(patronSaintRaw.title), feast: L(patronSaintRaw.feast),
       image: patronSaintRaw.image, body: L(patronSaintRaw.body),

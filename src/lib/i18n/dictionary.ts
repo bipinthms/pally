@@ -179,6 +179,10 @@ const en = {
     ctaBody:
       "Whatever your age or gifts, there is a place for you in the life of our parish. Speak to the parish office or any animator to get involved.",
     getInvolved: "Get Involved",
+    projectsEyebrow: "Faith in action",
+    projectsTitle: "Parish Mission Projects",
+    projectsSubtitle:
+      "To root God's people in faith, the sacraments and worship — and to visit the sick, keep fellowship alive, and help with housing, medical care, education and farming — St. Mary's Orthodox Parish, Alencherry has shaped and carries out these mission projects.",
   },
   gallery: {
     heroEyebrow: "Moments of grace",
@@ -525,6 +529,10 @@ const ml: Dict = {
     ctaBody:
       "നിങ്ങളുടെ പ്രായമോ കഴിവുകളോ എന്തുതന്നെയായാലും, ഞങ്ങളുടെ ഇടവക ജീവിതത്തിൽ നിങ്ങൾക്ക് ഒരിടമുണ്ട്. പങ്കാളിയാകാൻ ഇടവക ഓഫീസുമായോ ഏതെങ്കിലും അനിമേറ്ററുമായോ സംസാരിക്കുക.",
     getInvolved: "പങ്കാളിയാകുക",
+    projectsEyebrow: "പ്രവൃത്തിയിലെ വിശ്വാസം",
+    projectsTitle: "ആലഞ്ചേരി പള്ളിയുടെ വിവിധ കർമ്മ പദ്ധതികൾ",
+    projectsSubtitle:
+      "ദൈവ ജനത്തെ വിശ്വാസത്തിൽ ഉറപ്പിക്കുന്നതിനും കൂദാശകൾ സ്വീകരിക്കുന്നതിനും ആരാധനാ ശുശ്രൂഷകൾ അനുഷ്ഠിക്കുന്നതിനും രോഗികളെ സന്ദർശിക്കുന്നതിനും കൂട്ടായ്മകൾ നിലനിർത്തുന്നതിനും ഭവന നിർമ്മാണത്തിനും അർഹരായവരുടെ ചികിത്സയ്ക്കും വിദ്യാഭ്യാസത്തിനും കാർഷിക മേഖലയ്ക്ക് സമ്പത്തിക സഹായം നൽകുന്നതിനും ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് ഇടവക ആവിഷ്കരിച്ച് നടപ്പാക്കുന്ന വിവിധ കർമ്മ പദ്ധതികൾ.",
   },
   gallery: {
     heroEyebrow: "കൃപയുടെ നിമിഷങ്ങൾ",

@@ -82,6 +82,40 @@ export default async function EventsPage() {
         crumbs={[{ label: t.nav.events.label }]}
       />
 
+      {/* Parish news (past) */}
+      {past.length > 0 && (
+        <section className="section-y">
+          <div className="container-x">
+            <SectionHeading eyebrow={t.events.newsEyebrow} title={t.events.newsTitle} subtitle={t.events.newsSubtitle} />
+            <RevealGroup className="mt-14 grid gap-6 md:grid-cols-3">
+              {past.map((e) => (
+                <RevealItem key={e.slug}>
+                  <article className="card-hover group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card">
+                    <div className="relative aspect-[16/10] overflow-hidden">
+                      <Image
+                        src={image(e.image, { w: 700, q: 66 })}
+                        alt={e.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <Badge variant="gold" className="absolute left-4 top-4 bg-card/90 backdrop-blur">
+                        <Newspaper className="size-3.5" />
+                        {t.cats.events[e.category] ?? e.category}
+                      </Badge>
+                    </div>
+                    <div className="flex flex-1 flex-col p-6">
+                      <span className="text-xs text-muted-foreground">{formatDateRange(e.date, e.endDate, locale)}</span>
+                      <h3 className="mt-2 font-serif text-lg font-semibold leading-snug">{e.title}</h3>
+                      <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{e.excerpt}</p>
+                    </div>
+                  </article>
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </div>
+        </section>
+      )}
       {/* Upcoming (filterable) */}
       <section className="section-y">
         <div className="container-x">
@@ -146,40 +180,6 @@ export default async function EventsPage() {
         </section>
       )}
 
-      {/* Parish news (past) */}
-      {past.length > 0 && (
-        <section className="section-y">
-          <div className="container-x">
-            <SectionHeading eyebrow={t.events.newsEyebrow} title={t.events.newsTitle} subtitle={t.events.newsSubtitle} />
-            <RevealGroup className="mt-14 grid gap-6 md:grid-cols-3">
-              {past.map((e) => (
-                <RevealItem key={e.slug}>
-                  <article className="card-hover group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card">
-                    <div className="relative aspect-[16/10] overflow-hidden">
-                      <Image
-                        src={image(e.image, { w: 700, q: 66 })}
-                        alt={e.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <Badge variant="gold" className="absolute left-4 top-4 bg-card/90 backdrop-blur">
-                        <Newspaper className="size-3.5" />
-                        {t.cats.events[e.category] ?? e.category}
-                      </Badge>
-                    </div>
-                    <div className="flex flex-1 flex-col p-6">
-                      <span className="text-xs text-muted-foreground">{formatDateRange(e.date, e.endDate, locale)}</span>
-                      <h3 className="mt-2 font-serif text-lg font-semibold leading-snug">{e.title}</h3>
-                      <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{e.excerpt}</p>
-                    </div>
-                  </article>
-                </RevealItem>
-              ))}
-            </RevealGroup>
-          </div>
-        </section>
-      )}
     </>
   );
 }

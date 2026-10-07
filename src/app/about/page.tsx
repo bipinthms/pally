@@ -156,7 +156,7 @@ export default async function AboutPage() {
               {timeline.map((tl, i) => {
                 const left = i % 2 === 0;
                 return (
-                  <Reveal key={tl.year} delay={i * 0.05}>
+                  <Reveal key={i} delay={i * 0.05}>
                     <div
                       className={`relative flex flex-col gap-4 pl-12 md:flex-row md:items-center md:pl-0 ${
                         left ? "md:justify-start" : "md:justify-end"
@@ -166,6 +166,7 @@ export default async function AboutPage() {
                       <div className={`md:w-[46%] ${left ? "md:pr-8 md:text-right" : "md:pl-8 md:order-2"}`}>
                         <div className="rounded-2xl border border-cream/10 bg-white/5 p-6 backdrop-blur">
                           <span className="font-serif text-2xl font-bold text-gold-300">{tl.year}</span>
+                          {tl.date && <span className="ml-2 text-xs font-medium uppercase tracking-wider text-gold-300/70">{tl.date}</span>}
                           <h3 className="mt-1 font-serif text-lg font-semibold text-cream">{tl.title}</h3>
                           <p className="mt-2 text-sm leading-relaxed text-cream/70">{tl.body}</p>
                         </div>

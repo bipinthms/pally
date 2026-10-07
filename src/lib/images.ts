@@ -29,6 +29,8 @@ const FILES = {
   committee: "commitee_members.jpg",
   metropolitan: "dr-geevarghese-yulios-metropolitian.jpg",
   mathewsIII: "baselios-marthoma-mathews-III.jpg",
+  navathiInauguration: "navathi-inauguration.jpeg",
+  relicsStGregorios: "relics-st-gregorios.jpeg",
 } as const;
 
 /** GitHub Pages publishes this repository beneath /pally/. */
@@ -75,6 +77,8 @@ export const IMAGES = {
   // Community / events
   gathering: f("youthMen"),
   celebration: f("reception"),
+  navathiInauguration: f("navathiInauguration"),
+  relicsStGregorios: f("relicsStGregorios"),
 
   // Clergy
   priest1: f("vicar"),
