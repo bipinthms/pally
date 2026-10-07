@@ -17,7 +17,7 @@ import { Ornament } from "@/components/ornament";
 export const metadata: Metadata = {
   title: "Our Clergy",
   description:
-    "Meet the priests who shepherd St. Mary's Church, Alayamon — our Catholicos, diocesan Metropolitan, parish priest, managing committee, and the former vicars who have served our community.",
+    "Meet the priests who shepherd St. Mary's Church, Alencherry — our Catholicos, diocesan Metropolitan, parish priest, managing committee, and the former vicars who have served our community.",
 };
 
 // Some photos are optional — show a placeholder until they're added.
@@ -63,7 +63,7 @@ function ClergyFeature({ person, flip = false }: { person: Clergy; flip?: boolea
 export default async function ClergyPage() {
   const locale = await getLocale();
   const t = getDictionary(locale);
-  const { prelates, parishPriest, managingCommittee, committeeMembers, formerVicars } = getData(locale);
+  const { prelates, parishPriest, managingCommittee, committeeMembers, auditors, sacristans, formerVicars } = getData(locale);
 
   return (
     <>
@@ -113,23 +113,44 @@ export default async function ClergyPage() {
       <section className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.clergy.managingEyebrow} title={t.clergy.managingTitle} subtitle={t.clergy.managingSubtitle} />
-          <RevealGroup className="mx-auto mt-14 grid max-w-4xl gap-4 sm:grid-cols-3">
+          <RevealGroup className="mx-auto mt-14 grid max-w-2xl gap-4 sm:grid-cols-2">
             {managingCommittee.map((m, i) => (
               <RevealItem key={`${m.role}-${i}`}>
-                <div className="card-hover flex h-full flex-col items-center rounded-2xl border border-border bg-card p-6 text-center">
-                  <span className="flex size-14 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <UserRound className="size-6" />
-                  </span>
-                  <p className="mt-4 font-serif text-lg font-semibold leading-snug">{m.name}</p>
-                  <p className="mt-1 text-sm text-gold-600 dark:text-gold-400">{m.role}</p>
-                </div>
+                {m.photo && hasPhoto(m.photo) ? (
+                  <div className="card-hover relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-card text-center">
+                    <Image
+                      src={assetPath(`/images/${m.photo}`)}
+                      alt={m.name}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 18rem"
+                      className="object-cover object-top"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-4 pb-5 pt-16">
+                      <p className="font-serif text-lg font-semibold leading-snug text-white">{m.name}</p>
+                      <p className="mt-1 text-sm text-gold-300">{m.role}</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="card-hover flex aspect-[4/5] flex-col items-center justify-center rounded-2xl border border-border bg-card p-6 text-center">
+                    <span className="flex size-14 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <UserRound className="size-6" />
+                    </span>
+                    <p className="mt-4 font-serif text-lg font-semibold leading-snug">{m.name}</p>
+                    <p className="mt-1 text-sm text-gold-600 dark:text-gold-400">{m.role}</p>
+                  </div>
+                )}
               </RevealItem>
             ))}
           </RevealGroup>
+        </div>
+      </section>
 
-          <Reveal className="mx-auto mt-12 max-w-4xl">
-            <h3 className="text-center font-serif text-2xl font-semibold">{t.clergy.membersTitle}</h3>
-            <div className="relative mt-6 aspect-[16/9] overflow-hidden rounded-[2rem] border border-border bg-card shadow-[var(--shadow-soft)] ring-1 ring-gold-500/20">
+      {/* Committee members */}
+      <section className="section-y bg-secondary/40">
+        <div className="container-x">
+          <SectionHeading eyebrow={t.clergy.membersEyebrow} title={t.clergy.membersTitle} subtitle={t.clergy.membersSubtitle} />
+          <Reveal className="mx-auto mt-14 max-w-4xl">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] border border-border bg-card shadow-[var(--shadow-soft)] ring-1 ring-gold-500/20">
               {hasCommitteePhoto ? (
                 <Image
                   src={image("committeeMembers")}
@@ -146,7 +167,7 @@ export default async function ClergyPage() {
             </div>
           </Reveal>
 
-          <RevealGroup className="mx-auto mt-10 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-5">
+          <RevealGroup className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
             {committeeMembers.map((m) => (
               <RevealItem key={m.photo}>
                 <div className="card-hover h-full overflow-hidden rounded-2xl border border-border bg-card text-center">
@@ -156,7 +177,72 @@ export default async function ClergyPage() {
                         src={assetPath(`/images/${m.photo}`)}
                         alt={m.name}
                         fill
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 12rem"
+                        sizes="(max-width: 640px) 50vw, 14rem"
+                        className="object-cover object-top"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-primary/40">
+                        <UserRound className="size-10" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="px-3 py-3">
+                    <p className="font-serif text-base font-semibold leading-snug">{m.name}</p>
+                    {m.role && <p className="mt-0.5 text-xs text-gold-600 dark:text-gold-400">{m.role}</p>}
+                  </div>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </section>
+
+      {/* Auditors */}
+      <section className="section-y">
+        <div className="container-x">
+          <SectionHeading eyebrow={t.clergy.auditorsEyebrow} title={t.clergy.auditorsTitle} subtitle={t.clergy.auditorsSubtitle} />
+          <RevealGroup className="mx-auto mt-14 grid max-w-md grid-cols-2 gap-4">
+            {auditors.map((m) => (
+              <RevealItem key={m.photo}>
+                <div className="card-hover h-full overflow-hidden rounded-2xl border border-border bg-card text-center">
+                  <div className="relative aspect-square bg-secondary/40">
+                    {hasPhoto(m.photo) ? (
+                      <Image
+                        src={assetPath(`/images/${m.photo}`)}
+                        alt={m.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, 14rem"
+                        className="object-cover object-top"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-primary/40">
+                        <UserRound className="size-10" />
+                      </div>
+                    )}
+                  </div>
+                  <p className="px-3 py-3 font-serif text-base font-semibold leading-snug">{m.name}</p>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </section>
+
+      {/* Sacristan */}
+      <section className="section-y bg-secondary/40">
+        <div className="container-x">
+          <SectionHeading eyebrow={t.clergy.sacristanEyebrow} title={t.clergy.sacristanTitle} subtitle={t.clergy.sacristanSubtitle} />
+          <RevealGroup className="mx-auto mt-14 grid max-w-[14rem] gap-4">
+            {sacristans.map((m) => (
+              <RevealItem key={m.photo}>
+                <div className="card-hover h-full overflow-hidden rounded-2xl border border-border bg-card text-center">
+                  <div className="relative aspect-square bg-secondary/40">
+                    {hasPhoto(m.photo) ? (
+                      <Image
+                        src={assetPath(`/images/${m.photo}`)}
+                        alt={m.name}
+                        fill
+                        sizes="14rem"
                         className="object-cover object-top"
                       />
                     ) : (
@@ -174,19 +260,23 @@ export default async function ClergyPage() {
       </section>
 
       {/* Former vicars */}
-      <section className="section-y bg-secondary/40">
+      <section className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.clergy.formerEyebrow} title={t.clergy.formerTitle} subtitle={t.clergy.formerSubtitle} />
           <RevealGroup className="mx-auto mt-14 grid max-w-4xl gap-4 sm:grid-cols-2">
             {formerVicars.map((v) => (
-              <RevealItem key={v.name}>
+              <RevealItem key={`${v.name}-${v.years}`}>
                 <div className="card-hover flex items-center gap-4 rounded-2xl border border-border bg-card p-5">
                   <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <History className="size-5" />
                   </span>
                   <div>
                     <p className="font-serif text-lg font-semibold leading-snug">{v.name}</p>
-                    <p className="text-sm text-muted-foreground">{v.years}</p>
+                    {v.note && <p className="text-sm italic text-muted-foreground">({v.note})</p>}
+                    <p className="text-sm text-muted-foreground">
+                      {v.role ? `${v.role} · ` : ""}
+                      {v.years}
+                    </p>
                   </div>
                 </div>
               </RevealItem>

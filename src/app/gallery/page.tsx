@@ -8,7 +8,7 @@ import { GalleryClient } from "@/components/gallery/gallery-client";
 export const metadata: Metadata = {
   title: "Gallery",
   description:
-    "A gallery of worship, feasts and fellowship at St. Mary's Church, Alayamon — browse photographs by category and watch highlights from parish celebrations.",
+    "A gallery of worship, feasts and fellowship at St. Mary's Church, Alencherry — browse photographs by category and watch highlights from parish celebrations.",
 };
 
 export default async function GalleryPage() {

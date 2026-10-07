@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   keywords: [
     "St. Mary's Orthodox Syrian Church",
     "Malankara Orthodox Church",
-    "Orthodox Church Alayamon",
+    "Orthodox Church Alencherry",
     "Anchal Kollam parish",
     "Thiruvananthapuram Diocese",
     "Holy Qurbana timings",
@@ -98,7 +98,7 @@ const orgJsonLd = {
   image: `${site.url}${image("churchDusk")}`,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Alenchery Onthupacha Road, Alayamon, Anchal",
+    streetAddress: "Alenchery Onthupacha Road, Alencherry, Anchal",
     addressLocality: "Anchal",
     addressRegion: "Kerala",
     postalCode: "691306",

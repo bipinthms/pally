@@ -14,7 +14,7 @@ import { FacebookIcon, InstagramIcon, YoutubeIcon } from "@/components/social-ic
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with St. Mary's Church, Alayamon — parish office address, phone, email, office timings and directions. We would love to hear from you.",
+    "Get in touch with St. Mary's Church, Alencherry — parish office address, phone, email, office timings and directions. We would love to hear from you.",
 };
 
 const socials = [
@@ -141,7 +141,7 @@ export default async function ContactPage() {
                 </Button>
               </div>
               <iframe
-                title="Map to St. Mary's Orthodox Church, Alayamon"
+                title="Map to St. Mary's Orthodox Church, Alencherry"
                 src={site.contact.mapEmbed}
                 className="h-[420px] w-full border-0 grayscale-[0.2]"
                 loading="lazy"

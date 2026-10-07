@@ -307,7 +307,7 @@ const prelatesRaw = [
 
 const parishPriestRaw = {
   name: B("Rev. Fr. Varghese T Varghese", "റവ. ഫാ. വർഗീസ് ടി വർഗീസ്"),
-  role: B("Parish Priest (Vicar)", "ഇടവക വികാരി"),
+  role: B("Vicar", "ഇടവക വികാരി"),
   image: "priest1" as ImageKey,
   since: B("", ""),
   bio: B(
@@ -335,44 +335,68 @@ const assistantPriestRaw = {
   ),
 };
 
-// TODO: replace placeholder names with the current committee members
 const managingCommitteeRaw = [
-  { name: B("Trustee Name", "ട്രസ്റ്റിയുടെ പേര്"), role: B("Trustee", "ട്രസ്റ്റി") },
-  { name: B("Secretary Name", "സെക്രട്ടറിയുടെ പേര്"), role: B("Secretary", "സെക്രട്ടറി") },
-  { name: B("Convener Name", "കൺവീനറുടെ പേര്"), role: B("Perunnal Convener", "പെരുന്നാൾ കൺവീനർ") },
+  { name: B("P. J. Philip Aruvickal", "പി. ജെ. ഫിലിപ്പ് അരുവിക്കൽ"), role: B("Trustee", "ട്രസ്റ്റി"), photo: "committee/p-j-philip-aruvickal.jpeg" },
+  { name: B("Joseph K. V.", "ജോസഫ് കെ. വി."), role: B("Secretary", "സെക്രട്ടറി"), photo: "committee/joseph-k-v.jpeg" },
 ];
 
-// TODO: replace placeholder names; photos go in public/images/committee/
+// Photos go in public/images/committee/members/
 const committeeMembersRaw = [
-  { name: B("Member 1", "അംഗം 1"), photo: "committee/member-01.jpg" },
-  { name: B("Member 2", "അംഗം 2"), photo: "committee/member-02.jpg" },
-  { name: B("Member 3", "അംഗം 3"), photo: "committee/member-03.jpg" },
-  { name: B("Member 4", "അംഗം 4"), photo: "committee/member-04.jpg" },
-  { name: B("Member 5", "അംഗം 5"), photo: "committee/member-05.jpg" },
-  { name: B("Member 6", "അംഗം 6"), photo: "committee/member-06.jpg" },
-  { name: B("Member 7", "അംഗം 7"), photo: "committee/member-07.jpg" },
-  { name: B("Member 8", "അംഗം 8"), photo: "committee/member-08.jpg" },
-  { name: B("Member 9", "അംഗം 9"), photo: "committee/member-09.jpg" },
-  { name: B("Member 10", "അംഗം 10"), photo: "committee/member-10.jpg" },
-  { name: B("Member 11", "അംഗം 11"), photo: "committee/member-11.jpg" },
-  { name: B("Member 12", "അംഗം 12"), photo: "committee/member-12.jpg" },
-  { name: B("Member 13", "അംഗം 13"), photo: "committee/member-13.jpg" },
-  { name: B("Member 14", "അംഗം 14"), photo: "committee/member-14.jpg" },
-  { name: B("Member 15", "അംഗം 15"), photo: "committee/member-15.jpg" },
-  { name: B("Member 16", "അംഗം 16"), photo: "committee/member-16.jpg" },
-  { name: B("Member 17", "അംഗം 17"), photo: "committee/member-17.jpg" },
-  { name: B("Member 18", "അംഗം 18"), photo: "committee/member-18.jpg" },
-  { name: B("Member 19", "അംഗം 19"), photo: "committee/member-19.jpg" },
-  { name: B("Member 20", "അംഗം 20"), photo: "committee/member-20.jpg" },
+  { name: B("Johnykutty Y.", "ജോണിക്കുട്ടി വൈ."), role: B("Perunnal Convener", "പെരുന്നാൾ കൺവീനർ"), photo: "committee/members/johnykutty-y.jpeg" },
+  { name: B("Jiss V. George", "ജിസ് വി. ജോർജ്"), role: B("Ex Officio", "എക്സ് ഒഫീഷ്യോ"), photo: "committee/members/jiss-v-george.jpeg" },
+  { name: B("Johnkutty C. K.", "ജോൺകുട്ടി സി. കെ."), photo: "committee/members/johnkutty-c-k.jpeg" },
+  { name: B("Johny Yohannan", "ജോണി യോഹന്നാൻ"), photo: "committee/members/johny-yohannan.jpeg" },
+  { name: B("Varghese Kurian", "വർഗീസ് കുര്യൻ"), photo: "committee/members/varghese-kurian.jpeg" },
+  { name: B("Jose K. C.", "ജോസ് കെ. സി."), photo: "committee/members/jose-k-c.jpeg" },
+  { name: B("Kuruvila Kurian", "കുരുവിള കുര്യൻ"), photo: "committee/members/kuruvila-kurian.jpeg" },
+  { name: B("Anil J. Varghese", "അനിൽ ജെ. വർഗീസ്"), photo: "committee/members/anil-j-varghese.jpg" },
+  { name: B("Subodh George", "സുബോധ് ജോർജ്"), photo: "committee/members/subodh-george.jpeg" },
+  { name: B("Shiju Pappachan", "ഷിജു പാപ്പച്ചൻ"), photo: "committee/members/shiju-pappachan.jpeg" },
+  { name: B("Johnson B.", "ജോൺസൺ ബി."), photo: "committee/members/johnson-b.jpeg" },
+  { name: B("Smitha Wilson", "സ്മിത വിൽസൺ"), photo: "committee/members/smitha-wilson.jpeg" },
 ];
 
-const formerVicarsRaw = [
-  { name: B("Rev. Fr. Mathew Chackalackal", "റവ. ഫാ. മാത്യു ചക്കാലക്കൽ"), years: "2015 – 2021" },
-  { name: B("Rev. Fr. Antony Puthussery", "റവ. ഫാ. അന്തോണി പുത്തൻശ്ശേരി"), years: "2009 – 2015" },
-  { name: B("Rev. Fr. George Palackal", "റവ. ഫാ. ജോർജ് പാലയ്ക്കൽ"), years: "2002 – 2009" },
-  { name: B("Rev. Fr. Sebastian Manackal", "റവ. ഫാ. സെബാസ്റ്റ്യൻ മണക്കൽ"), years: "1995 – 2002" },
-  { name: B("Rev. Fr. Jacob Vadakkumchery", "റവ. ഫാ. ജേക്കബ് വടക്കുംചേരി"), years: "1988 – 1995" },
-  { name: B("Rev. Fr. Cyriac Elavunkal", "റവ. ഫാ. സിറിയക് ഇളവുങ്കൽ"), years: "1979 – 1988" },
+// Photos go in public/images/committee/auditors/
+const auditorsRaw = [
+  { name: B("Job Joy", "ജോബ് ജോയ്"), photo: "committee/auditors/job-joy.jpeg" },
+  { name: B("Jincy Prince", "ജിൻസി പ്രിൻസ്"), photo: "committee/auditors/jincy-prince.jpeg" },
+];
+
+// Photos go in public/images/committee/sacristan/
+const sacristansRaw = [
+  { name: B("Roy B.", "റോയ് ബി."), photo: "committee/sacristan/roy-b.jpeg" },
+];
+
+// Chronological, as recorded in the parish history. Roles left blank where the record gives none.
+const formerVicarsRaw: { name: Bi; role?: Bi; years: string; note?: Bi }[] = [
+  { name: B("Rev. Fr. Koshy Kathanar Mayilazhikathu", "റവ. ഫാ. കോശി കത്തനാർ മയിലാഴിക്കത്ത്"), years: "1937 – 1938" },
+  { name: B("Rev. Fr. K. Gheevarghese Changarampalli", "റവ. ഫാ. കെ. ഗീവർഗീസ് ചങ്ങരംപള്ളി"), years: "1938 – 1973" },
+  { name: B("Rev. Fr. Njanasikhamani Sasthri", "റവ. ഫാ. ജ്ഞാനശിഖാമണി ശാസ്ത്രി"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1963 – 1970" },
+  { name: B("Rev. Fr. Alex Kurambil", "റവ. ഫാ. അലക്സ് കുറമ്പിൽ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1970 – 1971" },
+  { name: B("Rev. Fr. C. Kurian", "റവ. ഫാ. സി. കുര്യൻ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1971 – 1972" },
+  { name: B("Rev. Fr. P. V. Samuel", "റവ. ഫാ. പി. വി. ശമുവേൽ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1972 – 1973" },
+  { name: B("Rev. Fr. P. V. Samuel", "റവ. ഫാ. പി. വി. ശമുവേൽ"), role: B("Vicar", "വികാരി"), years: "1973 – 1975" },
+  { name: B("Rev. Fr. W. A. Cheriyan", "റവ. ഫാ. ഡബ്ല്യു. എ. ചെറിയാൻ"), role: B("Vicar", "വികാരി"), years: "1975 – 1976", note: B("H.G. Zachariah Mar Anthonios Metropolitan", "അഭി. സഖറിയാ മാർ അന്തോണിയോസ് മെത്രാപ്പോലീത്ത") },
+  { name: B("Rev. Fr. P. M. Koshy", "റവ. ഫാ. പി. എം. കോശി"), role: B("Vicar", "വികാരി"), years: "1976 – 1977" },
+  { name: B("Rev. Fr. P. G. Kurian", "റവ. ഫാ. പി. ജി. കുര്യൻ"), role: B("Vicar", "വികാരി"), years: "1977 – 1979" },
+  { name: B("Rev. Fr. P. C. John", "റവ. ഫാ. പി. സി. ജോൺ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1977 – 1979" },
+  { name: B("Rev. Fr. K. P. Philip", "റവ. ഫാ. കെ. പി. ഫിലിപ്പ്"), role: B("Vicar", "വികാരി"), years: "1979 – 1981" },
+  { name: B("Rev. Fr. Zacharia Abraham", "റവ. ഫാ. സഖറിയ ഏബ്രഹാം"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1979 – 1981" },
+  { name: B("Rev. Fr. Thomas T. Varghese", "റവ. ഫാ. തോമസ് ടി. വർഗീസ്"), role: B("Vicar", "വികാരി"), years: "1981 – 1988" },
+  { name: B("Rev. Fr. Yohannan Panicker", "റവ. ഫാ. യോഹന്നാൻ പണിക്കർ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1981 – 1988" },
+  { name: B("Rev. Fr. K. K. Thomas", "റവ. ഫാ. കെ. കെ. തോമസ്"), role: B("Vicar", "വികാരി"), years: "1988 – 1992" },
+  { name: B("Rev. Fr. C. Koshy", "റവ. ഫാ. സി. കോശി"), role: B("Vicar", "വികാരി"), years: "1992 – 1994" },
+  { name: B("Rev. Fr. Joseph Samuel Karukayil", "റവ. ഫാ. ജോസഫ് ശമുവേൽ കറുകയിൽ"), role: B("Vicar", "വികാരി"), years: "1994 – 1997" },
+  { name: B("Rev. Fr. C. D. Rajan", "റവ. ഫാ. സി. ഡി. രാജൻ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1994 – 1997" },
+  { name: B("Rev. Fr. Anil John", "റവ. ഫാ. അനിൽ ജോൺ"), role: B("Vicar", "വികാരി"), years: "1997 – 2000" },
+  { name: B("Rev. Fr. Johnson Mulamuttil", "റവ. ഫാ. ജോൺസൺ മുളമൂട്ടിൽ"), role: B("Vicar", "വികാരി"), years: "2000 – 2003" },
+  { name: B("Rev. Fr. Mathew Abraham", "റവ. ഫാ. മാത്യു ഏബ്രഹാം"), role: B("Vicar", "വികാരി"), years: "2003 – 2005" },
+  { name: B("Rev. Fr. John Philip", "റവ. ഫാ. ജോൺ ഫിലിപ്പ്"), role: B("Vicar", "വികാരി"), years: "2005 – 2009" },
+  { name: B("Rev. Fr. John Daniel", "റവ. ഫാ. ജോൺ ഡാനിയേൽ"), role: B("Vicar", "വികാരി"), years: "2009" },
+  { name: B("Rev. Fr. Jacob Panicker", "റവ. ഫാ. ജേക്കബ് പണിക്കർ"), role: B("Vicar", "വികാരി"), years: "2009 – 2012" },
+  { name: B("Rev. Fr. Sam Kanjickal", "റവ. ഫാ. സാം കാഞ്ഞിക്കൽ"), role: B("Vicar", "വികാരി"), years: "2012 – 2015" },
+  { name: B("Rev. Fr. Mathew Thomas", "റവ. ഫാ. മാത്യു തോമസ്"), role: B("Vicar", "വികാരി"), years: "2015 – 2018" },
+  { name: B("Rev. Fr. Varghese Abraham", "റവ. ഫാ. വർഗീസ് ഏബ്രഹാം"), years: "2018 –" },
 ];
 
 const organizationsRaw: {
@@ -592,7 +616,7 @@ const missionVisionRaw = {
 };
 
 const timelineRaw = [
-  { year: "1937", title: B("A community is born", "ഒരു കൂട്ടായ്മ പിറക്കുന്നു"), body: B("The faithful of Alayamon gather to build a place of worship, laying the first foundations of the parish.", "അലയമണിലെ വിശ്വാസികൾ ഒരു ആരാധനാലയം പണിയാൻ ഒരുമിക്കുന്നു, ഇടവകയുടെ ആദ്യ അടിത്തറ പാകുന്നു.") },
+  { year: "1937", title: B("A community is born", "ഒരു കൂട്ടായ്മ പിറക്കുന്നു"), body: B("The faithful of Alencherry gather to build a place of worship, laying the first foundations of the parish.", "ആലഞ്ചേരിയിലെ വിശ്വാസികൾ ഒരു ആരാധനാലയം പണിയാൻ ഒരുമിക്കുന്നു, ഇടവകയുടെ ആദ്യ അടിത്തറ പാകുന്നു.") },
   { year: "1921", title: B("The first church rises", "ആദ്യ പള്ളി ഉയരുന്നു"), body: B("The original church is consecrated, its laterite walls and tiled roof echoing the Kerala Christian style.", "കേരള ക്രിസ്തീയ ശൈലിയിലുള്ള വെട്ടുകല്ലു ചുവരുകളും ഓടുമേഞ്ഞ മേൽക്കൂരയുമുള്ള ആദ്യ പള്ളി വെഞ്ചരിക്കപ്പെടുന്നു.") },
   { year: "1956", title: B("Establishment as a parish", "ഇടവകയായി സ്ഥാപനം"), body: B("The community is established as a full parish, with its own resident vicar and registers.", "സ്വന്തം വികാരിയോടും രേഖകളോടും കൂടെ കൂട്ടായ്മ ഒരു പൂർണ്ണ ഇടവകയായി ഔപചാരികമായി സ്ഥാപിക്കപ്പെടുന്നു.") },
   { year: "1972", title: B("A school for the young", "കുട്ടികൾക്കായി ഒരു വിദ്യാലയം"), body: B("The parish opens a school, extending its mission of faith and education to the whole village.", "ഇടവക ഒരു വിദ്യാലയം തുറന്ന്, വിശ്വാസത്തിന്റെയും വിദ്യാഭ്യാസത്തിന്റെയും ദൗത്യം ഗ്രാമം മുഴുവൻ വ്യാപിപ്പിക്കുന്നു.") },
@@ -619,7 +643,7 @@ const givingRaw = {
   ),
   upiId: "stmarysalayamon@sbi",
   bank: {
-    accountName: "St. Mary's Orthodox Church, Alayamon",
+    accountName: "St. Mary's Orthodox Church, Alencherry",
     accountNumber: "0000 0000 0000",
     bank: "State Bank of India",
     branch: "Anchal, Kollam",
@@ -659,9 +683,11 @@ export type ParishData = {
   prelates: { name: string; title: string; image: ImageKey; file: string }[];
   parishPriest: Clergy;
   assistantPriest: Clergy;
-  managingCommittee: { name: string; role: string }[];
-  committeeMembers: { name: string; photo: string }[];
-  formerVicars: { name: string; years: string }[];
+  managingCommittee: { name: string; role: string; photo?: string }[];
+  committeeMembers: { name: string; photo: string; role?: string }[];
+  auditors: { name: string; photo: string }[];
+  sacristans: { name: string; photo: string }[];
+  formerVicars: { name: string; role?: string; years: string; note?: string }[];
   organizations: Organization[];
   gallery: GalleryItem[];
   videos: ParishVideo[];
@@ -713,9 +739,13 @@ export function getData(locale: Locale): ParishData {
       name: L(assistantPriestRaw.name), role: L(assistantPriestRaw.role), image: assistantPriestRaw.image,
       since: L(assistantPriestRaw.since), bio: L(assistantPriestRaw.bio), quote: L(assistantPriestRaw.quote),
     },
-    managingCommittee: managingCommitteeRaw.map((m) => ({ name: L(m.name), role: L(m.role) })),
-    committeeMembers: committeeMembersRaw.map((m) => ({ name: L(m.name), photo: m.photo })),
-    formerVicars: formerVicarsRaw.map((v) => ({ name: L(v.name), years: v.years })),
+    managingCommittee: managingCommitteeRaw.map((m) => ({ name: L(m.name), role: L(m.role), photo: "photo" in m ? m.photo : undefined })),
+    committeeMembers: committeeMembersRaw.map((m) => ({ name: L(m.name), photo: m.photo, role: m.role ? L(m.role) : undefined })),
+    auditors: auditorsRaw.map((m) => ({ name: L(m.name), photo: m.photo })),
+    sacristans: sacristansRaw.map((m) => ({ name: L(m.name), photo: m.photo })),
+    formerVicars: formerVicarsRaw.map((v) => ({
+      name: L(v.name), role: v.role ? L(v.role) : undefined, years: v.years, note: v.note ? L(v.note) : undefined,
+    })),
     organizations: organizationsRaw.map((o) => ({
       slug: o.slug, name: o.name, malayalam: o.malayalam ? L(o.malayalam) : undefined,
       short: L(o.short), description: L(o.description), meeting: L(o.meeting),

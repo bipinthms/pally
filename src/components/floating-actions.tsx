@@ -24,7 +24,7 @@ export function FloatingActions() {
   }, []);
 
   const waHref = `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(
-    "Hello, I would like to know more about St. Mary's Orthodox Syrian Church, Alayamon.",
+    "Hello, I would like to know more about St. Mary's Orthodox Syrian Church, Alencherry.",
   )}`;
 
   return (
