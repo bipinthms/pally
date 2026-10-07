@@ -29,7 +29,7 @@ export function Hero() {
 
   const chips = [
     { icon: CalendarClock, label: t.home.sundayMass, value: "7:00 - 10:00 AM" },
-    { icon: MapPin, label: t.common.location, value: "Alayamon, Anchal" },
+    { icon: MapPin, label: t.common.location, value: "Alencherry, Anchal" },
   ];
 
   return (
@@ -38,7 +38,7 @@ export function Hero() {
       <div className="absolute inset-0 -z-10">
         <Image
           src={image("heroInterior", { w: 2000, q: 70 })}
-          alt="The interior of St. Mary's Orthodox Syrian Church, Alayamon"
+          alt="The interior of St. Mary's Orthodox Syrian Church, Alencherry"
           fill
           priority
           sizes="100vw"

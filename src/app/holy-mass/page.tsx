@@ -14,7 +14,7 @@ import { Card } from "@/components/ui/card";
 export const metadata: Metadata = {
   title: "Holy Qurbana Timings",
   description:
-    "Sunday and weekday Holy Qurbana timings, confession, prayer and special feast schedules at St. Mary's Orthodox Syrian Church, Alayamon.",
+    "Sunday and weekday Holy Qurbana timings, confession, prayer and special feast schedules at St. Mary's Orthodox Syrian Church, Alencherry.",
 };
 
 function MassTable({

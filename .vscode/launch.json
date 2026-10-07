@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js: dev (LAN)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev -- --hostname 0.0.0.0 --port 3000",
+      "cwd": "${workspaceFolder}",
+      "serverReadyAction": {
+        "pattern": "- Local:.+(https?://\\S+)",
+        "uriFormat": "%s/pally",
+        "action": "openExternally"
+      }
+    },
+    {
+      "name": "Next.js: debug client (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000/pally",
+      "webRoot": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Next.js: dev (LAN) + Chrome",
+      "configurations": ["Next.js: dev (LAN)", "Next.js: debug client (Chrome)"],
+      "stopAll": true
+    }
+  ]
+}

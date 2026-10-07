@@ -60,7 +60,7 @@ export function Wordmark({
       <span className="relative flex size-11 shrink-0 overflow-hidden rounded-full shadow-sm ring-1 ring-gold-500/30">
         <Image
           src={assetPath("/images/logo.jpg")}
-          alt="St. Mary's Orthodox Syrian Church, Alayamon"
+          alt="St. Mary's Orthodox Syrian Church, Alencherry"
           fill
           sizes="44px"
           className="object-cover"
@@ -75,7 +75,7 @@ export function Wordmark({
             data-wordmark-sub
             className="mt-0.5 text-[0.62rem] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400"
           >
-            Orthodox Syrian · Alayamon
+            Orthodox Syrian · Alencherry
           </span>
         )}
       </span>

@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   reactStrictMode: true,
   // Let other devices on the LAN load dev-server assets (next dev only).
-  allowedDevOrigins: ["192.168.1.48"],
+  allowedDevOrigins: ["192.168.1.*"],
   images: {
     // Static exports have no Next.js image optimisation server.
     unoptimized: true,

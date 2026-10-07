@@ -47,7 +47,7 @@ const en = {
     welcomeTitleA: "A community gathered in",
     welcomeTitleB: "faith & love",
     welcomeP1:
-      "Nestled in Alayamon near Anchal, St. Mary's has been a sanctuary of prayer and belonging for generations. Rooted in the ancient tradition of the St. Thomas Christians, we worship God in the beauty of the Malankara Orthodox Holy Qurbana.",
+      "Nestled in Alencherry near Anchal, St. Mary's has been a sanctuary of prayer and belonging for generations. Rooted in the ancient tradition of the St. Thomas Christians, we worship God in the beauty of the Malankara Orthodox Holy Qurbana.",
     welcomeP2:
       "Whether you are a lifelong parishioner or a first-time visitor, you will find here a warm family of faith — one that prays together, celebrates together, and serves the least among us with the compassion of Christ.",
     statEstablished: "Established",
@@ -111,7 +111,7 @@ const en = {
     introP1:
       "The Malankara Orthodox Syrian Church traces its origins to the Apostle Thomas, who is believed to have brought the Gospel to the shores of Kerala in the year 52 AD. For nearly two thousand years, the St. Thomas Christians have kept the faith alive with a liturgy and heritage of rare beauty.",
     introP2:
-      "St. Mary's, Alayamon is a proud inheritor of this tradition. From a small gathering of the faithful, our parish has grown into a vibrant family — yet the heart of our life remains unchanged: the Holy Qurbana, celebrated with reverence, gathering us around the altar of the Lord.",
+      "St. Mary's, Alencherry is a proud inheritor of this tradition. From a small gathering of the faithful, our parish has grown into a vibrant family — yet the heart of our life remains unchanged: the Holy Qurbana, celebrated with reverence, gathering us around the altar of the Lord.",
     yearEstablished: "Year Established",
     mvEyebrow: "What guides us",
     mvTitle: "Mission & Vision",
@@ -122,7 +122,7 @@ const en = {
     feastProgramme: "Parish Feast Programme",
     timelineEyebrow: "Through the years",
     timelineTitle: "Our Journey",
-    timelineSubtitle: "Milestones in the story of God's providence at St. Mary's, Alayamon.",
+    timelineSubtitle: "Milestones in the story of God's providence at St. Mary's, Alencherry.",
   },
   mass: {
     heroEyebrow: "Join us in worship",
@@ -156,7 +156,15 @@ const en = {
     managingTitle: "Managing Committee",
     managingSubtitle:
       "Together with the Vicar, our elected committee cares for the administration and temporal life of the parish.",
+    membersEyebrow: "Serving together",
     membersTitle: "Committee Members",
+    membersSubtitle: "Our committee members work alongside the Vicar, Trustee and Secretary in caring for the worship, upkeep and fellowship of the parish.",
+    auditorsEyebrow: "Accountability",
+    auditorsTitle: "Auditors",
+    auditorsSubtitle: "Our auditors review the parish accounts each year, keeping our stewardship transparent and faithful.",
+    sacristanEyebrow: "Caring for the sanctuary",
+    sacristanTitle: "Sacristan",
+    sacristanSubtitle: "Our sacristan prepares the madbaha and sacred vessels for every service and keeps the church ready for worship.",
   },
   orgs: {
     heroEyebrow: "Serve & belong",
@@ -171,6 +179,10 @@ const en = {
     ctaBody:
       "Whatever your age or gifts, there is a place for you in the life of our parish. Speak to the parish office or any animator to get involved.",
     getInvolved: "Get Involved",
+    projectsEyebrow: "Faith in action",
+    projectsTitle: "Parish Mission Projects",
+    projectsSubtitle:
+      "To root God's people in faith, the sacraments and worship — and to visit the sick, keep fellowship alive, and help with housing, medical care, education and farming — St. Mary's Orthodox Parish, Alencherry has shaped and carries out these mission projects.",
   },
   gallery: {
     heroEyebrow: "Moments of grace",
@@ -388,7 +400,7 @@ const ml: Dict = {
     welcomeTitleA: "ഒരുമിച്ചു ചേർന്ന ഒരു കൂട്ടായ്മ",
     welcomeTitleB: "വിശ്വാസത്തിലും സ്നേഹത്തിലും",
     welcomeP1:
-      "അഞ്ചലിനടുത്ത് അലയമണിൽ സ്ഥിതി ചെയ്യുന്ന വിശുദ്ധ മറിയം പള്ളി തലമുറകളായി പ്രാർത്ഥനയുടെയും കൂട്ടായ്മയുടെയും ഇടമായിരുന്നു. മാർത്തോമ്മാ ക്രിസ്ത്യാനികളുടെ പുരാതന പാരമ്പര്യത്തിൽ വേരൂന്നിയ ഞങ്ങൾ മലങ്കര ഓർത്തഡോക്സ് വിശുദ്ധ കുർബ്ബാനയുടെ സൗന്ദര്യത്തിൽ ദൈവത്തെ ആരാധിക്കുന്നു.",
+      "അഞ്ചലിനടുത്ത് ആലഞ്ചേരിയിൽ സ്ഥിതി ചെയ്യുന്ന വിശുദ്ധ മറിയം പള്ളി തലമുറകളായി പ്രാർത്ഥനയുടെയും കൂട്ടായ്മയുടെയും ഇടമായിരുന്നു. മാർത്തോമ്മാ ക്രിസ്ത്യാനികളുടെ പുരാതന പാരമ്പര്യത്തിൽ വേരൂന്നിയ ഞങ്ങൾ മലങ്കര ഓർത്തഡോക്സ് വിശുദ്ധ കുർബ്ബാനയുടെ സൗന്ദര്യത്തിൽ ദൈവത്തെ ആരാധിക്കുന്നു.",
     welcomeP2:
       "ജീവിതകാലം മുഴുവൻ ഇവിടെയുള്ള ഇടവകാംഗമായാലും ആദ്യമായി വരുന്ന സന്ദർശകനായാലും, ഒരുമിച്ചു പ്രാർത്ഥിക്കുകയും ആഘോഷിക്കുകയും ക്രിസ്തുവിന്റെ കാരുണ്യത്തോടെ ഏറ്റവും ചെറിയവരെ ശുശ്രൂഷിക്കുകയും ചെയ്യുന്ന ഊഷ്മളമായ ഒരു വിശ്വാസകുടുംബം ഇവിടെ നിങ്ങൾ കണ്ടെത്തും.",
     statEstablished: "സ്ഥാപിതം",
@@ -452,7 +464,7 @@ const ml: Dict = {
     introP1:
       "എ.ഡി. 52-ൽ കേരളതീരത്ത് സുവിശേഷം എത്തിച്ചു എന്നു വിശ്വസിക്കപ്പെടുന്ന തോമാശ്ലീഹായിലാണ് മലങ്കര ഓർത്തഡോക്സ് സുറിയാനി സഭയുടെ ഉത്ഭവം. ഏകദേശം രണ്ടായിരം വർഷമായി മാർത്തോമ്മാ ക്രിസ്ത്യാനികൾ അപൂർവ്വ സൗന്ദര്യമുള്ള ആരാധനക്രമവും പൈതൃകവുമായി വിശ്വാസം കാത്തുസൂക്ഷിക്കുന്നു.",
     introP2:
-      "ഈ പാരമ്പര്യത്തിന്റെ അഭിമാനകരമായ അവകാശിയാണ് അലയമണിലെ വിശുദ്ധ മറിയം പള്ളി. ചെറിയ വിശ്വാസി കൂട്ടത്തിൽ നിന്ന് ഞങ്ങളുടെ ഇടവക ഊർജ്ജസ്വലമായ ഒരു കുടുംബമായി വളർന്നു — എന്നാൽ ഞങ്ങളുടെ ജീവിതത്തിന്റെ ഹൃദയം മാറ്റമില്ലാതെ തുടരുന്നു: കർത്താവിന്റെ ബലിപീഠത്തിനു ചുറ്റും ഞങ്ങളെ ഒരുമിച്ചു കൂട്ടുന്ന വിശുദ്ധ കുർബ്ബാന.",
+      "ഈ പാരമ്പര്യത്തിന്റെ അഭിമാനകരമായ അവകാശിയാണ് ആലഞ്ചേരിയിലെ വിശുദ്ധ മറിയം പള്ളി. ചെറിയ വിശ്വാസി കൂട്ടത്തിൽ നിന്ന് ഞങ്ങളുടെ ഇടവക ഊർജ്ജസ്വലമായ ഒരു കുടുംബമായി വളർന്നു — എന്നാൽ ഞങ്ങളുടെ ജീവിതത്തിന്റെ ഹൃദയം മാറ്റമില്ലാതെ തുടരുന്നു: കർത്താവിന്റെ ബലിപീഠത്തിനു ചുറ്റും ഞങ്ങളെ ഒരുമിച്ചു കൂട്ടുന്ന വിശുദ്ധ കുർബ്ബാന.",
     yearEstablished: "സ്ഥാപിത വർഷം",
     mvEyebrow: "ഞങ്ങളെ നയിക്കുന്നത്",
     mvTitle: "ദൗത്യവും ദർശനവും",
@@ -463,7 +475,7 @@ const ml: Dict = {
     feastProgramme: "ഇടവക പെരുന്നാൾ പരിപാടി",
     timelineEyebrow: "വർഷങ്ങളിലൂടെ",
     timelineTitle: "ഞങ്ങളുടെ യാത്ര",
-    timelineSubtitle: "അലയമണിലെ വിശുദ്ധ മറിയം പള്ളിയിലെ ദൈവപരിപാലനയുടെ നാഴികക്കല്ലുകൾ.",
+    timelineSubtitle: "ആലഞ്ചേരിയിലെ വിശുദ്ധ മറിയം പള്ളിയിലെ ദൈവപരിപാലനയുടെ നാഴികക്കല്ലുകൾ.",
   },
   mass: {
     heroEyebrow: "ആരാധനയിൽ പങ്കുചേരുക",
@@ -494,7 +506,15 @@ const ml: Dict = {
     managingEyebrow: "ഇടവകയുടെ സേവനത്തിൽ",
     managingTitle: "മാനേജിംഗ് കമ്മിറ്റി",
     managingSubtitle: "വികാരിയോടൊപ്പം, തിരഞ്ഞെടുക്കപ്പെട്ട കമ്മിറ്റി ഇടവകയുടെ ഭരണകാര്യങ്ങൾ നിർവഹിക്കുന്നു.",
+    membersEyebrow: "ഒരുമിച്ച് സേവനത്തിൽ",
     membersTitle: "കമ്മിറ്റി അംഗങ്ങൾ",
+    membersSubtitle: "വികാരി, ട്രസ്റ്റി, സെക്രട്ടറി എന്നിവരോടൊപ്പം കമ്മിറ്റി അംഗങ്ങൾ ഇടവകയുടെ ആരാധനയും പരിപാലനവും കൂട്ടായ്മയും നോക്കിനടത്തുന്നു.",
+    auditorsEyebrow: "ഉത്തരവാദിത്തം",
+    auditorsTitle: "ഓഡിറ്റർമാർ",
+    auditorsSubtitle: "ഓഡിറ്റർമാർ ഓരോ വർഷവും ഇടവകയുടെ കണക്കുകൾ പരിശോധിച്ച്, ഞങ്ങളുടെ കാര്യവിചാരിപ്പ് സുതാര്യവും വിശ്വസ്തവുമാക്കുന്നു.",
+    sacristanEyebrow: "ദേവാലയ ശുശ്രൂഷ",
+    sacristanTitle: "കപ്യാർ",
+    sacristanSubtitle: "ഓരോ ശുശ്രൂഷയ്ക്കും മദ്ബഹായും വിശുദ്ധ പാത്രങ്ങളും ഒരുക്കി, ദേവാലയം ആരാധനയ്ക്കായി സജ്ജമാക്കുന്നത് ഞങ്ങളുടെ കപ്യാരാണ്.",
   },
   orgs: {
     heroEyebrow: "സേവിക്കുക, ചേരുക",
@@ -509,6 +529,10 @@ const ml: Dict = {
     ctaBody:
       "നിങ്ങളുടെ പ്രായമോ കഴിവുകളോ എന്തുതന്നെയായാലും, ഞങ്ങളുടെ ഇടവക ജീവിതത്തിൽ നിങ്ങൾക്ക് ഒരിടമുണ്ട്. പങ്കാളിയാകാൻ ഇടവക ഓഫീസുമായോ ഏതെങ്കിലും അനിമേറ്ററുമായോ സംസാരിക്കുക.",
     getInvolved: "പങ്കാളിയാകുക",
+    projectsEyebrow: "പ്രവൃത്തിയിലെ വിശ്വാസം",
+    projectsTitle: "ആലഞ്ചേരി പള്ളിയുടെ വിവിധ കർമ്മ പദ്ധതികൾ",
+    projectsSubtitle:
+      "ദൈവ ജനത്തെ വിശ്വാസത്തിൽ ഉറപ്പിക്കുന്നതിനും കൂദാശകൾ സ്വീകരിക്കുന്നതിനും ആരാധനാ ശുശ്രൂഷകൾ അനുഷ്ഠിക്കുന്നതിനും രോഗികളെ സന്ദർശിക്കുന്നതിനും കൂട്ടായ്മകൾ നിലനിർത്തുന്നതിനും ഭവന നിർമ്മാണത്തിനും അർഹരായവരുടെ ചികിത്സയ്ക്കും വിദ്യാഭ്യാസത്തിനും കാർഷിക മേഖലയ്ക്ക് സമ്പത്തിക സഹായം നൽകുന്നതിനും ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് ഇടവക ആവിഷ്കരിച്ച് നടപ്പാക്കുന്ന വിവിധ കർമ്മ പദ്ധതികൾ.",
   },
   gallery: {
     heroEyebrow: "കൃപയുടെ നിമിഷങ്ങൾ",

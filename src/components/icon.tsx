@@ -12,6 +12,14 @@ import {
   Music,
   BookOpen,
   Landmark,
+  HandCoins,
+  Accessibility,
+  HandHeart,
+  HeartPulse,
+  GraduationCap,
+  Palette,
+  House,
+  Library,
   type LucideIcon,
 } from "lucide-react";
 
@@ -28,6 +36,14 @@ const registry: Record<string, LucideIcon> = {
   Music,
   BookOpen,
   Landmark,
+  HandCoins,
+  Accessibility,
+  HandHeart,
+  HeartPulse,
+  GraduationCap,
+  Palette,
+  House,
+  Library,
 };
 
 /** Render a lucide icon by its string name (used with data-driven content). */

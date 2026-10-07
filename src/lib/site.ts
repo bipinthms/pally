@@ -5,26 +5,26 @@
 
 export const site = {
   name: "St. Mary's Orthodox Syrian Church",
-  shortName: "St. Mary's Church, Alayamon",
-  legalName: "St. Mary's Orthodox Syrian Church, Alayamon",
+  shortName: "St. Mary's Church, Alencherry",
+  legalName: "St. Mary's Orthodox Syrian Church, Alencherry",
   tagline: "A Malankara Orthodox Syrian Parish",
   patron: "St. Mary, the Theotokos",
   diocese: "Thiruvananthapuram Diocese",
   rite: "Malankara Orthodox Syrian Church",
   established: 1937,
   description:
-    "St. Mary's Orthodox Syrian Church, Alayamon is an active Malankara Orthodox Syrian parish in Alanchery (Anchal, Kollam) — a peaceful home of prayer, worship, counselling and spiritual guidance, welcoming all who seek God's grace.",
+    "St. Mary's Orthodox Syrian Church, Alencherry is an active Malankara Orthodox Syrian parish in Anchal, Kollam — a peaceful home of prayer, worship, counselling and spiritual guidance, welcoming all who seek God's grace.",
   url: "https://stmarysalayamon.org",
   locale: "en_IN",
 
   contact: {
     addressLines: [
       "Alenchery Onthupacha Road",
-      "Alayamon, Anchal",
+      "Alencherry, Anchal",
       "Kollam District",
       "Kerala 691306, India",
     ],
-    addressShort: "Alayamon, Anchal, Kollam, Kerala 691306",
+    addressShort: "Alencherry, Anchal, Kollam, Kerala 691306",
     phone: "+91 88914 12360",
     phoneHref: "+918891412360",
     whatsapp: "918891412360", // digits only, country code first

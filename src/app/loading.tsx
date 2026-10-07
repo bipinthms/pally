@@ -10,7 +10,7 @@ export default function Loading() {
         </span>
       </span>
       <p className="font-serif text-sm uppercase tracking-[0.3em] text-muted-foreground">
-        St. Mary's Church, Alayamon
+        St. Mary's Church, Alencherry
       </p>
     </div>
   );
