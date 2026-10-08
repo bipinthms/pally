@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
-// This repository is published at https://bipinthms.github.io/pally/ rather
-// than at the domain root, so production builds prefix routes and assets.
-// `next dev` serves from the root so the site opens at http://localhost:3000.
-const basePath = process.env.NODE_ENV === "production" ? "/pally" : "";
+// The site is served from the root of its custom domain
+// (https://www.alencherrychurch.org/), so routes and assets need no prefix.
+const basePath = "";
 
 const nextConfig: NextConfig = {
   // GitHub Pages only serves static files. `next build` writes the complete

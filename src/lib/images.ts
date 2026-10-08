@@ -44,7 +44,7 @@ const FILES = {
   missionProjects: "posters/mission-projects.jpg",
 } as const;
 
-/** GitHub Pages publishes this repository beneath /pally/ (empty in dev). */
+/** Base path prefix for raw asset URLs (empty: the site is served from the domain root). */
 export const assetPath = (path: string) =>
   `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
 
