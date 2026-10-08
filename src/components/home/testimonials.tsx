@@ -10,7 +10,7 @@ import { EASE } from "@/lib/motion";
 import { useLocale } from "@/lib/i18n/provider";
 
 export function Testimonials() {
-  const { locale } = useLocale();
+  const { locale, t } = useLocale();
   const { testimonials } = getData(locale);
   const [index, setIndex] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
@@ -60,7 +60,7 @@ export function Testimonials() {
       <div className="mt-8 flex items-center justify-center gap-4">
         <button
           type="button"
-          aria-label="Previous testimonial"
+          aria-label={t.a11y.previousTestimonial}
           onClick={() => go(-1)}
           className="flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition hover:border-gold-500 hover:text-primary"
         >
@@ -81,7 +81,7 @@ export function Testimonials() {
         </div>
         <button
           type="button"
-          aria-label="Next testimonial"
+          aria-label={t.a11y.nextTestimonial}
           onClick={() => go(1)}
           className="flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition hover:border-gold-500 hover:text-primary"
         >

@@ -17,7 +17,7 @@ export function LanguageToggle({
   className?: string;
   variant?: "full" | "compact";
 }) {
-  const { locale, setLocale } = useLocale();
+  const { locale, setLocale, t } = useLocale();
 
   if (variant === "compact") {
     const other = locales.find((l) => l !== locale) ?? locale;
@@ -25,7 +25,7 @@ export function LanguageToggle({
       <button
         type="button"
         onClick={() => setLocale(other)}
-        aria-label={`Switch language to ${localeNames[other].label}`}
+        aria-label={`${t.a11y.switchLanguageTo} ${localeNames[other].label}`}
         className={cn(
           "inline-flex h-10 items-center gap-1.5 rounded-full border border-current/15 px-3 text-current transition-colors hover:bg-current/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500",
           className,
@@ -44,7 +44,7 @@ export function LanguageToggle({
         className,
       )}
       role="group"
-      aria-label="Language"
+      aria-label={t.a11y.language}
     >
       <Languages className="ml-1.5 mr-0.5 size-[15px] opacity-70" aria-hidden="true" />
       {locales.map((l) => (

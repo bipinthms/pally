@@ -1,16 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { Home, Phone } from "lucide-react";
 
 import { site } from "@/lib/site";
-import { getLocale } from "@/lib/i18n/get-locale";
-import { getDictionary } from "@/lib/i18n/dictionary";
+import { useLocale } from "@/lib/i18n/provider";
 import { ParishMark } from "@/components/brand";
 import { Ornament } from "@/components/ornament";
 import { Button } from "@/components/ui/button";
 
-export default async function NotFound() {
-  const locale = await getLocale();
-  const t = getDictionary(locale);
+export default function NotFound() {
+  const { t } = useLocale();
 
   return (
     <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden py-32">

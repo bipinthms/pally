@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { EASE } from "@/lib/motion";
 
@@ -23,13 +23,12 @@ export function Reveal({
   once = true,
   as = "div",
 }: RevealProps) {
-  const reduce = useReducedMotion();
   const MotionTag = motion[as] as typeof motion.div;
 
   return (
     <MotionTag
       className={className}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y }}
+      initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, margin: "-80px" }}
       transition={{
@@ -56,7 +55,7 @@ const itemVariants: Variants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.6, ease: EASE },
   },
 };
 
@@ -89,12 +88,8 @@ export function RevealItem({
   children: React.ReactNode;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
   return (
-    <motion.div
-      className={cn(className)}
-      variants={reduce ? { hidden: { opacity: 0 }, show: { opacity: 1 } } : itemVariants}
-    >
+    <motion.div className={cn(className)} variants={itemVariants}>
       {children}
     </motion.div>
   );

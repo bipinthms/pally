@@ -22,6 +22,53 @@ const en = {
     copy: "Copy",
     copied: "Copied",
     sending: "Sending…",
+    home: "Home",
+    breadcrumb: "Breadcrumb",
+    menu: "Menu",
+  },
+  site: {
+    name: "St. Mary's Orthodox Syrian Church",
+    legalName: "St. Mary's Orthodox Syrian Church, Alencherry",
+    tagline: "A Malankara Orthodox Syrian Parish",
+    rite: "Malankara Orthodox Syrian Church",
+    diocese: "Thiruvananthapuram Diocese",
+    wordmarkTitle: "St. Mary's Church",
+    wordmarkSub: "Orthodox Syrian · Alencherry",
+    locationShort: "Alencherry, Anchal",
+    addressShort: "Alencherry, Anchal, Kollam, Kerala 691306",
+    addressLines: ["Alenchery Onthupacha Road", "Alencherry, Anchal", "Kollam District", "Kerala 691306, India"],
+    officeWeekdays: "Open daily from 6:00 AM",
+    officeSaturday: "Open daily from 6:00 AM",
+    officeSunday: "Holy Qurbana in the morning",
+    whatsappGreeting: "Hello, I would like to know more about St. Mary's Orthodox Syrian Church, Alencherry.",
+  },
+  a11y: {
+    skipToContent: "Skip to content",
+    homeLink: "St. Mary's Orthodox Syrian Church — home",
+    language: "Language",
+    switchLanguageTo: "Switch language to",
+    search: "Search the site",
+    darkMode: "Switch to dark mode",
+    lightMode: "Switch to light mode",
+    closeMenu: "Close menu",
+    siteMenu: "Site menu",
+    footerNav: "Footer",
+    moreLinks: "More links",
+    whatsapp: "Chat with us on WhatsApp",
+    backToTop: "Back to top",
+    stThomasCross: "St. Thomas Cross",
+    upiQr: "UPI QR code",
+    map: "Map to St. Mary's Orthodox Church, Alencherry",
+    altLogo: "St. Mary's Orthodox Syrian Church, Alencherry",
+    altHero: "The interior of St. Mary's Orthodox Syrian Church, Alencherry",
+    altChurch: "St. Mary's Orthodox Syrian Church",
+    altCandles: "Votive candles",
+    altArches: "Interior arches of the parish church",
+    close: "Close",
+    previousImage: "Previous image",
+    nextImage: "Next image",
+    previousTestimonial: "Previous testimonial",
+    nextTestimonial: "Next testimonial",
   },
   nav: {
     home: { label: "Home", desc: "Welcome to our parish" },
@@ -106,6 +153,10 @@ const en = {
     heroTitle: "About Our Parish",
     heroDesc:
       "A living community of faith in the tradition of the St. Thomas Christians — worshipping, growing and serving together for over a century.",
+    heroVerse: {
+      text: "Do not move the ancient boundary stone set up by your forefathers.",
+      ref: "Proverbs 22:28",
+    },
     introEyebrow: "A heritage of faith",
     introTitle: "Rooted in the ancient Thomistic tradition",
     introP1:
@@ -128,7 +179,11 @@ const en = {
     heroEyebrow: "Join us in worship",
     heroTitle: "Holy Qurbana & Sacraments",
     heroDesc:
-      "“For where two or three are gathered in my name, there am I among them.” Come and worship with us — all are welcome at the Lord's table.",
+      "Come and worship with us in the ancient Liturgy of St. James — all are welcome at the Lord's table.",
+    heroVerse: {
+      text: "For where two or three are gathered in my name, there am I among them.",
+      ref: "Matthew 18:20",
+    },
     weeklyEyebrow: "Weekly schedule",
     weeklyTitle: "Holy Qurbana Timings",
     weeklySubtitle:
@@ -147,11 +202,19 @@ const en = {
     heroEyebrow: "Shepherds of the flock",
     heroTitle: "Our Clergy",
     heroDesc:
-      "“I will give you shepherds after my own heart, who will feed you with knowledge and understanding.” — Jeremiah 3:15",
+      "The bishops and priests who shepherd our parish in the apostolic faith of the Malankara Orthodox Syrian Church.",
+    heroVerse: {
+      text: "I will give you shepherds after my own heart, who will feed you with knowledge and understanding.",
+      ref: "Jeremiah 3:15",
+    },
     formerEyebrow: "With gratitude",
     formerTitle: "Former Vicars",
     formerSubtitle:
       "We remember with thanksgiving the priests who have shepherded our parish through the years.",
+    prelatesEyebrow: "Our chief shepherds",
+    prelatesTitle: "Spiritual Leadership",
+    prelatesSubtitle:
+      "Our parish is shepherded by the Catholicos of the East and the Metropolitan of our diocese.",
     managingEyebrow: "Serving the parish",
     managingTitle: "Managing Committee",
     managingSubtitle:
@@ -171,6 +234,10 @@ const en = {
     heroTitle: "Parish Organizations",
     heroDesc:
       "Every parishioner — child, youth, mother, father, elder — is invited to grow in faith and serve through our many ministries and movements.",
+    heroVerse: {
+      text: "As iron sharpens iron, so one person sharpens another.",
+      ref: "Proverbs 27:17",
+    },
     eyebrow: "A place for everyone",
     title: "Ministries & Movements",
     subtitle:
@@ -189,6 +256,10 @@ const en = {
     heroTitle: "Parish Gallery",
     heroDesc:
       "Glimpses of the beauty and joy of our parish life — in worship, in celebration, and in the fellowship of our community.",
+    heroVerse: {
+      text: "He has made everything beautiful in its time.",
+      ref: "Ecclesiastes 3:11",
+    },
     eyebrow: "Photos & videos",
     title: "A Life of Faith in Pictures",
     subtitle: "Filter by category to explore, and tap any image to view it in full.",
@@ -203,6 +274,10 @@ const en = {
     heroTitle: "Events & News",
     heroDesc:
       "From solemn feasts to joyful community gatherings — stay connected with all that is happening in our parish family.",
+    heroVerse: {
+      text: "How good and pleasant it is when brothers live together in unity!",
+      ref: "Psalm 133:1",
+    },
     upcomingEyebrow: "Save the date",
     upcomingTitle: "Upcoming Events",
     upcomingSubtitle:
@@ -220,7 +295,11 @@ const en = {
     heroEyebrow: "We pray with you",
     heroTitle: "Prayer Requests",
     heroDesc:
-      "“Do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God.” — Philippians 4:6",
+      "Share your intentions with us — our clergy and parish family will remember you in prayer.",
+    heroVerse: {
+      text: "The Lord is far from the wicked, but he hears the prayer of the righteous.",
+      ref: "Proverbs 15:29",
+    },
     shareIntention: "Share Your Intention",
     shareSub: "We will pray with you and for you.",
     yourName: "Your Name",
@@ -252,7 +331,11 @@ const en = {
     heroEyebrow: "Cheerful giving",
     heroTitle: "Support Our Parish",
     heroDesc:
-      "“Each of you should give what you have decided in your heart to give — for God loves a cheerful giver.” — 2 Corinthians 9:7",
+      "Your generosity sustains our worship, our charities and the care of our historic church.",
+    heroVerse: {
+      text: "Honour the Lord with your wealth, with the firstfruits of all your produce.",
+      ref: "Proverbs 3:9",
+    },
     purposesEyebrow: "Where your gift goes",
     purposesTitle: "Your Generosity at Work",
     waysEyebrow: "Ways to give",
@@ -279,6 +362,10 @@ const en = {
     heroTitle: "Contact the Parish",
     heroDesc:
       "Whether you have a question, need a certificate, or simply wish to say hello — our parish office is here to help.",
+    heroVerse: {
+      text: "Ask, and it will be given to you; seek, and you will find; knock, and it will be opened to you.",
+      ref: "Matthew 7:7",
+    },
     eyebrow: "Get in touch",
     title: "A warm welcome awaits you",
     body:
@@ -375,6 +462,53 @@ const ml: Dict = {
     copy: "പകർത്തുക",
     copied: "പകർത്തി",
     sending: "അയയ്ക്കുന്നു…",
+    home: "ഹോം",
+    breadcrumb: "പാത",
+    menu: "മെനു",
+  },
+  site: {
+    name: "സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളി",
+    legalName: "സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളി, ആലഞ്ചേരി",
+    tagline: "ഒരു മലങ്കര ഓർത്തഡോക്സ് സുറിയാനി ഇടവക",
+    rite: "മലങ്കര ഓർത്തഡോക്സ് സുറിയാനി സഭ",
+    diocese: "തിരുവനന്തപുരം ഭദ്രാസനം",
+    wordmarkTitle: "സെന്റ് മേരീസ് പള്ളി",
+    wordmarkSub: "ഓർത്തഡോക്സ് സുറിയാനി · ആലഞ്ചേരി",
+    locationShort: "ആലഞ്ചേരി, അഞ്ചൽ",
+    addressShort: "ആലഞ്ചേരി, അഞ്ചൽ, കൊല്ലം, കേരളം 691306",
+    addressLines: ["ആലഞ്ചേരി ഓന്തുപച്ച റോഡ്", "ആലഞ്ചേരി, അഞ്ചൽ", "കൊല്ലം ജില്ല", "കേരളം 691306, ഇന്ത്യ"],
+    officeWeekdays: "ദിവസവും രാവിലെ 6:00 മുതൽ തുറന്നിരിക്കും",
+    officeSaturday: "ദിവസവും രാവിലെ 6:00 മുതൽ തുറന്നിരിക്കും",
+    officeSunday: "രാവിലെ വിശുദ്ധ കുർബ്ബാന",
+    whatsappGreeting: "നമസ്കാരം, ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളിയെക്കുറിച്ച് കൂടുതൽ അറിയാൻ ആഗ്രഹിക്കുന്നു.",
+  },
+  a11y: {
+    skipToContent: "ഉള്ളടക്കത്തിലേക്ക് പോകുക",
+    homeLink: "സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളി — ഹോം",
+    language: "ഭാഷ",
+    switchLanguageTo: "ഭാഷ മാറ്റുക:",
+    search: "സൈറ്റിൽ തിരയുക",
+    darkMode: "ഡാർക്ക് മോഡിലേക്ക് മാറുക",
+    lightMode: "ലൈറ്റ് മോഡിലേക്ക് മാറുക",
+    closeMenu: "മെനു അടയ്ക്കുക",
+    siteMenu: "സൈറ്റ് മെനു",
+    footerNav: "അടിക്കുറിപ്പ് ലിങ്കുകൾ",
+    moreLinks: "കൂടുതൽ ലിങ്കുകൾ",
+    whatsapp: "വാട്ട്‌സ്ആപ്പിൽ ഞങ്ങളുമായി സംസാരിക്കുക",
+    backToTop: "മുകളിലേക്ക് പോകുക",
+    stThomasCross: "മാർത്തോമ്മാ സ്ലീബാ",
+    upiQr: "UPI ക്യുആർ കോഡ്",
+    map: "ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് പള്ളിയിലേക്കുള്ള മാപ്പ്",
+    altLogo: "സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളി, ആലഞ്ചേരി",
+    altHero: "ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളിയുടെ ഉൾവശം",
+    altChurch: "സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളി",
+    altCandles: "നേർച്ച മെഴുകുതിരികൾ",
+    altArches: "ഇടവക പള്ളിയുടെ ഉൾവശത്തെ കമാനങ്ങൾ",
+    close: "അടയ്ക്കുക",
+    previousImage: "മുമ്പത്തെ ചിത്രം",
+    nextImage: "അടുത്ത ചിത്രം",
+    previousTestimonial: "മുമ്പത്തെ സാക്ഷ്യം",
+    nextTestimonial: "അടുത്ത സാക്ഷ്യം",
   },
   nav: {
     home: { label: "ഹോം", desc: "ഞങ്ങളുടെ ഇടവകയിലേക്ക് സ്വാഗതം" },
@@ -459,6 +593,10 @@ const ml: Dict = {
     heroTitle: "ഞങ്ങളുടെ ഇടവകയെക്കുറിച്ച്",
     heroDesc:
       "മാർത്തോമ്മാ ക്രിസ്ത്യാനികളുടെ പാരമ്പര്യത്തിലുള്ള ഒരു ജീവനുള്ള വിശ്വാസ കൂട്ടായ്മ — ഒരു നൂറ്റാണ്ടിലേറെയായി ഒരുമിച്ചു ആരാധിക്കുകയും വളരുകയും സേവിക്കുകയും ചെയ്യുന്നു.",
+    heroVerse: {
+      text: "നിന്റെ പിതാക്കന്മാർ സ്ഥാപിച്ച പുരാതനമായ അതിർ നീക്കരുത്.",
+      ref: "സദൃശവാക്യങ്ങൾ 22:28",
+    },
     introEyebrow: "വിശ്വാസത്തിന്റെ പൈതൃകം",
     introTitle: "പുരാതന തോമായുടെ പാരമ്പര്യത്തിൽ വേരൂന്നിയത്",
     introP1:
@@ -481,7 +619,11 @@ const ml: Dict = {
     heroEyebrow: "ആരാധനയിൽ പങ്കുചേരുക",
     heroTitle: "വിശുദ്ധ കുർബ്ബാനയും കൂദാശകളും",
     heroDesc:
-      "“രണ്ടോ മൂന്നോ പേർ എന്റെ നാമത്തിൽ ഒരുമിച്ചു കൂടുന്നിടത്ത് അവരുടെ മധ്യേ ഞാൻ ഉണ്ട്.” ഞങ്ങളോടൊപ്പം ആരാധിക്കാൻ വരൂ — കർത്താവിന്റെ മേശയിലേക്ക് എല്ലാവർക്കും സ്വാഗതം.",
+      "വിശുദ്ധ യാക്കോബിന്റെ പുരാതന ആരാധനക്രമത്തിൽ ഞങ്ങളോടൊപ്പം ആരാധിക്കാൻ വരൂ — കർത്താവിന്റെ മേശയിലേക്ക് എല്ലാവർക്കും സ്വാഗതം.",
+    heroVerse: {
+      text: "രണ്ടോ മൂന്നോ പേർ എന്റെ നാമത്തിൽ ഒരുമിച്ചു കൂടുന്നിടത്ത് അവരുടെ മധ്യേ ഞാൻ ഉണ്ട്.",
+      ref: "മത്തായി 18:20",
+    },
     weeklyEyebrow: "ആഴ്ചയിലെ സമയക്രമം",
     weeklyTitle: "വിശുദ്ധ കുർബ്ബാന സമയക്രമം",
     weeklySubtitle:
@@ -499,10 +641,17 @@ const ml: Dict = {
     heroEyebrow: "അജഗണത്തിന്റെ ഇടയന്മാർ",
     heroTitle: "ഞങ്ങളുടെ വൈദികർ",
     heroDesc:
-      "“എന്റെ ഹൃദയത്തിനിണങ്ങുന്ന ഇടയന്മാരെ ഞാൻ നിങ്ങൾക്കു നൽകും; അവർ അറിവോടും വിവേകത്തോടും കൂടെ നിങ്ങളെ പോറ്റും.” — ജെറമിയ 3:15",
+      "മലങ്കര ഓർത്തഡോക്സ് സുറിയാനി സഭയുടെ ശ്ലൈഹിക വിശ്വാസത്തിൽ ഞങ്ങളുടെ ഇടവകയെ മേയിക്കുന്ന മേല്പട്ടക്കാരും വൈദികരും.",
+    heroVerse: {
+      text: "എന്റെ ഹൃദയത്തിനിണങ്ങുന്ന ഇടയന്മാരെ ഞാൻ നിങ്ങൾക്കു നൽകും; അവർ അറിവോടും വിവേകത്തോടും കൂടെ നിങ്ങളെ പോറ്റും.",
+      ref: "ജെറമിയ 3:15",
+    },
     formerEyebrow: "നന്ദിയോടെ",
     formerTitle: "മുൻ വികാരിമാർ",
     formerSubtitle: "വർഷങ്ങളിലൂടെ ഞങ്ങളുടെ ഇടവകയെ പരിപാലിച്ച വൈദികരെ നന്ദിയോടെ ഓർക്കുന്നു.",
+    prelatesEyebrow: "നമ്മുടെ പ്രധാന ഇടയന്മാർ",
+    prelatesTitle: "ആത്മീയ നേതൃത്വം",
+    prelatesSubtitle: "പൗരസ്ത്യ കാതോലിക്കായും ഭദ്രാസന മെത്രാപ്പോലീത്തായും നമ്മുടെ ഇടവകയെ മേയിക്കുന്നു.",
     managingEyebrow: "ഇടവകയുടെ സേവനത്തിൽ",
     managingTitle: "മാനേജിംഗ് കമ്മിറ്റി",
     managingSubtitle: "വികാരിയോടൊപ്പം, തിരഞ്ഞെടുക്കപ്പെട്ട കമ്മിറ്റി ഇടവകയുടെ ഭരണകാര്യങ്ങൾ നിർവഹിക്കുന്നു.",
@@ -521,6 +670,10 @@ const ml: Dict = {
     heroTitle: "ഇടവക സംഘടനകൾ",
     heroDesc:
       "കുട്ടികളും യുവജനങ്ങളും അമ്മമാരും അപ്പന്മാരും മുതിർന്നവരും — ഓരോ ഇടവകാംഗവും വിശ്വാസത്തിൽ വളരാനും ഞങ്ങളുടെ വിവിധ കൂട്ടായ്മകളിലൂടെ സേവിക്കാനും ക്ഷണിക്കപ്പെടുന്നു.",
+    heroVerse: {
+      text: "ഇരുമ്പ് ഇരുമ്പിനു മൂർച്ച കൂട്ടുന്നു; അങ്ങനെ മനുഷ്യൻ തന്റെ സ്നേഹിതനു മൂർച്ച കൂട്ടുന്നു.",
+      ref: "സദൃശവാക്യങ്ങൾ 27:17",
+    },
     eyebrow: "എല്ലാവർക്കും ഒരിടം",
     title: "കൂട്ടായ്മകളും പ്രസ്ഥാനങ്ങളും",
     subtitle:
@@ -539,6 +692,10 @@ const ml: Dict = {
     heroTitle: "ഇടവക ചിത്രശാല",
     heroDesc:
       "ഞങ്ങളുടെ ഇടവക ജീവിതത്തിന്റെ സൗന്ദര്യത്തിന്റെയും സന്തോഷത്തിന്റെയും കാഴ്ചകൾ — ആരാധനയിലും ആഘോഷത്തിലും കൂട്ടായ്മയിലും.",
+    heroVerse: {
+      text: "അവൻ സകലത്തെയും അതതിന്റെ സമയത്തു ഭംഗിയായി ചെയ്തിരിക്കുന്നു.",
+      ref: "സഭാപ്രസംഗി 3:11",
+    },
     eyebrow: "ചിത്രങ്ങളും വീഡിയോകളും",
     title: "ചിത്രങ്ങളിലൂടെ ഒരു വിശ്വാസ ജീവിതം",
     subtitle: "വിഭാഗം അനുസരിച്ച് അരിച്ചെടുക്കുക, ഏതെങ്കിലും ചിത്രം പൂർണ്ണമായി കാണാൻ ടാപ്പ് ചെയ്യുക.",
@@ -553,6 +710,10 @@ const ml: Dict = {
     heroTitle: "പരിപാടികളും വാർത്തകളും",
     heroDesc:
       "പ്രൗഢമായ പെരുന്നാളുകൾ മുതൽ സന്തോഷകരമായ കൂട്ടായ്മകൾ വരെ — ഞങ്ങളുടെ ഇടവക കുടുംബത്തിലെ എല്ലാ കാര്യങ്ങളുമായി ബന്ധം പുലർത്തുക.",
+    heroVerse: {
+      text: "ഇതാ, സഹോദരന്മാർ ഒത്തൊരുമിച്ചു വസിക്കുന്നത് എത്ര ശുഭവും മനോഹരവും ആകുന്നു!",
+      ref: "സങ്കീർത്തനം 133:1",
+    },
     upcomingEyebrow: "തീയതി ഓർത്തുവയ്ക്കുക",
     upcomingTitle: "വരാനിരിക്കുന്ന പരിപാടികൾ",
     upcomingSubtitle: "പെരുന്നാൾ, ധ്യാനം, കൂദാശകൾ, കൂട്ടായ്മകൾ എന്നിവ കണ്ടെത്താൻ വിഭാഗം അനുസരിച്ച് അരിക്കുക.",
@@ -569,7 +730,11 @@ const ml: Dict = {
     heroEyebrow: "ഞങ്ങൾ നിങ്ങൾക്കായി പ്രാർത്ഥിക്കുന്നു",
     heroTitle: "പ്രാർത്ഥനാ അപേക്ഷകൾ",
     heroDesc:
-      "“ഒന്നിനെക്കുറിച്ചും ആകുലപ്പെടേണ്ട; എല്ലാ കാര്യങ്ങളിലും പ്രാർത്ഥനയാലും യാചനയാലും കൃതജ്ഞതയോടെ നിങ്ങളുടെ അപേക്ഷകൾ ദൈവത്തെ അറിയിക്കുവിൻ.” — ഫിലിപ്പിയർ 4:6",
+      "നിങ്ങളുടെ നിയോഗങ്ങൾ ഞങ്ങളുമായി പങ്കുവയ്ക്കുക — ഞങ്ങളുടെ വൈദികരും ഇടവക കുടുംബവും പ്രാർത്ഥനയിൽ നിങ്ങളെ ഓർക്കും.",
+    heroVerse: {
+      text: "കർത്താവ് ദുഷ്ടന്മാരോട് അകന്നിരിക്കുന്നു; നീതിമാന്മാരുടെ പ്രാർത്ഥനയോ അവൻ കേൾക്കുന്നു.",
+      ref: "സദൃശവാക്യങ്ങൾ 15:29",
+    },
     shareIntention: "നിങ്ങളുടെ നിയോഗം പങ്കുവയ്ക്കുക",
     shareSub: "ഞങ്ങൾ നിങ്ങളോടൊപ്പവും നിങ്ങൾക്കായും പ്രാർത്ഥിക്കും.",
     yourName: "നിങ്ങളുടെ പേര്",
@@ -600,7 +765,11 @@ const ml: Dict = {
     heroEyebrow: "സന്തോഷത്തോടെയുള്ള ദാനം",
     heroTitle: "ഞങ്ങളുടെ ഇടവകയെ സഹായിക്കുക",
     heroDesc:
-      "“ഓരോരുത്തരും ഹൃദയത്തിൽ നിശ്ചയിച്ചതുപോലെ നൽകട്ടെ — സന്തോഷത്തോടെ നൽകുന്നവനെ ദൈവം സ്നേഹിക്കുന്നു.” — 2 കൊരിന്ത്യർ 9:7",
+      "നിങ്ങളുടെ ഉദാരത ഞങ്ങളുടെ ആരാധനയെയും ജീവകാരുണ്യ പ്രവർത്തനങ്ങളെയും ചരിത്രപ്രധാനമായ ദേവാലയത്തിന്റെ സംരക്ഷണത്തെയും നിലനിർത്തുന്നു.",
+    heroVerse: {
+      text: "നിന്റെ സമ്പത്തുകൊണ്ടും എല്ലാ വിളവിന്റെയും ആദ്യഫലംകൊണ്ടും കർത്താവിനെ ബഹുമാനിക്കുക.",
+      ref: "സദൃശവാക്യങ്ങൾ 3:9",
+    },
     purposesEyebrow: "നിങ്ങളുടെ ദാനം എവിടെ എത്തുന്നു",
     purposesTitle: "നിങ്ങളുടെ ഔദാര്യം പ്രവർത്തനത്തിൽ",
     waysEyebrow: "നൽകാനുള്ള വഴികൾ",
@@ -627,6 +796,10 @@ const ml: Dict = {
     heroTitle: "ഇടവകയുമായി ബന്ധപ്പെടുക",
     heroDesc:
       "ഒരു ചോദ്യമുണ്ടെങ്കിലും, ഒരു സർട്ടിഫിക്കറ്റ് വേണമെങ്കിലും, അല്ലെങ്കിൽ ഒന്നു കുശലം പറയാനാണെങ്കിലും — ഞങ്ങളുടെ ഇടവക ഓഫീസ് സഹായിക്കാൻ ഇവിടെയുണ്ട്.",
+    heroVerse: {
+      text: "യാചിപ്പിൻ, നിങ്ങൾക്കു ലഭിക്കും; അന്വേഷിപ്പിൻ, നിങ്ങൾ കണ്ടെത്തും; മുട്ടുവിൻ, നിങ്ങൾക്കു തുറന്നുകിട്ടും.",
+      ref: "മത്തായി 7:7",
+    },
     eyebrow: "ബന്ധപ്പെടുക",
     title: "ഊഷ്മളമായ ഒരു സ്വാഗതം നിങ്ങളെ കാത്തിരിക്കുന്നു",
     body:

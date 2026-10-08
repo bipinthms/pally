@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Playfair_Display, Inter, Noto_Sans_Malayalam, Noto_Serif_Malayalam } from "next/font/google";
 import "./globals.css";
 
 import { site } from "@/lib/site";
@@ -11,6 +11,8 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { FloatingActions } from "@/components/floating-actions";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { SkipLink } from "@/components/skip-link";
+import { DocumentTitle } from "@/components/document-title";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -23,6 +25,23 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+});
+
+// Malayalam companions to Inter / Playfair. Not preloaded: browsers only fetch
+// them when Malayalam glyphs actually appear on the page.
+const mlSans = Noto_Sans_Malayalam({
+  subsets: ["malayalam"],
+  variable: "--font-ml-sans",
+  display: "swap",
+  preload: false,
+});
+
+const mlSerif = Noto_Serif_Malayalam({
+  subsets: ["malayalam"],
+  variable: "--font-ml-serif",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -115,13 +134,12 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const locale = await getLocale();
-  const skipLabel = locale === "ml" ? "ഉള്ളടക്കത്തിലേക്ക് പോകുക" : "Skip to content";
 
   return (
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${playfair.variable} ${inter.variable} h-full`}
+      className={`${playfair.variable} ${inter.variable} ${mlSans.variable} ${mlSerif.variable} h-full`}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased">
         <ThemeProvider
@@ -135,18 +153,14 @@ export default async function RootLayout({
               type="application/ld+json"
               dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
             />
-            <a
-              href="#main"
-              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-5 focus:py-2 focus:text-sm focus:text-primary-foreground"
-            >
-              {skipLabel}
-            </a>
+            <SkipLink />
+            <DocumentTitle />
             <ScrollProgress />
             <Navbar />
             <main id="main" className="flex-1">
               {children}
             </main>
-            <Footer locale={locale} />
+            <Footer />
             <FloatingActions />
           </LanguageProvider>
         </ThemeProvider>

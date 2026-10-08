@@ -1,7 +1,10 @@
+"use client";
+
 import * as React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { assetPath } from "@/lib/images";
+import { useLocale } from "@/lib/i18n/provider";
 
 /**
  * A stylised St. Thomas Cross (Mar Thoma Sliba) — the emblem of the
@@ -10,11 +13,13 @@ import { assetPath } from "@/lib/images";
  */
 export function ParishMark({
   className,
-  title = "St. Thomas Cross",
+  title,
 }: {
   className?: string;
   title?: string;
 }) {
+  const { t } = useLocale();
+  title ??= t.a11y.stThomasCross;
   return (
     <svg
       viewBox="0 0 64 64"
@@ -55,27 +60,28 @@ export function Wordmark({
   markClassName?: string;
   subtitle?: boolean;
 }) {
+  const { t } = useLocale();
   return (
-    <span className={cn("flex items-center gap-3", className)}>
+    <span className={cn("flex min-w-0 items-center gap-3", className)}>
       <span className="relative flex size-11 shrink-0 overflow-hidden rounded-full shadow-sm ring-1 ring-gold-500/30">
         <Image
-          src={assetPath("/images/logo.jpg")}
-          alt="St. Mary's Orthodox Syrian Church, Alencherry"
+          src={assetPath("/images/brand/logo.jpg")}
+          alt={t.a11y.altLogo}
           fill
           sizes="44px"
           className="object-cover"
         />
       </span>
-      <span className="flex flex-col leading-none">
-        <span className="font-serif text-lg font-semibold tracking-tight text-foreground">
-          St. Mary&apos;s Church
+      <span className="flex min-w-0 flex-col leading-none">
+        <span data-wordmark-title className="truncate font-serif text-lg font-semibold tracking-tight text-foreground">
+          {t.site.wordmarkTitle}
         </span>
         {subtitle && (
           <span
             data-wordmark-sub
-            className="mt-0.5 text-[0.62rem] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400"
+            className="mt-0.5 text-[0.62rem] font-medium uppercase tracking-[0.22em] text-gold-700 dark:text-gold-400"
           >
-            Orthodox Syrian · Alencherry
+            {t.site.wordmarkSub}
           </span>
         )}
       </span>

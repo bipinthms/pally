@@ -75,10 +75,10 @@ export function PrayerForm() {
             className="space-y-6"
           >
             <div className="flex items-center gap-3">
-              <span className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <HandHeart className="size-5" />
               </span>
-              <div>
+              <div className="min-w-0">
                 <h3 className="font-serif text-xl font-semibold">{t.prayer.shareIntention}</h3>
                 <p className="text-sm text-muted-foreground">{t.prayer.shareSub}</p>
               </div>

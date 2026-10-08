@@ -1,40 +1,52 @@
 /**
- * Central image bank — now backed by the parish's own photographs in
- * /public/images. Each key maps to a local file. To swap a photo, either
- * replace the file in /public/images or point the key at a different file.
+ * Central image bank, backed by the parish's own photographs.
+ *
+ * public/images/
+ *   brand/          logo
+ *   church/         the church building — exterior, shrine, heritage objects
+ *   icons/          holy icons
+ *   clergy/         Catholicos, Metropolitan, vicar and assistant vicar portraits
+ *   committee/      group.jpg + office-bearers/, members/, auditors/, sacristans/
+ *   events/         photographs from parish events and services
+ *   organizations/  photographs of the parish organisations
+ *   posters/        designed graphics with text (feast notices, banners)
+ *
+ * To swap a photo, replace the file or point its key below at another file.
  */
 
 const FILES = {
-  churchDusk: "church-dusk.jpg",
-  churchNight: "church-night.jpg",
-  churchNight2: "church-day.jpg",
-  interiorAltar: "interior-altar.jpg",
-  interiorShrine: "interior-shrine.jpg",
-  intercession: "intercession.jpg",
-  intercession2: "intercession2.jpg",
-  intercession3: "intercession3.jpg",
-  intercession4: "intercession4.jpg",
-  feast: "feast.jpg",
-  apostlesFast: "apostles-fast.jpg",
-  antiqueCross: "antique-cross.jpg",
-  catholicos: "catholicos.jpg",
-  sundaySchool: "sunday-school.jpg",
-  youthMen: "youth-men.jpg",
-  youthFloor: "youth-floor.jpg",
-  preaching: "preaching.jpg",
-  reception: "reception.jpg",
-  blessing: "blessing.jpg",
-  vicar: "vicar.jpg",
-  assistant: "assistant.jpg",
-  committee: "commitee_members.jpg",
-  metropolitan: "dr-geevarghese-yulios-metropolitian.jpg",
-  mathewsIII: "baselios-marthoma-mathews-III.jpg",
-  navathiInauguration: "navathi-inauguration.jpeg",
-  relicsStGregorios: "relics-st-gregorios.jpeg",
+  churchDay: "church/exterior-day.jpg",
+  churchNight: "church/exterior-night.jpg",
+  marianShrine: "church/marian-shrine.jpg",
+  marianShrineNight: "church/marian-shrine-night.jpg",
+  antiqueCross: "church/antique-cross.jpg",
+  theotokos: "icons/theotokos.jpg",
+  theotokos2: "icons/theotokos-2.jpg",
+  catholicos: "clergy/catholicos-baselios-marthoma-mathews-iii.jpg",
+  metropolitan: "clergy/metropolitan-geevarghese-mar-yulios.jpg",
+  lateCatholicos: "clergy/late-catholicos.jpg",
+  vicar: "clergy/vicar.jpg",
+  assistantVicar: "clergy/assistant-vicar.jpg",
+  committee: "committee/group.jpg",
+  navathiInauguration: "events/navathi-inauguration.jpeg",
+  relicsStGregorios: "events/relics-st-gregorios.jpeg",
+  reception: "events/reception.jpg",
+  blessing: "events/blessing.jpg",
+  preaching: "events/preaching.jpg",
+  sundaySchool: "organizations/sunday-school.jpg",
+  youthMeeting: "organizations/youth-meeting.jpg",
+  youthGathering: "organizations/youth-gathering.jpg",
+  churchBanner: "posters/church-banner.jpg",
+  pallyBanner: "posters/alencherry-pally-banner.jpg",
+  perunnal: "posters/perunnal.jpg",
+  sleehaNombu: "posters/sleeha-nombu.jpg",
+  ardram: "posters/ardram.jpg",
+  missionProjects: "posters/mission-projects.jpg",
 } as const;
 
-/** GitHub Pages publishes this repository beneath /pally/. */
-export const assetPath = (path: string) => `/pally${path}`;
+/** GitHub Pages publishes this repository beneath /pally/ (empty in dev). */
+export const assetPath = (path: string) =>
+  `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
 
 const f = (name: keyof typeof FILES) => assetPath(`/images/${FILES[name]}`);
 
@@ -45,52 +57,52 @@ const f = (name: keyof typeof FILES) => assetPath(`/images/${FILES[name]}`);
 export const IMAGES = {
   // Hero / church views
   heroInterior: f("churchNight"),
-  churchExterior: f("churchNight2"),
-  churchDusk: f("churchDusk"),
-  churchWide: f("interiorShrine"),
-  churchStone: f("churchDusk"),
+  churchExterior: f("churchDay"),
+  churchDusk: f("churchBanner"),
+  churchWide: f("marianShrine"),
+  churchStone: f("churchBanner"),
   churchWarm: f("preaching"),
-  churchAlt: f("churchNight2"),
-  churchAlt2: f("feast"),
-  churchAlt3: f("catholicos"),
-  churchAlt4: f("intercession"),
-  churchAlt5: f("apostlesFast"),
+  churchAlt: f("churchDay"),
+  churchAlt2: f("perunnal"),
+  churchAlt3: f("lateCatholicos"),
+  churchAlt4: f("theotokos"),
+  churchAlt5: f("sleehaNombu"),
 
   // Interior / heritage
-  cathedralArches: f("interiorAltar"),
-  churchArch: f("interiorAltar"),
-  ornateCeiling: f("interiorShrine"),
-  interiorDetail: f("interiorAltar"),
+  cathedralArches: f("pallyBanner"),
+  churchArch: f("pallyBanner"),
+  ornateCeiling: f("marianShrine"),
+  interiorDetail: f("pallyBanner"),
   archDetail: f("antiqueCross"),
-  columnLight: f("churchNight2"),
+  columnLight: f("churchDay"),
   stainedGlass: f("blessing"),
 
   // Devotion
-  candles: f("intercession"),
-  candlesPrayer: f("interiorShrine"),
+  candles: f("theotokos"),
+  candlesPrayer: f("marianShrine"),
   scripture: f("sundaySchool"),
-  peacefulPath: f("youthFloor"),
-  ardramPoster: f("intercession2"),
-  marianShrine: f("intercession3"),
-  marianIcon: f("intercession4"),
+  peacefulPath: f("youthGathering"),
+  ardramPoster: f("ardram"),
+  marianShrine: f("marianShrineNight"),
+  marianIcon: f("theotokos2"),
 
   // Community / events
-  gathering: f("youthMen"),
+  gathering: f("youthMeeting"),
   celebration: f("reception"),
   navathiInauguration: f("navathiInauguration"),
   relicsStGregorios: f("relicsStGregorios"),
 
   // Clergy
   priest1: f("vicar"),
-  priest2: f("assistant"),
+  priest2: f("assistantVicar"),
   priest3: f("preaching"),
-  priest4: f("catholicos"),
+  priest4: f("lateCatholicos"),
   priest5: f("blessing"),
   priest6: f("preaching"),
   priest7: f("vicar"),
 
   // Church hierarchy
-  catholicos: f("mathewsIII"),
+  catholicos: f("catholicos"),
   diocesanMetropolitan: f("metropolitan"),
 
   // Managing committee group photo

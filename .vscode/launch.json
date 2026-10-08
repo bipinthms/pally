@@ -9,7 +9,7 @@
       "cwd": "${workspaceFolder}",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://\\S+)",
-        "uriFormat": "%s/pally",
+        "uriFormat": "%s",
         "action": "openExternally"
       }
     },
@@ -17,7 +17,7 @@
       "name": "Next.js: debug client (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:3000/pally",
+      "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}"
     }
   ],
