@@ -10,9 +10,10 @@ import {
   Play,
   ZoomIn,
   Clock,
+  Newspaper,
 } from "lucide-react";
 
-import { image, type ImageKey } from "@/lib/images";
+import { album, image } from "@/lib/images";
 import {
   getData,
   galleryCategories,
@@ -23,18 +24,15 @@ import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/icon";
 import { useLocale } from "@/lib/i18n/provider";
 import { cn } from "@/lib/utils";
+import { formatDateRange } from "@/lib/format";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
-const aspectFor = (span?: GalleryItem["span"]) =>
-  span === "tall"
-    ? "aspect-[2/3]"
-    : span === "wide"
-      ? "aspect-[4/3]"
-      : "aspect-square";
+const spanFor = (span?: GalleryItem["span"]) =>
+  span === "tall" ? "row-span-2" : span === "wide" ? "col-span-2" : "";
 
-type View = "photos" | "orgs";
+type View = "photos" | "orgs" | "news";
 type LightboxItem = {
-  image: ImageKey;
+  src: string;
   title: string;
   subtitle: string;
   span?: GalleryItem["span"];
@@ -42,14 +40,24 @@ type LightboxItem = {
 
 /** Organization cards link here as /gallery#org-<slug>. */
 const ORG_HASH = "#org-";
+/** Parish news cards link here as /gallery#news-<slug>. */
+const NEWS_HASH = "#news-";
 
 export function GalleryClient() {
   const { locale, t } = useLocale();
-  const { gallery, videos, organizations } = getData(locale);
+  const { gallery, videos, organizations, events } = getData(locale);
+  const albums = React.useMemo(
+    () =>
+      events
+        .filter((e) => e.album)
+        .sort((a, b) => b.date.localeCompare(a.date)),
+    [events],
+  );
   const [view, setView] = React.useState<View>("photos");
   const [category, setCategory] =
     React.useState<(typeof galleryCategories)[number]>("All");
   const [orgSlug, setOrgSlug] = React.useState(organizations[0]?.slug);
+  const [newsSlug, setNewsSlug] = React.useState(albums[0]?.slug);
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
   const [activeVideo, setActiveVideo] = React.useState<ParishVideo | null>(
     null,
@@ -57,16 +65,25 @@ export function GalleryClient() {
   const tabsRef = React.useRef<HTMLDivElement>(null);
 
   const org = organizations.find((o) => o.slug === orgSlug) ?? organizations[0];
+  const news = albums.find((e) => e.slug === newsSlug) ?? albums[0];
 
-  // Open the matching organization tab when arriving from an organization card.
+  // Open the matching tab when arriving from an organization or parish news card.
   React.useEffect(() => {
     const syncFromHash = () => {
-      const { hash } = window.location;
-      if (!hash.startsWith(ORG_HASH)) return;
-      const slug = decodeURIComponent(hash.slice(ORG_HASH.length));
-      if (!organizations.some((o) => o.slug === slug)) return;
-      setView("orgs");
-      setOrgSlug(slug);
+      const hash = decodeURIComponent(window.location.hash);
+      if (hash.startsWith(ORG_HASH)) {
+        const slug = hash.slice(ORG_HASH.length);
+        if (!organizations.some((o) => o.slug === slug)) return;
+        setView("orgs");
+        setOrgSlug(slug);
+      } else if (hash.startsWith(NEWS_HASH)) {
+        const slug = hash.slice(NEWS_HASH.length);
+        if (!albums.some((e) => e.slug === slug)) return;
+        setView("news");
+        setNewsSlug(slug);
+      } else {
+        return;
+      }
       setOpenIndex(null);
       requestAnimationFrame(() =>
         tabsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
@@ -75,12 +92,18 @@ export function GalleryClient() {
     syncFromHash();
     window.addEventListener("hashchange", syncFromHash);
     return () => window.removeEventListener("hashchange", syncFromHash);
-  }, [organizations]);
+  }, [organizations, albums]);
 
   const selectOrg = (slug: string) => {
     setOrgSlug(slug);
     setOpenIndex(null);
     window.history.replaceState(null, "", `${ORG_HASH}${slug}`);
+  };
+
+  const selectNews = (slug: string) => {
+    setNewsSlug(slug);
+    setOpenIndex(null);
+    window.history.replaceState(null, "", `${NEWS_HASH}${slug}`);
   };
 
   const selectView = (next: View) => {
@@ -91,29 +114,40 @@ export function GalleryClient() {
       "",
       next === "orgs" && org
         ? `${ORG_HASH}${org.slug}`
-        : window.location.pathname,
+        : next === "news" && news
+          ? `${NEWS_HASH}${news.slug}`
+          : window.location.pathname,
     );
   };
 
   const items = React.useMemo<LightboxItem[]>(() => {
     if (view === "orgs") {
       return (org?.photos ?? []).map((photo) => ({
-        image: photo,
+        src: image(photo),
         title: org.name,
         subtitle: org.short,
       }));
+    }
+    if (view === "news") {
+      return news?.album
+        ? album(news.album).map((src) => ({
+            src,
+            title: news.title,
+            subtitle: formatDateRange(news.date, news.endDate, locale),
+          }))
+        : [];
     }
     return (
       category === "All"
         ? gallery
         : gallery.filter((g) => g.category === category)
     ).map((g) => ({
-      image: g.image,
+      src: image(g.image),
       title: g.title,
       subtitle: t.cats.gallery[g.category] ?? g.category,
       span: g.span,
     }));
-  }, [view, org, category, gallery, t]);
+  }, [view, org, news, category, gallery, t, locale]);
 
   const close = React.useCallback(() => setOpenIndex(null), []);
   const step = React.useCallback(
@@ -149,7 +183,10 @@ export function GalleryClient() {
           role="tablist"
           className="inline-flex rounded-full border border-border bg-card p-1"
         >
-          {(["photos", "orgs"] as const).map((v) => (
+          {(albums.length > 0
+            ? (["photos", "news", "orgs"] as const)
+            : (["photos", "orgs"] as const)
+          ).map((v) => (
             <button
               key={v}
               role="tab"
@@ -162,7 +199,11 @@ export function GalleryClient() {
                   : "text-muted-foreground hover:text-primary",
               )}
             >
-              {v === "photos" ? t.gallery.tabPhotos : t.gallery.tabOrgs}
+              {v === "photos"
+                ? t.gallery.tabPhotos
+                : v === "news"
+                  ? t.gallery.tabNews
+                  : t.gallery.tabOrgs}
             </button>
           ))}
         </div>
@@ -232,6 +273,51 @@ export function GalleryClient() {
         </>
       )}
 
+      {view === "news" && news && (
+        <>
+          {albums.length > 1 && (
+            <div className="mt-8 flex flex-wrap justify-center gap-2">
+              {albums.map((e) => (
+                <button
+                  key={e.slug}
+                  aria-pressed={e.slug === news.slug}
+                  onClick={() => selectNews(e.slug)}
+                  className={cn(
+                    "rounded-full border px-4 py-2 text-sm font-medium transition-all",
+                    e.slug === news.slug
+                      ? "border-transparent bg-primary text-primary-foreground shadow-sm"
+                      : "border-border text-muted-foreground hover:border-gold-500 hover:text-primary",
+                  )}
+                >
+                  {e.title}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <motion.div
+            key={news.slug}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="mx-auto mt-10 max-w-3xl rounded-2xl border border-border bg-card p-6 text-center md:p-8"
+          >
+            <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-gold-500/90 text-brown-900 shadow-md">
+              <Newspaper className="size-6" />
+            </span>
+            <h3 className="mt-4 font-serif text-2xl font-semibold">
+              {news.title}
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {formatDateRange(news.date, news.endDate, locale)}
+            </p>
+            <p className="mt-4 leading-relaxed text-muted-foreground">
+              {news.excerpt}
+            </p>
+          </motion.div>
+        </>
+      )}
+
       {/* Filters */}
       {view === "photos" && (
         <div className="mt-8 flex flex-wrap justify-center gap-2">
@@ -253,23 +339,23 @@ export function GalleryClient() {
         </div>
       )}
 
-      {/* Masonry */}
-      <div className="mt-10 columns-2 gap-4 md:columns-3 lg:columns-4 [column-fill:_balance]">
+      {/* Photo grid (fills row by row) */}
+      <div className="mt-10 grid grid-flow-row-dense auto-rows-[9rem] grid-cols-2 gap-4 sm:auto-rows-[12rem] md:grid-cols-3 lg:grid-cols-4">
         {items.map((g, i) => (
           <motion.button
             layout
-            key={`${view}-${org?.slug}-${g.image}`}
+            key={`${view}-${g.src}`}
             onClick={() => setOpenIndex(i)}
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: (i % 8) * 0.03 }}
             className={cn(
-              "group relative mb-4 block w-full overflow-hidden rounded-2xl",
-              aspectFor(g.span),
+              "group relative block h-full w-full overflow-hidden rounded-2xl",
+              spanFor(g.span),
             )}
           >
             <Image
-              src={image(g.image, { w: 700, q: 66 })}
+              src={g.src}
               alt={g.title}
               fill
               sizes="(max-width: 768px) 50vw, 25vw"
@@ -368,7 +454,7 @@ export function GalleryClient() {
             </button>
 
             <motion.figure
-              key={active.image}
+              key={active.src}
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
@@ -377,7 +463,7 @@ export function GalleryClient() {
             >
               <div className="relative h-[72vh] w-full overflow-hidden rounded-2xl">
                 <Image
-                  src={image(active.image, { w: 1400, q: 78 })}
+                  src={active.src}
                   alt={active.title}
                   fill
                   sizes="90vw"

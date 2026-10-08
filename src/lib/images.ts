@@ -9,6 +9,7 @@
  *     parish-priests/  portraits for the Parish Priests section on the Clergy page
  *   committee/      group.jpg + office-bearers/, members/, auditors/, sacristans/
  *   events/         photographs from parish events and services
+ *     <album>/        one folder of photos per news album (see ALBUMS below)
  *   organizations/  photographs of the parish organisations
  *   posters/        designed graphics with text (feast notices, banners)
  *
@@ -118,6 +119,25 @@ export type ImageKey = keyof typeof IMAGES;
  */
 export function image(key: ImageKey, _opts?: { w?: number; h?: number; q?: number }): string {
   return IMAGES[key];
+}
+
+/**
+ * Photo albums for parish news, shown in the Gallery's "Parish News" tab.
+ * Each album is a folder under public/images/events/ with photos numbered in
+ * display order: <folder>-01.jpg, <folder>-02.jpg, …
+ */
+const ALBUMS = {
+  relicsStGregorios: { folder: "relics-st-gregorios", count: 23 },
+} as const;
+
+export type AlbumKey = keyof typeof ALBUMS;
+
+/** Resolve an album to the URLs of its photos. */
+export function album(key: AlbumKey): string[] {
+  const { folder, count } = ALBUMS[key];
+  return Array.from({ length: count }, (_, i) =>
+    assetPath(`/images/events/${folder}/${folder}-${String(i + 1).padStart(2, "0")}.jpg`),
+  );
 }
 
 /** Direct file helper, if a component needs a specific file. */

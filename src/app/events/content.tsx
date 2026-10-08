@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { CalendarDays, MapPin, Clock, Newspaper } from "lucide-react";
+import Link from "next/link";
+import { CalendarDays, MapPin, Clock, Newspaper, ArrowRight } from "lucide-react";
 
 import { image } from "@/lib/images";
 import { getData, type ChurchEvent } from "@/lib/data";
@@ -64,7 +65,7 @@ export function EventsContent({ today }: { today: string }) {
             <RevealGroup className="mt-14 grid gap-6 md:grid-cols-3">
               {past.map((e) => (
                 <RevealItem key={e.slug}>
-                  <article className="card-hover group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card">
+                  <NewsCardLink album={e.album ? `/gallery#news-${e.slug}` : undefined}>
                     <div className="relative aspect-[16/10] overflow-hidden">
                       <Image
                         src={image(e.image, { w: 700, q: 66 })}
@@ -82,8 +83,14 @@ export function EventsContent({ today }: { today: string }) {
                       <span className="text-xs text-muted-foreground">{formatDateRange(e.date, e.endDate, locale)}</span>
                       <h3 className="mt-2 font-serif text-lg font-semibold leading-snug">{e.title}</h3>
                       <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{e.excerpt}</p>
+                      {e.album && (
+                        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
+                          {t.gallery.viewPhotos}
+                          <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                        </span>
+                      )}
                     </div>
-                  </article>
+                  </NewsCardLink>
                 </RevealItem>
               ))}
             </RevealGroup>
@@ -155,5 +162,17 @@ export function EventsContent({ today }: { today: string }) {
       )}
 
     </>
+  );
+}
+
+/** A news card links to its gallery album when it has one. */
+function NewsCardLink({ album, children }: { album?: string; children: React.ReactNode }) {
+  const className = "card-hover group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card";
+  return album ? (
+    <Link href={album} className={className}>
+      {children}
+    </Link>
+  ) : (
+    <article className={className}>{children}</article>
   );
 }

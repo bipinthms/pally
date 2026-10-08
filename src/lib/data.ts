@@ -1,4 +1,4 @@
-import type { ImageKey } from "@/lib/images";
+import type { AlbumKey, ImageKey } from "@/lib/images";
 import { pick, type Bi, type Locale } from "@/lib/i18n/config";
 
 /* ------------------------------------------------------------------ */
@@ -21,6 +21,8 @@ export type ChurchEvent = {
   image: ImageKey;
   excerpt: string;
   featured?: boolean;
+  /** Photo album shown in the Gallery's Parish News tab. */
+  album?: AlbumKey;
 };
 export type Clergy = {
   name: string;
@@ -197,7 +199,7 @@ const upcomingFeastRaw = {
 
 const eventsRaw: {
   slug: string; title: Bi; date: string; endDate?: string; time: Bi; location: Bi;
-  category: EventCategory; image: ImageKey; excerpt: Bi; featured?: boolean;
+  category: EventCategory; image: ImageKey; excerpt: Bi; featured?: boolean; album?: AlbumKey;
 }[] = [
   {
     slug: "vbs-2026",
@@ -263,7 +265,7 @@ const eventsRaw: {
     title: B("Relics of St. Gregorios of Parumala enshrined", "പരുമല മാർ ഗ്രീഗോറിയോസിന്റെ തിരുശേഷിപ്പ് സ്ഥാപിച്ചു"),
     date: "2026-09-04", time: B("During the Parish Feast", "ഇടവക പെരുന്നാളിനോടനുബന്ധിച്ച്"),
     location: B("Parish Church", "ഇടവക പള്ളി"),
-    category: "News", image: "relicsStGregorios",
+    category: "News", image: "relicsStGregorios", album: "relicsStGregorios",
     excerpt: B(
       "H.H. Baselios Marthoma Mathews III, Catholicos of the East and Malankara Metropolitan, enshrined the relics of St. Gregorios of Parumala in our church.",
       "പൗരസ്ത്യ കാതോലിക്കായും മലങ്കര മെത്രാപ്പോലീത്തയുമായ പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് തൃതീയൻ കാതോലിക്കാ ബാവ പരുമല മാർ ഗ്രീഗോറിയോസ് തിരുമേനിയുടെ തിരുശേഷിപ്പ് നമ്മുടെ പള്ളിയിൽ സ്ഥാപിച്ചു.",
@@ -942,7 +944,7 @@ function buildData(locale: Locale): ParishData {
     events: eventsRaw.map((e) => ({
       slug: e.slug, title: L(e.title), date: e.date, endDate: e.endDate,
       time: L(e.time), location: L(e.location), category: e.category,
-      image: e.image, excerpt: L(e.excerpt), featured: e.featured,
+      image: e.image, excerpt: L(e.excerpt), featured: e.featured, album: e.album,
     })),
     prelates: prelatesRaw.map((p) => ({ name: L(p.name), title: L(p.title), image: p.image, file: p.file })),
     parishPriest: {
