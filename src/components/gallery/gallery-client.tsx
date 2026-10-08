@@ -209,6 +209,18 @@ export function GalleryClient() {
             <p className="mt-4 leading-relaxed text-muted-foreground">
               {org.description}
             </p>
+            {org.schedule && (
+              <ul className="mx-auto mt-5 max-w-md divide-y divide-border rounded-xl border border-border text-left text-sm">
+                {org.schedule.map((g) => (
+                  <li key={g.name} className="flex items-center justify-between gap-3 px-4 py-2.5">
+                    <span className="font-medium text-foreground">{g.name}</span>
+                    <span className="shrink-0 text-muted-foreground">
+                      {g.day} · {g.time}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3 text-sm">
               <span className="flex items-center gap-1.5 text-muted-foreground">
                 <Clock className="size-4 text-gold-500" />

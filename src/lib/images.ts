@@ -6,6 +6,7 @@
  *   church/         the church building — exterior, shrine, heritage objects
  *   icons/          holy icons
  *   clergy/         Catholicos, Metropolitan, vicar and assistant vicar portraits
+ *     parish-priests/  portraits for the Parish Priests section on the Clergy page
  *   committee/      group.jpg + office-bearers/, members/, auditors/, sacristans/
  *   events/         photographs from parish events and services
  *   organizations/  photographs of the parish organisations

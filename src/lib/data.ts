@@ -41,6 +41,8 @@ export type Organization = {
   image: ImageKey;
   photos: ImageKey[];
   audience: string;
+  /** Per-unit meeting times, for organisations that meet as several groups. */
+  schedule?: { name: string; day: string; time: string }[];
 };
 export type MissionProject = { name: string; malayalam: string; tagline: string; description: string; icon: string };
 export type GalleryCategory = "Church" | "Feasts" | "Liturgy" | "Community" | "Heritage";
@@ -413,6 +415,15 @@ const sacristansRaw = [
   { name: B("Roy B.", "റോയ് ബി."), photo: "committee/sacristans/roy-b.jpeg" },
 ];
 
+// Photos go in public/images/clergy/parish-priests/. Leave out `photo` to show a placeholder;
+// `memorial` adds an "In loving memory" line above the name.
+const parishPriestsRaw: { name: Bi; role?: Bi; photo?: string; memorial?: boolean }[] = [
+  { name: B("Rev. Fr. Yacob OIC", "റവ. ഫാ. യാക്കോബ് ഒ.ഐ.സി."), memorial: true },
+  { name: B("Very Rev. Thomas T. Varghese Cor Episcopa", "വെരി റവ. തോമസ് ടി. വർഗീസ് കോർ എപ്പിസ്കോപ്പ"), photo: "clergy/parish-priests/thomas-t-varghese-cor-episcopa.jpeg" },
+  { name: B("Rev. Fr. Thomas Daniel", "റവ. ഫാ. തോമസ് ഡാനിയേൽ"), photo: "clergy/parish-priests/thomas-daniel.jpeg" },
+  { name: B("Rev. Fr. Sam Thomas", "റവ. ഫാ. സാം തോമസ്"), photo: "clergy/parish-priests/sam-thomas.jpeg" },
+];
+
 // Chronological, as recorded in the parish history. Roles left blank where the record gives none.
 const formerVicarsRaw: { name: Bi; role?: Bi; years: string; note?: Bi }[] = [
   { name: B("Rev. Fr. Koshy Kathanar Mayilazhikathu", "റവ. ഫാ. കോശി കത്തനാർ മയിലാഴിക്കത്ത്"), years: "1937 – 1938" },
@@ -451,7 +462,7 @@ const orgNameMl: Record<string, string> = {
   ocym: "ഒ.സി.വൈ.എം.",
   mgocsm: "എം.ജി.ഒ.സി.എസ്.എം.",
   "martha-mariam": "മർത്തമറിയം വനിതാ സമാജം",
-  "prayer-fellowship": "പ്രാർത്ഥനാ കൂട്ടായ്മ",
+  "prayer-fellowship": "പ്രാർത്ഥനാ യോഗങ്ങൾ",
   choir: "ഇടവക ഗായകസംഘം",
   "edavaka-mission": "ഇടവക മിഷൻ",
   balasamajam: "ബാലസമാജം",
@@ -464,6 +475,7 @@ const orgNameMl: Record<string, string> = {
 const organizationsRaw: {
   slug: string; name: string; malayalam?: Bi; short: Bi; description: Bi;
   meeting: Bi; icon: string; image: ImageKey; photos: ImageKey[]; audience: Bi;
+  schedule?: { name: Bi; day: Bi; time: string }[];
 }[] = [
   {
     slug: "sunday-school", name: "Sunday School",
@@ -485,7 +497,7 @@ const organizationsRaw: {
       "Forming young men and women as disciples and servant-leaders through prayer, retreats, study and works of charity.",
       "പ്രാർത്ഥന, ധ്യാനം, പഠനം, ജീവകാരുണ്യ പ്രവർത്തനങ്ങൾ എന്നിവയിലൂടെ യുവതീയുവാക്കളെ ശിഷ്യരും സേവന നേതാക്കളുമായി രൂപപ്പെടുത്തുന്നു.",
     ),
-    meeting: B("Second Sunday · after Holy Qurbana", "രണ്ടാം ഞായർ · വിശുദ്ധ കുർബ്ബാനയ്ക്കു ശേഷം"),
+    meeting: B("Saturdays · after Evening Prayer", "ശനിയാഴ്ചകൾ · സന്ധ്യാ നമസ്കാരത്തിനു ശേഷം"),
     icon: "Flame", image: "candlesPrayer", photos: ["gathering", "peacefulPath", "candlesPrayer"],
     audience: B("Youth (18–35)", "യുവജനം (18–35)"),
   },
@@ -509,21 +521,31 @@ const organizationsRaw: {
       "The women of the parish united in prayer, formation and charity — the quiet strength of every Christian home.",
       "പ്രാർത്ഥനയിലും പരിശീലനത്തിലും ജീവകാരുണ്യത്തിലും ഒന്നിച്ച ഇടവക വനിതകൾ — ഓരോ ക്രിസ്തീയ ഭവനത്തിന്റെയും നിശ്ശബ്ദ ശക്തി.",
     ),
-    meeting: B("First Sunday · after Holy Qurbana", "ഒന്നാം ഞായർ · വിശുദ്ധ കുർബ്ബാനയ്ക്കു ശേഷം"),
+    meeting: B("Wednesday", "ബുധൻ"),
     icon: "Heart", image: "peacefulPath", photos: ["marianIcon", "candles", "celebration"],
     audience: B("Women", "വനിതകൾ"),
   },
   {
-    slug: "prayer-fellowship", name: "Prayer Fellowship",
-    malayalam: B("Prarthana Koottayma", "പ്രാർത്ഥനാ കൂട്ടായ്മ"),
+    slug: "prayer-fellowship", name: "Prayer Groups",
+    malayalam: B("Prarthana Yogangal", "പ്രാർത്ഥനാ യോഗങ്ങൾ"),
     short: B("Intercession & fellowship", "മാധ്യസ്ഥ്യവും കൂട്ടായ്മയും"),
     description: B(
       "Parishioners gathering for praise, intercession and the Word — carrying one another's needs before the Lord.",
       "സ്തുതിക്കും മാധ്യസ്ഥ്യത്തിനും വചനത്തിനുമായി ഒരുമിക്കുന്ന ഇടവകാംഗങ്ങൾ — പരസ്പരം ആവശ്യങ്ങൾ കർത്താവിനു മുമ്പിൽ സമർപ്പിക്കുന്നു.",
     ),
-    meeting: B("Wednesday · 5:00 PM", "ബുധൻ · 5:00 PM"),
+    meeting: B("Weekly · 8 groups", "ആഴ്ചതോറും · 8 യോഗങ്ങൾ"),
     icon: "Sparkles", image: "candles", photos: ["ardramPoster", "marianShrine", "marianIcon", "candles"],
     audience: B("All parishioners", "എല്ലാ ഇടവകാംഗങ്ങൾക്കും"),
+    schedule: [
+      { name: B("Alencherry Martha Mariam", "Alencherry Martha Mariam"), day: B("Sunday", "ഞായർ"), time: "4:30 PM" },
+      { name: B("Anchal St. Jude", "Anchal St. Jude"), day: B("Sunday", "ഞായർ"), time: "4:00 PM" },
+      { name: B("Central St. Mary's", "Central St. Mary's"), day: B("Sunday", "ഞായർ"), time: "3:30 PM" },
+      { name: B("Elamutam St. John's", "Elamutam St. John's"), day: B("Friday", "വെള്ളി"), time: "6:00 PM" },
+      { name: B("Muthalattu St. George", "Muthalattu St. George"), day: B("Sunday", "ഞായർ"), time: "3:30 PM" },
+      { name: B("Panayam St. Peter's", "Panayam St. Peter's"), day: B("Sunday", "ഞായർ"), time: "11:30 AM" },
+      { name: B("Putheyam St. Gregorios", "Putheyam St. Gregorios"), day: B("Sunday", "ഞായർ"), time: "4:00 PM" },
+      { name: B("Yeroor St. Thomas", "Yeroor St. Thomas"), day: B("Sunday", "ഞായർ"), time: "4:00 PM" },
+    ],
   },
   {
     slug: "choir", name: "Parish Choir",
@@ -557,7 +579,7 @@ const organizationsRaw: {
       "The children of the parish gathering in prayer, song and Bible stories — learning to love the Lord and one another from their earliest years.",
       "പ്രാർത്ഥനയിലും ഗാനങ്ങളിലും ബൈബിൾ കഥകളിലും ഒന്നിച്ചുകൂടുന്ന ഇടവകയിലെ കുട്ടികൾ — ചെറുപ്രായം മുതലേ കർത്താവിനെയും പരസ്പരവും സ്നേഹിക്കാൻ പഠിക്കുന്നു.",
     ),
-    meeting: B("Sundays · after Holy Qurbana", "ഞായറാഴ്ചകൾ · വിശുദ്ധ കുർബ്ബാനയ്ക്കു ശേഷം"),
+    meeting: B("Last Sunday of every month · after Sunday School", "എല്ലാ മാസവും അവസാന ഞായർ · സൺഡേ സ്കൂളിനു ശേഷം"),
     icon: "Sprout", image: "peacefulPath", photos: ["peacefulPath", "scripture", "gathering"],
     audience: B("Children", "കുട്ടികൾ"),
   },
@@ -569,7 +591,7 @@ const organizationsRaw: {
       "Parishioners joining in prayer with fasting — seeking God's mercy and interceding for the needs of the parish and the world.",
       "ഉപവാസത്തോടെ പ്രാർത്ഥനയിൽ ഒന്നിക്കുന്ന ഇടവകാംഗങ്ങൾ — ദൈവകരുണ തേടി ഇടവകയുടെയും ലോകത്തിന്റെയും ആവശ്യങ്ങൾക്കായി മാധ്യസ്ഥ്യം വഹിക്കുന്നു.",
     ),
-    meeting: B("Schedule to be announced", "സമയക്രമം പിന്നീട് അറിയിക്കും"),
+    meeting: B("Every Friday · 10:30 AM", "എല്ലാ വെള്ളിയാഴ്ചയും · 10:30 AM"),
     icon: "Cross", image: "marianShrine", photos: ["marianShrine", "candles", "candlesPrayer"],
     audience: B("All parishioners", "എല്ലാ ഇടവകാംഗങ്ങൾക്കും"),
   },
@@ -580,7 +602,7 @@ const organizationsRaw: {
       "A fellowship of the parish, gathering its members in prayer, fellowship and service.",
       "പ്രാർത്ഥനയിലും കൂട്ടായ്മയിലും സേവനത്തിലും അംഗങ്ങളെ ഒന്നിപ്പിക്കുന്ന ഇടവക കൂട്ടായ്മ.",
     ),
-    meeting: B("Schedule to be announced", "സമയക്രമം പിന്നീട് അറിയിക്കും"),
+    meeting: B("First Tuesday of every month · 10:30 AM", "എല്ലാ മാസവും ഒന്നാം ചൊവ്വ · 10:30 AM"),
     icon: "HeartHandshake", image: "celebration", photos: ["celebration", "gathering", "churchDusk"],
     audience: B("Members", "അംഗങ്ങൾ"),
   },
@@ -797,7 +819,7 @@ const timelineRaw: { year: string | Bi; date?: Bi; title: Bi; body: Bi }[] = [
   { year: "1979", title: B("Diocese of Thiruvananthapuram", "തിരുവനന്തപുരം ഭദ്രാസനം"), body: B("The church was included in the Diocese of Thiruvananthapuram.", "ദേവാലയം തിരുവനന്തപുരം ഭദ്രാസനത്തിൽ ഉൾപ്പെടുത്തി.") },
   { year: "1982", date: B("1 September", "സെപ്റ്റംബർ 1"), title: B("Shrine of the Mother of God", "ദൈവമാതാവിന്റെ ധ്യാന മന്ദിരം"), body: B("H.G. Geevarghese Mar Dioscoros Metropolitan consecrated the meditation shrine (Dhyana Mandiram) of the Mother of God.", "ദൈവമാതാവിന്റെ ധ്യാന മന്ദിരം അഭിവന്ദ്യ ഗീവർഗ്ഗീസ് മാർ ദിയസ്കോറോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
   { year: "2001", date: B("6 September", "സെപ്റ്റംബർ 6"), title: B("Foundation of the third church", "മൂന്നാം ദേവാലയത്തിന് ശിലാസ്ഥാപനം"), body: B("H.H. Baselios Marthoma Mathews II Catholicos laid the foundation stone for the third church.", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് ദ്വിതീയൻ കാതോലിക്കാ ബാവ മൂന്നാം ദേവാലയത്തിന് ശിലാസ്ഥാപന കർമ്മം നിർവഹിച്ചു.") },
-  { year: "2003", title: B("The second meditation shrine", "രണ്ടാം ധ്യാന മന്ദിരം"), body: B("H.G. Zacharias Mar Athanasios Metropolitan consecrated the second meditation shrine (Dhyana Mandiram) of the Mother of God.", "ദൈവമാതാവിന്റെ രണ്ടാം ധ്യാന മന്ദിരം അഭിവന്ദ്യ സഖറിയാസ് മാർ അത്താനാസ്യോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
+  { year: "2002", date: B("8 September", "സെപ്റ്റംബർ 8"), title: B("The second meditation shrine", "രണ്ടാം ധ്യാന മന്ദിരം"), body: B("H.G. Zacharias Mar Athanasios Metropolitan consecrated the second meditation shrine (Dhyana Mandiram) of the Mother of God.", "ദൈവമാതാവിന്റെ രണ്ടാം ധ്യാന മന്ദിരം അഭിവന്ദ്യ സഖറിയാസ് മാർ അത്താനാസ്യോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
   { year: "2006", date: B("30–31 August", "ഓഗസ്റ്റ് 30, 31"), title: B("The third church consecrated", "മൂന്നാം ദേവാലയ കൂദാശ"), body: B("H.H. Baselios Marthoma Didymos I Catholicos consecrated the third church.", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ ദിദിമോസ് പ്രഥമൻ കാതോലിക്കാ ബാവ മൂന്നാം ദേവാലയം കൂദാശ ചെയ്തു.") },
   { year: "2010", date: B("3 September", "സെപ്റ്റംബർ 3"), title: B("International Martha Mariam pilgrimage centre", "അന്താരാഷ്ട്ര മർത്തമറിയം തീർത്ഥാടന കേന്ദ്രം"), body: B("The church was declared an International Martha Mariam Pilgrimage Centre by H.H. Baselios Marthoma Didymos I Catholicos.", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ ദിദിമോസ് പ്രഥമൻ കാതോലിക്കാ ബാവ അന്താരാഷ്ട്ര മർത്തമറിയം തീർത്ഥാടന കേന്ദ്രമായി പ്രഖ്യാപിച്ചു.") },
   { year: "2011", date: B("28 August", "ഓഗസ്റ്റ് 28"), title: B("Shrine renewed", "ധ്യാന മന്ദിരം നവീകരിച്ചു"), body: B("H.G. Dr. Gabriel Mar Gregorios Metropolitan consecrated the renovated meditation shrine of the Mother of God.", "നവീകരിച്ച ദൈവമാതാവിന്റെ ധ്യാന മന്ദിരം അഭി. ഡോ. ഗബ്രിയേൽ മാർ ഗ്രീഗോറിയോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
@@ -870,6 +892,7 @@ export type ParishData = {
   committeeMembers: { name: string; photo: string; role?: string }[];
   auditors: { name: string; photo: string }[];
   sacristans: { name: string; photo: string }[];
+  parishPriests: { name: string; photo?: string; role?: string; memorial: boolean }[];
   formerVicars: { name: string; role?: string; years: string; note?: string }[];
   organizations: Organization[];
   missionProjects: MissionProject[];
@@ -934,6 +957,9 @@ function buildData(locale: Locale): ParishData {
     committeeMembers: committeeMembersRaw.map((m) => ({ name: L(m.name), photo: m.photo, role: m.role ? L(m.role) : undefined })),
     auditors: auditorsRaw.map((m) => ({ name: L(m.name), photo: m.photo })),
     sacristans: sacristansRaw.map((m) => ({ name: L(m.name), photo: m.photo })),
+    parishPriests: parishPriestsRaw.map((m) => ({
+      name: L(m.name), photo: m.photo, role: m.role ? L(m.role) : undefined, memorial: m.memorial ?? false,
+    })),
     formerVicars: formerVicarsRaw.map((v) => ({
       name: L(v.name), role: v.role ? L(v.role) : undefined, years: v.years, note: v.note ? L(v.note) : undefined,
     })),
@@ -945,6 +971,7 @@ function buildData(locale: Locale): ParishData {
         slug: o.slug, name, malayalam: sub === name ? undefined : sub,
         short: L(o.short), description: L(o.description), meeting: L(o.meeting),
         icon: o.icon, image: o.image, photos: o.photos, audience: L(o.audience),
+        schedule: o.schedule?.map((g) => ({ name: L(g.name), day: L(g.day), time: g.time })),
       };
     }),
     missionProjects: missionProjectsRaw.map((m) => ({

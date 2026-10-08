@@ -27,6 +27,8 @@ export const site = {
     addressShort: "Alencherry, Anchal, Kollam, Kerala 691306",
     phone: "+91 88914 12360",
     phoneHref: "+918891412360",
+    landline: "0475-2274426",
+    landlineHref: "+914752274426",
     whatsapp: "918891412360", // digits only, country code first
     email: "alencherrychurch@gmail.com",
     mapEmbed:
@@ -35,10 +37,10 @@ export const site = {
       "https://maps.google.com/?q=St+Mary%27s+Orthodox+Church+Alayamon+Anchal+Kollam+Kerala+691306",
   },
 
-  office: {
-    weekdays: "Open daily from 6:00 AM",
-    saturday: "Open daily from 6:00 AM",
-    sunday: "Holy Qurbana in the morning",
+  prayerForm: {
+    url: "https://docs.google.com/forms/d/e/1FAIpQLSfk9ONrwEoQouvASXHysRBZgDeLESi6PDDaBD5Ht4qy3ANtsA/viewform",
+    qr: "/images/qr/prayer-request-form.svg",
+    qrPng: "/images/qr/prayer-request-form.png",
   },
 
   social: {
@@ -50,7 +52,7 @@ export const site = {
 } as const;
 
 export type NavKey =
-  | "home" | "about" | "holyMass" | "clergy" | "organizations"
+  | "home" | "about" | "holyMass" | "clergy" | "committee" | "organizations"
   | "gallery" | "events" | "prayer" | "donations" | "contact";
 
 export type NavItem = {
@@ -64,6 +66,7 @@ export const navItems: NavItem[] = [
   { key: "about", label: "About", href: "/about" },
   { key: "holyMass", label: "Holy Qurbana", href: "/holy-mass" },
   { key: "clergy", label: "Clergy", href: "/clergy" },
+  { key: "committee", label: "Committee", href: "/committee" },
   { key: "organizations", label: "Organizations", href: "/organizations" },
   { key: "gallery", label: "Gallery", href: "/gallery" },
   { key: "events", label: "Events", href: "/events" },

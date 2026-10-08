@@ -23,8 +23,19 @@ export function ContactContent() {
 
   const info = [
     { icon: MapPin, title: t.contact.visitUs, lines: t.site.addressLines },
-    { icon: Phone, title: t.contact.callUs, lines: [site.contact.phone], href: `tel:${site.contact.phoneHref}` },
-    { icon: Mail, title: t.contact.emailUs, lines: [site.contact.email], href: `mailto:${site.contact.email}` },
+    {
+      icon: Phone,
+      title: t.contact.callUs,
+      links: [
+        { text: site.contact.phone, href: `tel:${site.contact.phoneHref}` },
+        { text: site.contact.landline, href: `tel:${site.contact.landlineHref}` },
+      ],
+    },
+    {
+      icon: Mail,
+      title: t.contact.emailUs,
+      links: [{ text: site.contact.email, href: `mailto:${site.contact.email}` }],
+    },
   ];
 
   const sections = [
@@ -64,10 +75,16 @@ export function ContactContent() {
                   </span>
                   <div>
                     <p className="font-serif text-lg font-semibold">{c.title}</p>
-                    {c.href ? (
-                      <a href={c.href} className="text-sm text-muted-foreground transition hover:text-primary">
-                        {c.lines.join(", ")}
-                      </a>
+                    {"links" in c && c.links ? (
+                      c.links.map((l) => (
+                        <a
+                          key={l.href}
+                          href={l.href}
+                          className="block text-sm text-muted-foreground transition hover:text-primary"
+                        >
+                          {l.text}
+                        </a>
+                      ))
                     ) : (
                       <p className="text-sm text-muted-foreground">{c.lines.join(", ")}</p>
                     )}
@@ -85,12 +102,8 @@ export function ContactContent() {
                 </div>
                 <dl className="mt-4 space-y-2 text-sm">
                   <div className="flex justify-between gap-4">
-                    <dt className="text-muted-foreground">{t.contact.monFri}</dt>
+                    <dt className="text-muted-foreground">{t.contact.monSat}</dt>
                     <dd className="text-right font-medium">{t.site.officeWeekdays}</dd>
-                  </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-muted-foreground">{t.contact.saturday}</dt>
-                    <dd className="text-right font-medium">{t.site.officeSaturday}</dd>
                   </div>
                   <div className="flex justify-between gap-4">
                     <dt className="text-muted-foreground">{t.contact.sunday}</dt>

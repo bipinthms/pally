@@ -110,7 +110,7 @@ export function Footer() {
               </li>
               <li className="flex gap-3">
                 <Clock className="mt-0.5 size-4 shrink-0 text-gold-400" />
-                <span>{t.footer.office}: {t.site.officeWeekdays}</span>
+                <span>{t.footer.office}: {t.contact.monSat}, {t.site.officeWeekdays}</span>
               </li>
             </ul>
           </div>

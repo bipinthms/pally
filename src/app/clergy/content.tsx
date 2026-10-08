@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Quote, History, UserRound, Users } from "lucide-react";
+import { Quote, History, UserRound } from "lucide-react";
 
 import { assetPath, image } from "@/lib/images";
 import { getData, type Clergy } from "@/lib/data";
@@ -50,15 +50,12 @@ export function ClergyContent({ photos }: { photos: string[] }) {
   const { locale, t } = useLocale();
   // Some photos are optional — show a placeholder until they're added.
   const hasPhoto = (file: string) => photos.includes(file);
-  const hasCommitteePhoto = hasPhoto("committee/group.jpg");
-  const { prelates, parishPriest, managingCommittee, committeeMembers, auditors, sacristans, formerVicars } = getData(locale);
+  const { prelates, parishPriest, sacristans, parishPriests, formerVicars } = getData(locale);
 
   const sections = [
     { id: "leadership", label: t.sections.leadership },
-    { id: "managing-committee", label: t.sections.managing },
-    { id: "committee-members", label: t.sections.members },
-    { id: "auditors", label: t.sections.auditors },
     { id: "sacristan", label: t.sections.sacristan },
+    { id: "parish-priests", label: t.sections.parishPriests },
     { id: "former-vicars", label: t.sections.formerVicars },
   ];
 
@@ -109,126 +106,7 @@ export function ClergyContent({ photos }: { photos: string[] }) {
         </div>
       </section>
 
-      {/* Managing committee */}
-      <section id="managing-committee" className="section-y">
-        <div className="container-x">
-          <SectionHeading eyebrow={t.clergy.managingEyebrow} title={t.clergy.managingTitle} subtitle={t.clergy.managingSubtitle} />
-          <RevealGroup className="mx-auto mt-14 grid max-w-2xl gap-4 sm:grid-cols-2">
-            {managingCommittee.map((m, i) => (
-              <RevealItem key={`${m.role}-${i}`}>
-                {m.photo && hasPhoto(m.photo) ? (
-                  <div className="card-hover relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-card text-center">
-                    <Image
-                      src={assetPath(`/images/${m.photo}`)}
-                      alt={m.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, 18rem"
-                      className="object-cover object-top"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-4 pb-5 pt-16">
-                      <p className="font-serif text-lg font-semibold leading-snug text-white">{m.name}</p>
-                      <p className="mt-1 text-sm text-gold-300">{m.role}</p>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="card-hover flex aspect-[4/5] flex-col items-center justify-center rounded-2xl border border-border bg-card p-6 text-center">
-                    <span className="flex size-14 items-center justify-center rounded-full bg-primary/10 text-primary">
-                      <UserRound className="size-6" />
-                    </span>
-                    <p className="mt-4 font-serif text-lg font-semibold leading-snug">{m.name}</p>
-                    <p className="mt-1 text-sm text-gold-700 dark:text-gold-400">{m.role}</p>
-                  </div>
-                )}
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* Committee members */}
-      <section id="committee-members" className="section-y bg-secondary/40">
-        <div className="container-x">
-          <SectionHeading eyebrow={t.clergy.membersEyebrow} title={t.clergy.membersTitle} subtitle={t.clergy.membersSubtitle} />
-          <Reveal className="mx-auto mt-14 max-w-4xl">
-            <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] border border-border bg-card shadow-[var(--shadow-soft)] ring-1 ring-gold-500/20">
-              {hasCommitteePhoto ? (
-                <Image
-                  src={image("committeeMembers")}
-                  alt={t.clergy.membersTitle}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 56rem"
-                  className="object-cover"
-                />
-              ) : (
-                <div className="flex h-full items-center justify-center text-primary/40">
-                  <Users className="size-16" />
-                </div>
-              )}
-            </div>
-          </Reveal>
-
-          <RevealGroup className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
-            {committeeMembers.map((m) => (
-              <RevealItem key={m.photo}>
-                <div className="card-hover h-full overflow-hidden rounded-2xl border border-border bg-card text-center">
-                  <div className="relative aspect-square bg-secondary/40">
-                    {hasPhoto(m.photo) ? (
-                      <Image
-                        src={assetPath(`/images/${m.photo}`)}
-                        alt={m.name}
-                        fill
-                        sizes="(max-width: 640px) 50vw, 14rem"
-                        className="object-cover object-top"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-primary/40">
-                        <UserRound className="size-10" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="px-3 py-3">
-                    <p className="font-serif text-base font-semibold leading-snug">{m.name}</p>
-                    {m.role && <p className="mt-0.5 text-xs text-gold-700 dark:text-gold-400">{m.role}</p>}
-                  </div>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* Auditors */}
-      <section id="auditors" className="section-y">
-        <div className="container-x">
-          <SectionHeading eyebrow={t.clergy.auditorsEyebrow} title={t.clergy.auditorsTitle} subtitle={t.clergy.auditorsSubtitle} />
-          <RevealGroup className="mx-auto mt-14 grid max-w-md grid-cols-2 gap-4">
-            {auditors.map((m) => (
-              <RevealItem key={m.photo}>
-                <div className="card-hover h-full overflow-hidden rounded-2xl border border-border bg-card text-center">
-                  <div className="relative aspect-square bg-secondary/40">
-                    {hasPhoto(m.photo) ? (
-                      <Image
-                        src={assetPath(`/images/${m.photo}`)}
-                        alt={m.name}
-                        fill
-                        sizes="(max-width: 640px) 50vw, 14rem"
-                        className="object-cover object-top"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-primary/40">
-                        <UserRound className="size-10" />
-                      </div>
-                    )}
-                  </div>
-                  <p className="px-3 py-3 font-serif text-base font-semibold leading-snug">{m.name}</p>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* Sacristan */}
+      {/* Sacrist */}
       <section id="sacristan" className="section-y bg-secondary/40">
         <div className="container-x">
           <SectionHeading eyebrow={t.clergy.sacristanEyebrow} title={t.clergy.sacristanTitle} subtitle={t.clergy.sacristanSubtitle} />
@@ -259,8 +137,43 @@ export function ClergyContent({ photos }: { photos: string[] }) {
         </div>
       </section>
 
+      {/* Parish priests */}
+      <section id="parish-priests" className="section-y">
+        <div className="container-x">
+          <SectionHeading eyebrow={t.clergy.parishPriestsEyebrow} title={t.clergy.parishPriestsTitle} subtitle={t.clergy.parishPriestsSubtitle} />
+          <RevealGroup className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
+            {parishPriests.map((m) => (
+              <RevealItem key={m.name}>
+                <div className="card-hover h-full overflow-hidden rounded-2xl border border-border bg-card text-center">
+                  <div className="relative aspect-square bg-secondary/40">
+                    {m.photo && hasPhoto(m.photo) ? (
+                      <Image
+                        src={assetPath(`/images/${m.photo}`)}
+                        alt={m.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, 14rem"
+                        className="object-cover object-top"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-primary/40">
+                        <UserRound className="size-10" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="px-3 py-3">
+                    {m.memorial && <p className="mb-0.5 text-xs italic text-muted-foreground">{t.clergy.inLovingMemory}</p>}
+                    <p className="font-serif text-base font-semibold leading-snug">{m.name}</p>
+                    {m.role && <p className="mt-0.5 text-xs text-gold-700 dark:text-gold-400">{m.role}</p>}
+                  </div>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </section>
+
       {/* Former vicars */}
-      <section id="former-vicars" className="section-y">
+      <section id="former-vicars" className="section-y bg-secondary/40">
         <div className="container-x">
           <SectionHeading eyebrow={t.clergy.formerEyebrow} title={t.clergy.formerTitle} subtitle={t.clergy.formerSubtitle} />
           <RevealGroup className="mx-auto mt-14 grid max-w-4xl gap-4 sm:grid-cols-2">
