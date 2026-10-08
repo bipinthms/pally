@@ -2,19 +2,16 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, Heart, Phone } from "lucide-react";
+import { Heart } from "lucide-react";
 
-import { primaryNav, navItems, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { useLocale } from "@/lib/i18n/provider";
 import { Wordmark } from "@/components/brand";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageToggle } from "@/components/layout/language-toggle";
 import { SearchDialog } from "@/components/search-dialog";
+import { MobileMenu } from "@/components/layout/mobile-menu";
 import { Button } from "@/components/ui/button";
-import { EASE } from "@/lib/motion";
 
 function useScrolled(threshold = 16) {
   const [scrolled, setScrolled] = React.useState(false);
@@ -27,28 +24,14 @@ function useScrolled(threshold = 16) {
   return scrolled;
 }
 
-function isActive(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
-}
-
+/**
+ * Slim utility bar: brand, language, search, theme and Donate. On desktop, page
+ * navigation lives in the hero sections (see SiteMenu); below `lg` a Menu button
+ * opens it full screen (see MobileMenu).
+ */
 export function Navbar() {
-  const pathname = usePathname();
-  const scrolled = useScrolled();
+  const solid = useScrolled();
   const { t } = useLocale();
-  const [open, setOpen] = React.useState(false);
-
-  // Close the mobile menu whenever the route changes.
-  React.useEffect(() => setOpen(false), [pathname]);
-
-  // Lock body scroll while the mobile menu is open.
-  React.useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  const solid = scrolled || open;
 
   return (
     <header
@@ -59,129 +42,33 @@ export function Navbar() {
           : "border-b border-transparent py-4 text-cream",
       )}
     >
-      <div className="mx-auto flex w-full max-w-[95rem] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
-        <Link href="/" aria-label="St. Mary's Orthodox Syrian Church — home" className="shrink-0">
+      <div className="mx-auto flex w-full max-w-[95rem] items-center justify-between gap-2 px-4 sm:gap-3 sm:px-6 lg:px-8">
+        <Link href="/" aria-label={t.a11y.homeLink} className="min-w-0 shrink">
           <Wordmark
             markClassName=""
             className={cn(
               "[&_span.font-serif]:transition-colors",
-              // Compact the wordmark on phones so the language button fits.
-              "max-sm:[&_[data-wordmark-sub]]:hidden max-sm:[&_span.font-serif]:text-base",
-              !solid && "[&_span.font-serif]:text-cream",
+              // Compact the wordmark on phones so the controls fit.
+              "max-sm:[&_[data-wordmark-sub]]:hidden max-sm:[&_span.font-serif]:text-base max-[379px]:[&_span.font-serif]:text-[0.9rem] max-[379px]:[&_.size-11]:size-9",
+              !solid && "[&_span.font-serif]:text-cream [&_[data-wordmark-sub]]:text-gold-300",
             )}
           />
         </Link>
 
-        {/* Desktop navigation */}
-        <nav className="hidden min-w-0 items-center gap-0.5 xl:flex">
-          {primaryNav.map((item) => {
-            const active = isActive(pathname, item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "group relative rounded-full whitespace-nowrap px-2.5 py-2 text-[0.9rem] font-medium transition-colors",
-                  active
-                    ? solid
-                      ? "text-primary"
-                      : "text-gold-200"
-                    : "hover:text-gold-500",
-                )}
-              >
-                {t.nav[item.key].label}
-                <span
-                  className={cn(
-                    "absolute inset-x-3 -bottom-0.5 h-px origin-left scale-x-0 bg-gold-500 transition-transform duration-300 group-hover:scale-x-100",
-                    active && "scale-x-100",
-                  )}
-                />
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-1.5 max-[379px]:[&_button]:size-9">
           <LanguageToggle className="mr-0.5 hidden sm:inline-flex" />
-          <LanguageToggle variant="compact" className="sm:hidden" />
+          <LanguageToggle variant="compact" className="sm:hidden max-[379px]:!w-auto max-[379px]:px-2.5" />
           <SearchDialog />
           <ThemeToggle />
-          <Button
-            asChild
-            variant="gold"
-            size="sm"
-            className="ml-1 hidden sm:inline-flex"
-          >
+          <Button asChild variant="gold" size="sm" className="ml-1 hidden sm:inline-flex">
             <Link href="/donations">
               <Heart className="size-4" />
               {t.common.donate}
             </Link>
           </Button>
-          <button
-            type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            onClick={() => setOpen((o) => !o)}
-            className="inline-flex size-10 items-center justify-center rounded-full border border-current/15 text-current transition hover:bg-current/10 xl:hidden"
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
+          <MobileMenu />
         </div>
       </div>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.35, ease: EASE }}
-            className="overflow-hidden border-t border-border bg-background text-foreground lg:hidden"
-          >
-            <nav className="container-x grid gap-1 py-5">
-              {navItems.map((item, i) => {
-                const active = isActive(pathname, item.href);
-                return (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.04 * i + 0.05 }}
-                  >
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "flex flex-col rounded-xl px-4 py-3 transition-colors",
-                        active
-                          ? "bg-primary/10 text-primary"
-                          : "hover:bg-accent",
-                      )}
-                    >
-                      <span className="font-serif text-lg">{t.nav[item.key].label}</span>
-                      <span className="text-xs text-muted-foreground">
-                        {t.nav[item.key].desc}
-                      </span>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-              <div className="mt-3 flex flex-col gap-2">
-                <Button asChild variant="gold" className="w-full">
-                  <Link href="/donations">
-                    <Heart className="size-4" /> {t.common.donate}
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" className="w-full">
-                  <a href={`tel:${site.contact.phoneHref}`}>
-                    <Phone className="size-4" /> {t.common.callParishOffice}
-                  </a>
-                </Button>
-              </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 }

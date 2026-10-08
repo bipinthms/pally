@@ -340,13 +340,13 @@ const prelatesRaw = [
     name: B("H.H. Baselios Marthoma Mathews III", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് തൃതീയൻ കാതോലിക്കാ ബാവ"),
     title: B("Catholicos of the East & Malankara Metropolitan", "പൗരസ്ത്യ കാതോലിക്കായും മലങ്കര മെത്രാപ്പോലീത്തായും"),
     image: "catholicos" as ImageKey,
-    file: "baselios-marthoma-mathews-III.jpg",
+    file: "clergy/catholicos-baselios-marthoma-mathews-iii.jpg",
   },
   {
     name: B("H.G. Dr. Geevarghese Mar Yulios Metropolitan", "അഭി. ഡോ. ഗീവർഗീസ് മാർ യൂലിയോസ് മെത്രാപ്പോലീത്ത"),
     title: B("Diocesan Metropolitan", "ഭദ്രാസന മെത്രാപ്പോലീത്ത"),
     image: "diocesanMetropolitan" as ImageKey,
-    file: "dr-geevarghese-yulios-metropolitian.jpg",
+    file: "clergy/metropolitan-geevarghese-mar-yulios.jpg",
   },
 ];
 
@@ -380,9 +380,10 @@ const assistantPriestRaw = {
   ),
 };
 
+// Photos go in public/images/committee/office-bearers/
 const managingCommitteeRaw = [
-  { name: B("P. J. Philip Aruvickal", "പി. ജെ. ഫിലിപ്പ് അരുവിക്കൽ"), role: B("Trustee", "ട്രസ്റ്റി"), photo: "committee/p-j-philip-aruvickal.jpeg" },
-  { name: B("Joseph K. V.", "ജോസഫ് കെ. വി."), role: B("Secretary", "സെക്രട്ടറി"), photo: "committee/joseph-k-v.jpeg" },
+  { name: B("P. J. Philip Aruvickal", "പി. ജെ. ഫിലിപ്പ് അരുവിക്കൽ"), role: B("Trustee", "ട്രസ്റ്റി"), photo: "committee/office-bearers/p-j-philip-aruvickal.jpeg" },
+  { name: B("Joseph K. V.", "ജോസഫ് കെ. വി."), role: B("Secretary", "സെക്രട്ടറി"), photo: "committee/office-bearers/joseph-k-v.jpeg" },
 ];
 
 // Photos go in public/images/committee/members/
@@ -407,9 +408,9 @@ const auditorsRaw = [
   { name: B("Jincy Prince", "ജിൻസി പ്രിൻസ്"), photo: "committee/auditors/jincy-prince.jpeg" },
 ];
 
-// Photos go in public/images/committee/sacristan/
+// Photos go in public/images/committee/sacristans/
 const sacristansRaw = [
-  { name: B("Roy B.", "റോയ് ബി."), photo: "committee/sacristan/roy-b.jpeg" },
+  { name: B("Roy B.", "റോയ് ബി."), photo: "committee/sacristans/roy-b.jpeg" },
 ];
 
 // Chronological, as recorded in the parish history. Roles left blank where the record gives none.
@@ -443,6 +444,22 @@ const formerVicarsRaw: { name: Bi; role?: Bi; years: string; note?: Bi }[] = [
   { name: B("Rev. Fr. Mathew Thomas", "റവ. ഫാ. മാത്യു തോമസ്"), role: B("Vicar", "വികാരി"), years: "2015 – 2018" },
   { name: B("Rev. Fr. Varghese Abraham", "റവ. ഫാ. വർഗീസ് ഏബ്രഹാം"), years: "2018 – 2024" },
 ];
+
+/** Malayalam display names for organisations (acronyms as written in Malayalam print). */
+const orgNameMl: Record<string, string> = {
+  "sunday-school": "സൺഡേ സ്കൂൾ",
+  ocym: "ഒ.സി.വൈ.എം.",
+  mgocsm: "എം.ജി.ഒ.സി.എസ്.എം.",
+  "martha-mariam": "മർത്തമറിയം വനിതാ സമാജം",
+  "prayer-fellowship": "പ്രാർത്ഥനാ കൂട്ടായ്മ",
+  choir: "ഇടവക ഗായകസംഘം",
+  "edavaka-mission": "ഇടവക മിഷൻ",
+  balasamajam: "ബാലസമാജം",
+  "upavasa-prarthana": "ഉപവാസ പ്രാർത്ഥന",
+  moms: "എം.ഒ.എം.എസ്.",
+  sjof: "എസ്.ജെ.ഒ.എഫ്.",
+  sdof: "എസ്.ഡി.ഒ.എഫ്.",
+};
 
 const organizationsRaw: {
   slug: string; name: string; malayalam?: Bi; short: Bi; description: Bi;
@@ -772,7 +789,7 @@ const missionVisionRaw = {
 };
 
 // From the parish history plaque ("ഇടവകയുടെ നാൾവഴികൾ"), unveiled 21 April 2024.
-const timelineRaw: { year: string; date?: Bi; title: Bi; body: Bi }[] = [
+const timelineRaw: { year: string | Bi; date?: Bi; title: Bi; body: Bi }[] = [
   { year: "1934", date: B("29 January", "ജനുവരി 29"), title: B("The forefathers' covenant", "പൂർവ്വികരുടെ കരാർ"), body: B("George Ummen of Bethel Bungalow, Eapen of Kandathil, Kochu Koshy of Poykavilayil, Koshy of Bethel Vadakkethil, Ummen of Vattavilayil Mukalupurathu, Tharian of Kalangazhikathu, Joseph of Kochukonathu Puthenveettil, Chacko of Thekkethil Veedu and Chacko of Kizhakkekara Charuvila Veedu drew up and registered an agreement to establish the first church.", "ബെഥേൽ ബംഗ്ലാവിൽ ജോർജ്ജ് ഉമ്മൻ, കണ്ടത്തിൽ ഈപ്പൻ, പൊയ്കവിളയിൽ കൊച്ചു കോശി, ബെഥേൽ വടക്കേതിൽ കോശി, വട്ടവിളയിൽ മുകളുപുറത്ത് ഉമ്മൻ, കളങ്ങഴികത്ത് തര്യൻ, കൊച്ചുകോണത്ത് പുത്തൻവീട്ടിൽ ജോസഫ്, തെക്കേതിൽ വീട്ടിൽ ചാക്കോ, കിഴക്കേക്കര ചരുവിള വീട്ടിൽ ചാക്കോ എന്നീ പൂർവ്വികർ പ്രഥമ ദേവാലയം സ്ഥാപിക്കുന്നതിന് കരാർ തയ്യാറാക്കി രജിസ്റ്റർ ചെയ്തു.") },
   { year: "1937", date: B("28 April", "ഏപ്രിൽ 28"), title: B("The first church consecrated", "പ്രഥമ ദേവാലയ കൂദാശ"), body: B("St. Mary's Orthodox Church, Alencherry was consecrated by H.G. Puthenkavil Geevarghese Mar Philoxenos Metropolitan and included in the Diocese of Kollam. First vicar: Ayoor Mavilazhikathu Koshy Kathanar.", "ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് ദേവാലയം പുത്തൻകാവിൽ ഗീവർഗ്ഗീസ് മാർ പീലക്സീനോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്ത് കൊല്ലം ഭദ്രാസനത്തിൽ ഉൾപ്പെടുത്തി. പ്രഥമ വികാരി: ആയൂർ മാവിലഴികത്ത് കോശി കത്തനാർ.") },
   { year: "1937", date: B("21 November", "നവംബർ 21"), title: B("Icon from Mount Athos", "മൗണ്ട് ആതോസിൽ നിന്നൊരു ചിത്രം"), body: B("Shimona, a monk of the Mount Athos monastery, dedicated an icon of the Mother of God and a cross to the church.", "മൗണ്ട് ആതോസ് ആശ്രമാംഗമായ ശിമോന ദൈവമാതാവിന്റെ ചിത്രവും കുരിശും സമർപ്പിച്ചു.") },
@@ -789,7 +806,7 @@ const timelineRaw: { year: string; date?: Bi; title: Bi; body: Bi }[] = [
   { year: "2019", date: B("24–25 August", "ഓഗസ്റ്റ് 24, 25"), title: B("Madbaha and Haikala renewed", "മദ്ബഹായും ഹൈക്കലായും"), body: B("H.G. Dr. Gabriel Mar Gregorios Metropolitan consecrated the renovated Madbaha (sanctuary) and Haikala (nave).", "പുനർനവീകരിച്ച മദ്ബഹായും ഹൈക്കലായും അഭി. ഡോ. ഗബ്രിയേൽ മാർ ഗ്രീഗോറിയോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
   { year: "2024", date: B("21 April", "ഏപ്രിൽ 21"), title: B("St. Jude Chapel", "സെന്റ് ജൂഡ് ചാപ്പൽ"), body: B("H.G. Dr. Gabriel Mar Gregorios Metropolitan laid the foundation stone for the St. Jude Chapel.", "സെന്റ് ജൂഡ് ചാപ്പലിന് അഭി. ഡോ. ഗബ്രിയേൽ മാർ ഗ്രീഗോറിയോസ് മെത്രാപ്പോലീത്താ ശിലാസ്ഥാപന കർമ്മം നിർവഹിച്ചു.") },
   { year: "2026", date: B("4 September", "സെപ്റ്റംബർ 4"), title: B("Relics of St. Gregorios of Parumala enshrined", "പരുമല മാർ ഗ്രീഗോറിയോസിന്റെ തിരുശേഷിപ്പ് സ്ഥാപിച്ചു"), body: B("H.H. Baselios Marthoma Mathews III, Catholicos of the East and Malankara Metropolitan, enshrined the relics of St. Gregorios of Parumala.", "പൗരസ്ത്യ കാതോലിക്കായും മലങ്കര മെത്രാപ്പോലീത്തയുമായ പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് തൃതീയൻ കാതോലിക്കാ ബാവ പരുമല മാർ ഗ്രീഗോറിയോസ് തിരുമേനിയുടെ തിരുശേഷിപ്പ് സ്ഥാപിച്ചു.") },
-  { year: "Today", title: B("A living parish", "ജീവനുള്ള ഇടവക"), body: B("Home to hundreds of families and a dozen ministries, the parish continues its journey of faith and service.", "നൂറുകണക്കിന് കുടുംബങ്ങളുടെയും നിരവധി കൂട്ടായ്മകളുടെയും ഭവനമായി, ഇടവക വിശ്വാസത്തിന്റെയും സേവനത്തിന്റെയും യാത്ര തുടരുന്നു.") },
+  { year: B("Today", "ഇന്ന്"), title: B("A living parish", "ജീവനുള്ള ഇടവക"), body: B("Home to hundreds of families and a dozen ministries, the parish continues its journey of faith and service.", "നൂറുകണക്കിന് കുടുംബങ്ങളുടെയും നിരവധി കൂട്ടായ്മകളുടെയും ഭവനമായി, ഇടവക വിശ്വാസത്തിന്റെയും സേവനത്തിന്റെയും യാത്ര തുടരുന്നു.") },
 ];
 
 const patronSaintRaw = {
@@ -812,8 +829,9 @@ const givingRaw = {
   bank: {
     accountName: "St. Mary's Orthodox Church, Alencherry",
     accountNumber: "0000 0000 0000",
-    bank: "State Bank of India",
-    branch: "Anchal, Kollam",
+    // Account name, number and IFSC stay in English: donors copy them into banking apps.
+    bank: B("State Bank of India", "സ്റ്റേറ്റ് ബാങ്ക് ഓഫ് ഇന്ത്യ"),
+    branch: B("Anchal, Kollam", "അഞ്ചൽ, കൊല്ലം"),
     ifsc: "SBIN0000000",
   },
   purposes: [
@@ -870,7 +888,7 @@ export type ParishData = {
   giving: {
     intro: string;
     upiId: string;
-    bank: typeof givingRaw.bank;
+    bank: { accountName: string; accountNumber: string; bank: string; branch: string; ifsc: string };
     purposes: { title: string; body: string; icon: string }[];
   };
   prayerCategories: string[];
@@ -914,11 +932,16 @@ export function getData(locale: Locale): ParishData {
     formerVicars: formerVicarsRaw.map((v) => ({
       name: L(v.name), role: v.role ? L(v.role) : undefined, years: v.years, note: v.note ? L(v.note) : undefined,
     })),
-    organizations: organizationsRaw.map((o) => ({
-      slug: o.slug, name: o.name, malayalam: o.malayalam ? L(o.malayalam) : undefined,
-      short: L(o.short), description: L(o.description), meeting: L(o.meeting),
-      icon: o.icon, image: o.image, photos: o.photos, audience: L(o.audience),
-    })),
+    organizations: organizationsRaw.map((o) => {
+      const name = locale === "ml" ? orgNameMl[o.slug] ?? o.name : o.name;
+      const sub = o.malayalam ? L(o.malayalam) : undefined;
+      return {
+        // Drop the subtitle when it would just repeat the (Malayalam) name.
+        slug: o.slug, name, malayalam: sub === name ? undefined : sub,
+        short: L(o.short), description: L(o.description), meeting: L(o.meeting),
+        icon: o.icon, image: o.image, photos: o.photos, audience: L(o.audience),
+      };
+    }),
     missionProjects: missionProjectsRaw.map((m) => ({
       name: L(m.name), malayalam: m.name.ml, tagline: L(m.tagline), description: L(m.description), icon: m.icon,
     })),
@@ -930,13 +953,14 @@ export function getData(locale: Locale): ParishData {
       vision: L(missionVisionRaw.vision),
       values: missionVisionRaw.values.map((v) => ({ title: L(v.title), body: L(v.body), icon: v.icon })),
     },
-    timeline: timelineRaw.map((t) => ({ year: t.year, date: t.date && L(t.date), title: L(t.title), body: L(t.body) })),
+    timeline: timelineRaw.map((t) => ({ year: typeof t.year === "string" ? t.year : L(t.year), date: t.date && L(t.date), title: L(t.title), body: L(t.body) })),
     patronSaint: {
       name: L(patronSaintRaw.name), title: L(patronSaintRaw.title), feast: L(patronSaintRaw.feast),
       image: patronSaintRaw.image, body: L(patronSaintRaw.body),
     },
     giving: {
-      intro: L(givingRaw.intro), upiId: givingRaw.upiId, bank: givingRaw.bank,
+      intro: L(givingRaw.intro), upiId: givingRaw.upiId,
+      bank: { ...givingRaw.bank, bank: L(givingRaw.bank.bank), branch: L(givingRaw.bank.branch) },
       purposes: givingRaw.purposes.map((p) => ({ title: L(p.title), body: L(p.body), icon: p.icon })),
     },
     prayerCategories: prayerCategoriesRaw.map((c) => L(c)),

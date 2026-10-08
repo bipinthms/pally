@@ -4,6 +4,7 @@ import * as React from "react";
 import { ArrowUp } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "@/lib/site";
+import { useLocale } from "@/lib/i18n/provider";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -14,6 +15,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export function FloatingActions() {
+  const { t } = useLocale();
   const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
@@ -23,9 +25,7 @@ export function FloatingActions() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const waHref = `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(
-    "Hello, I would like to know more about St. Mary's Orthodox Syrian Church, Alencherry.",
-  )}`;
+  const waHref = `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(t.site.whatsappGreeting)}`;
 
   return (
     <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3 sm:bottom-7 sm:right-7">
@@ -34,7 +34,7 @@ export function FloatingActions() {
           <motion.button
             key="totop"
             type="button"
-            aria-label="Back to top"
+            aria-label={t.a11y.backToTop}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             initial={{ opacity: 0, scale: 0.6, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -51,7 +51,7 @@ export function FloatingActions() {
         href={waHref}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Chat with us on WhatsApp"
+        aria-label={t.a11y.whatsapp}
         className="group relative flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_-6px_rgba(37,211,102,0.6)] transition hover:scale-105"
       >
         <span className="absolute inset-0 animate-ping rounded-full bg-[#25D366]/40 [animation-duration:2.5s]" />

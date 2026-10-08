@@ -43,10 +43,10 @@ function useCountdown(target: string) {
 function Unit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
-      <div className="glass flex h-16 w-16 items-center justify-center rounded-2xl font-serif text-2xl font-bold text-cream tabular-nums sm:h-20 sm:w-20 sm:text-3xl">
+      <div className="glass-dark flex h-16 w-16 items-center justify-center rounded-2xl font-serif text-2xl font-bold text-cream tabular-nums sm:h-20 sm:w-20 sm:text-3xl">
         {String(value).padStart(2, "0")}
       </div>
-      <span className="mt-2 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-cream/70">
+      <span className="mt-2 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-cream/75">
         {label}
       </span>
     </div>
@@ -84,7 +84,8 @@ export function FeastBanner() {
             {t.feast.upcoming}
           </span>
           <h2 className="mt-5 font-serif text-4xl font-semibold leading-tight text-cream md:text-5xl">
-            {upcomingFeast.title}
+            {/* Keep the em dash on the same line as the word before it. */}
+            {upcomingFeast.title.replace(" — ", "\u00A0— ")}
           </h2>
           <p className="mt-2 font-serif text-lg italic text-gold-300">
             {upcomingFeast.malayalam} · {formatLongDate(upcomingFeast.date, locale)}
@@ -106,7 +107,8 @@ export function FeastBanner() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
           className="flex justify-center gap-3 sm:gap-5 lg:justify-end"
-          aria-live="polite"
+          role="timer"
+          aria-label={`${t.feast.upcoming}: ${formatLongDate(upcomingFeast.date, locale)}`}
         >
           {left ? (
             <>

@@ -1,10 +1,11 @@
+"use client";
+
 import * as React from "react";
 import Link from "next/link";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 import { site, navItems } from "@/lib/site";
-import { getDictionary } from "@/lib/i18n/dictionary";
-import type { Locale } from "@/lib/i18n/config";
+import { useLocale } from "@/lib/i18n/provider";
 import { Wordmark } from "@/components/brand";
 import { Ornament } from "@/components/ornament";
 import { FacebookIcon, InstagramIcon, YoutubeIcon } from "@/components/social-icons";
@@ -15,8 +16,8 @@ const socials = [
   { href: site.social.youtube, icon: YoutubeIcon, label: "YouTube" },
 ];
 
-export function Footer({ locale = "en" }: { locale?: Locale }) {
-  const t = getDictionary(locale);
+export function Footer() {
+  const { t } = useLocale();
   const year = new Date().getFullYear();
 
   return (
@@ -30,7 +31,7 @@ export function Footer({ locale = "en" }: { locale?: Locale }) {
           {/* Brand */}
           <div>
             <Wordmark
-              className="[&_span.font-serif]:text-cream"
+              className="[&_span.font-serif]:text-cream [&_[data-wordmark-sub]]:text-gold-300"
               markClassName="text-gold-300"
             />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-cream/70">
@@ -53,7 +54,7 @@ export function Footer({ locale = "en" }: { locale?: Locale }) {
           </div>
 
           {/* Explore */}
-          <nav aria-label="Footer">
+          <nav aria-label={t.a11y.footerNav}>
             <h3 className="font-serif text-lg text-cream">{t.footer.explore}</h3>
             <ul className="mt-5 space-y-2.5 text-sm">
               {navItems.slice(0, 6).map((n) => (
@@ -70,7 +71,7 @@ export function Footer({ locale = "en" }: { locale?: Locale }) {
           </nav>
 
           {/* More */}
-          <nav aria-label="More links">
+          <nav aria-label={t.a11y.moreLinks}>
             <h3 className="font-serif text-lg text-cream">{t.footer.parish}</h3>
             <ul className="mt-5 space-y-2.5 text-sm">
               {navItems.slice(6).map((n) => (
@@ -92,7 +93,7 @@ export function Footer({ locale = "en" }: { locale?: Locale }) {
             <ul className="mt-5 space-y-4 text-sm text-cream/75">
               <li className="flex gap-3">
                 <MapPin className="mt-0.5 size-4 shrink-0 text-gold-400" />
-                <span>{site.contact.addressLines.join(", ")}</span>
+                <span>{t.site.addressLines.join(", ")}</span>
               </li>
               <li className="flex gap-3">
                 <Phone className="mt-0.5 size-4 shrink-0 text-gold-400" />
@@ -108,7 +109,7 @@ export function Footer({ locale = "en" }: { locale?: Locale }) {
               </li>
               <li className="flex gap-3">
                 <Clock className="mt-0.5 size-4 shrink-0 text-gold-400" />
-                <span>{t.footer.office}: {site.office.weekdays}</span>
+                <span>{t.footer.office}: {t.site.officeWeekdays}</span>
               </li>
             </ul>
           </div>
@@ -120,10 +121,10 @@ export function Footer({ locale = "en" }: { locale?: Locale }) {
 
         <div className="mt-8 flex flex-col items-center justify-between gap-3 text-center text-xs text-cream/55 sm:flex-row sm:text-left">
           <p>
-            © {year} {site.legalName}. {t.footer.rights}
+            © {year} {t.site.legalName}. {t.footer.rights}
           </p>
           <p className="flex items-center gap-1.5">
-            {site.diocese} · {site.rite}
+            {t.site.diocese} · {t.site.rite}
           </p>
         </div>
       </div>

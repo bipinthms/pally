@@ -322,14 +322,14 @@ export function GalleryClient() {
             onClick={close}
           >
             <button
-              aria-label="Close"
+              aria-label={t.a11y.close}
               onClick={close}
               className="absolute right-4 top-4 z-10 flex size-11 items-center justify-center rounded-full bg-white/10 text-cream transition hover:bg-white/20"
             >
               <X className="size-5" />
             </button>
             <button
-              aria-label="Previous image"
+              aria-label={t.a11y.previousImage}
               onClick={(e) => {
                 e.stopPropagation();
                 step(-1);
@@ -339,7 +339,7 @@ export function GalleryClient() {
               <ChevronLeft className="size-6" />
             </button>
             <button
-              aria-label="Next image"
+              aria-label={t.a11y.nextImage}
               onClick={(e) => {
                 e.stopPropagation();
                 step(1);

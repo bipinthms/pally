@@ -34,7 +34,7 @@ export function EventCard({ event }: { event: ChurchEvent }) {
           <span className="font-serif text-xl font-bold leading-none text-primary">
             {day}
           </span>
-          <span className="text-[0.6rem] font-semibold uppercase tracking-wider text-gold-600">
+          <span className="text-[0.6rem] font-semibold uppercase tracking-wider text-gold-700">
             {month}
           </span>
         </div>

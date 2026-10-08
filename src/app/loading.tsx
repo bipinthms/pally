@@ -1,6 +1,10 @@
+"use client";
+
 import { ParishMark } from "@/components/brand";
+import { useLocale } from "@/lib/i18n/provider";
 
 export default function Loading() {
+  const { t } = useLocale();
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center gap-6">
       <span className="relative flex size-20 items-center justify-center">
@@ -10,7 +14,7 @@ export default function Loading() {
         </span>
       </span>
       <p className="font-serif text-sm uppercase tracking-[0.3em] text-muted-foreground">
-        St. Mary's Church, Alencherry
+        {t.site.wordmarkTitle}
       </p>
     </div>
   );

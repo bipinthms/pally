@@ -70,10 +70,3 @@ export const navItems: NavItem[] = [
   { key: "donations", label: "Donations", href: "/donations" },
   { key: "contact", label: "Contact", href: "/contact" },
 ];
-
-/** Primary links surfaced in the top navigation bar (rest live in a menu). */
-export const primaryNav: NavItem[] = navItems.filter((n) =>
-  ["/", "/about", "/holy-mass", "/clergy", "/organizations", "/gallery", "/events", "/contact"].includes(
-    n.href,
-  ),
-);

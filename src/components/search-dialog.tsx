@@ -80,7 +80,7 @@ export function SearchDialog({ triggerClassName }: { triggerClassName?: string }
       <DialogTrigger asChild>
         <button
           type="button"
-          aria-label="Search the site"
+          aria-label={t.a11y.search}
           className={cn(
             "inline-flex size-10 items-center justify-center rounded-full border border-current/15 text-current transition-colors hover:bg-current/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500",
             triggerClassName,

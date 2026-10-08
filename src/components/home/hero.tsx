@@ -12,6 +12,8 @@ import { site } from "@/lib/site";
 import { EASE } from "@/lib/motion";
 import { useLocale } from "@/lib/i18n/provider";
 import { Button } from "@/components/ui/button";
+import { SiteMenu } from "@/components/site-menu";
+import { cn } from "@/lib/utils";
 import type { Variants } from "framer-motion";
 
 const container: Variants = {
@@ -28,8 +30,8 @@ export function Hero() {
   const { heroVerse } = getData(locale);
 
   const chips = [
-    { icon: CalendarClock, label: t.home.sundayMass, value: "7:00 - 10:00 AM" },
-    { icon: MapPin, label: t.common.location, value: "Alencherry, Anchal" },
+    { icon: CalendarClock, label: t.home.sundayMass, value: "7:00 – 10:00 AM" },
+    { icon: MapPin, label: t.common.location, value: t.site.locationShort },
   ];
 
   return (
@@ -38,7 +40,7 @@ export function Hero() {
       <div className="absolute inset-0 -z-10">
         <Image
           src={image("heroInterior", { w: 2000, q: 70 })}
-          alt="The interior of St. Mary's Orthodox Syrian Church, Alencherry"
+          alt={t.a11y.altHero}
           fill
           priority
           sizes="100vw"
@@ -49,21 +51,21 @@ export function Hero() {
         <div className="absolute inset-0 bg-grain opacity-[0.08]" />
       </div>
 
-      <div className="container-x relative w-full pt-28 pb-24">
+      <div className="container-x relative grid w-full items-center gap-12 pt-28 pb-24 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14 xl:grid-cols-[minmax(0,1fr)_22rem]">
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="mx-auto flex max-w-4xl flex-col items-center text-center"
+          className="flex min-w-0 flex-col items-center text-center lg:items-start lg:text-left"
         >
           <motion.span
             variants={rise}
-            className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.22em] text-gold-200 backdrop-blur"
+            className="glass-dark inline-flex flex-col items-center gap-x-2 gap-y-0.5 rounded-2xl px-4 py-2 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-gold-200 sm:flex-row sm:rounded-full sm:py-1.5 sm:text-xs sm:tracking-[0.22em]"
           >
-            <Sparkles className="size-3.5" />
-            {site.rite}
-            <span aria-hidden>·</span>
-            {site.diocese}
+            <Sparkles className="hidden size-3.5 sm:block" aria-hidden />
+            <span>{t.site.rite}</span>
+            <span aria-hidden className="hidden sm:inline">·</span>
+            <span>{t.site.diocese}</span>
           </motion.span>
 
           <motion.p
@@ -75,9 +77,15 @@ export function Hero() {
 
           <motion.h1
             variants={rise}
-            className="mt-4 text-balance font-serif text-5xl font-semibold leading-[1.05] text-cream drop-shadow-sm sm:text-6xl md:text-7xl lg:text-[5.25rem]"
+            className={cn(
+              "mt-4 text-balance font-serif font-semibold text-cream drop-shadow-sm",
+              // Malayalam glyphs are wider and taller — scale the display size down.
+              locale === "ml"
+                ? "text-[2.1rem] leading-[1.25] sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4rem] lg:[@media(max-height:50rem)]:text-[2.75rem]"
+                : "text-5xl leading-[1.05] sm:text-6xl md:text-7xl lg:text-[4.25rem] xl:text-[4.75rem]",
+            )}
           >
-            {site.name}
+            {t.site.name}
           </motion.h1>
 
           <motion.p
@@ -90,7 +98,7 @@ export function Hero() {
           {/* Verse */}
           <motion.figure
             variants={rise}
-            className="mt-9 max-w-2xl border-l-2 border-gold-400/60 pl-5 text-left"
+            className="mt-9 max-w-2xl border-l-2 border-gold-400/60 pl-5 text-left lg:[@media(max-height:50rem)]:mt-6"
           >
             <blockquote className="font-serif text-lg italic leading-relaxed text-cream/90 md:text-xl">
               “{heroVerse.text}”
@@ -103,7 +111,7 @@ export function Hero() {
           {/* CTAs */}
           <motion.div
             variants={rise}
-            className="mt-10 flex flex-col gap-3 sm:flex-row"
+            className="mt-10 flex flex-col gap-3 sm:flex-row lg:[@media(max-height:50rem)]:mt-7"
           >
             <Button asChild variant="gold" size="lg">
               <Link href="/holy-mass">
@@ -121,26 +129,36 @@ export function Hero() {
             </Button>
           </motion.div>
 
-          {/* Quick chips */}
+          {/* Quick chips — dropped on short desktop screens so the hero fits the viewport. */}
           <motion.div
             variants={rise}
-            className="mt-10 flex flex-wrap items-center justify-center gap-3"
+            className="mt-10 flex flex-wrap items-center justify-center gap-3 lg:justify-start lg:[@media(max-height:50rem)]:hidden"
           >
             {chips.map((c) => (
               <div
                 key={c.label}
-                className="glass flex items-center gap-3 rounded-full px-5 py-2.5 text-left"
+                className="glass-dark flex items-center gap-3 rounded-full px-5 py-2.5 text-left"
               >
-                <c.icon className="size-5 text-gold-300" />
+                <c.icon className="size-5 text-gold-300" aria-hidden />
                 <span className="flex flex-col leading-tight">
-                  <span className="text-[0.62rem] font-semibold uppercase tracking-widest text-cream/60">
+                  <span className="text-[0.62rem] font-semibold uppercase tracking-widest text-cream/70">
                     {c.label}
                   </span>
-                  <span className="text-sm font-medium text-cream">{c.value}</span>
+                  <span className="tabular text-sm font-medium text-cream">{c.value}</span>
                 </span>
               </div>
             ))}
           </motion.div>
+        </motion.div>
+
+        {/* Site menu — replaces the navbar links; sized like the interior heroes' menu. */}
+        <motion.div
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, delay: 0.5, ease: EASE }}
+          className="hidden lg:block"
+        >
+          <SiteMenu className="lg:h-[max(32rem,calc(100svh-13rem))]" />
         </motion.div>
       </div>
 
@@ -149,7 +167,8 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6, duration: 1 }}
-        className="absolute inset-x-0 bottom-6 flex justify-center"
+        className="absolute inset-x-0 bottom-6 hidden justify-center sm:flex"
+        aria-hidden
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
