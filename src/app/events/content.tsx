@@ -32,6 +32,12 @@ export function EventsContent({ today }: { today: string }) {
     return acc;
   }, {});
 
+  const sections = [
+    ...(past.length > 0 ? [{ id: "news", label: t.sections.news }] : []),
+    { id: "upcoming", label: t.sections.upcoming },
+    ...(Object.keys(grouped).length > 0 ? [{ id: "calendar", label: t.sections.calendar }] : []),
+  ];
+
   return (
     <>
       <PageHero
@@ -41,11 +47,12 @@ export function EventsContent({ today }: { today: string }) {
         verse={t.events.heroVerse}
         imageKey="celebration"
         crumbs={[{ label: t.nav.events.label }]}
+        sections={sections}
       />
 
       {/* Parish news (past) */}
       {past.length > 0 && (
-        <section className="section-y">
+        <section id="news" className="section-y">
           <div className="container-x">
             <SectionHeading eyebrow={t.events.newsEyebrow} title={t.events.newsTitle} subtitle={t.events.newsSubtitle} />
             <RevealGroup className="mt-14 grid gap-6 md:grid-cols-3">
@@ -78,7 +85,7 @@ export function EventsContent({ today }: { today: string }) {
         </section>
       )}
       {/* Upcoming (filterable) */}
-      <section className="section-y">
+      <section id="upcoming" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.events.upcomingEyebrow} title={t.events.upcomingTitle} subtitle={t.events.upcomingSubtitle} />
           <div className="mt-14">
@@ -93,7 +100,7 @@ export function EventsContent({ today }: { today: string }) {
 
       {/* Calendar / agenda */}
       {Object.keys(grouped).length > 0 && (
-        <section className="section-y bg-secondary/40">
+        <section id="calendar" className="section-y bg-secondary/40">
           <div className="container-x">
             <SectionHeading eyebrow={t.events.calEyebrow} title={t.events.calTitle} subtitle={t.events.calSubtitle} />
             <div className="mx-auto mt-14 max-w-3xl space-y-10">

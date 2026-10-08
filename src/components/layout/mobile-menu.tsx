@@ -51,7 +51,7 @@ export function MobileMenu({ className }: { className?: string }) {
               className="flex-1 animate-none rounded-none border-0 bg-transparent shadow-none backdrop-blur-none"
             />
             <Button asChild variant="gold" className="w-full sm:hidden">
-              <Link href="/donations" onClick={() => setOpen(false)}>
+              <Link href="/contact" onClick={() => setOpen(false)}>
                 <Heart className="size-4" />
                 {t.common.donate}
               </Link>

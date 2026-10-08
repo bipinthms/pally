@@ -58,7 +58,7 @@ export function Footer() {
             <h3 className="font-serif text-lg text-cream">{t.footer.explore}</h3>
             <ul className="mt-5 space-y-2.5 text-sm">
               {navItems.slice(0, 6).map((n) => (
-                <li key={n.href}>
+                <li key={n.key}>
                   <Link
                     href={n.href}
                     className="text-cream/70 transition hover:text-gold-300"
@@ -75,7 +75,7 @@ export function Footer() {
             <h3 className="font-serif text-lg text-cream">{t.footer.parish}</h3>
             <ul className="mt-5 space-y-2.5 text-sm">
               {navItems.slice(6).map((n) => (
-                <li key={n.href}>
+                <li key={n.key}>
                   <Link
                     href={n.href}
                     className="text-cream/70 transition hover:text-gold-300"

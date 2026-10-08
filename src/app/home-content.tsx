@@ -56,12 +56,22 @@ export function HomeContent() {
     { title: t.home.weekdayMass, icon: Sunrise, slots: d.weekdayMass.slice(0, 4), accent: "from-gold-600 to-gold-800" },
   ];
 
+  const sections = [
+    { id: "welcome", label: t.sections.welcome },
+    { id: "qurbana", label: t.sections.qurbana },
+    { id: "announcements", label: t.sections.announcements },
+    { id: "gallery", label: t.sections.gallery },
+    { id: "vicar-message", label: t.sections.vicarMessage },
+    { id: "organizations", label: t.sections.organizations },
+    { id: "visit", label: t.sections.visit },
+  ];
+
   return (
     <>
-      <Hero />
+      <Hero sections={sections} />
 
       {/* ---------------- Welcome ---------------- */}
-      <section className="section-y">
+      <section id="welcome" className="section-y">
         <div className="container-x grid items-center gap-14 lg:grid-cols-2">
           <Reveal className="relative">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)]">
@@ -131,7 +141,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------------- Mass timings ---------------- */}
-      <section className="section-y bg-secondary/40">
+      <section id="qurbana" className="section-y bg-secondary/40">
         <div className="container-x">
           <SectionHeading eyebrow={t.home.massEyebrow} title={t.home.massTitle} subtitle={t.home.massSubtitle} />
 
@@ -193,7 +203,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------------- Announcements ---------------- */}
-      <section className="section-y">
+      <section id="announcements" className="section-y">
         <div className="container-x">
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <SectionHeading align="left" eyebrow={t.home.annEyebrow} title={t.home.annTitle} />
@@ -226,7 +236,7 @@ export function HomeContent() {
       <FeastBanner />
 
       {/* ---------------- Gallery preview ---------------- */}
-      <section className="section-y">
+      <section id="gallery" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.home.galEyebrow} title={t.home.galTitle} subtitle={t.home.galSubtitle} />
 
@@ -264,7 +274,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------------- Priest message ---------------- */}
-      <section className="section-y bg-brown-900 text-cream">
+      <section id="vicar-message" className="section-y bg-brown-900 text-cream">
         <div className="container-x grid items-center gap-14 lg:grid-cols-[0.85fr_1.15fr]">
           <Reveal className="relative mx-auto w-full max-w-sm">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] ring-1 ring-gold-500/30">
@@ -302,7 +312,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------------- Organizations ---------------- */}
-      <section className="section-y">
+      <section id="organizations" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.home.orgEyebrow} title={t.home.orgTitle} subtitle={t.home.orgSubtitle} />
 
@@ -326,7 +336,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------------- Contact CTA ---------------- */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-maroon-800 via-maroon-900 to-maroon-950 py-20 text-cream md:py-28">
+      <section id="visit" className="relative overflow-hidden bg-gradient-to-br from-maroon-800 via-maroon-900 to-maroon-950 py-20 text-cream md:py-28">
         <div className="pointer-events-none absolute inset-0 bg-grain opacity-[0.07]" />
         <div className="pointer-events-none absolute -right-16 -top-16 size-72 rounded-full bg-gold-500/20 blur-3xl" />
         <div className="container-x relative grid items-center gap-12 lg:grid-cols-2">

@@ -276,7 +276,7 @@ export function GalleryClient() {
 
       {/* Videos */}
       {view === "photos" && (
-        <div className="mt-20">
+        <div id="videos" className="mt-20">
           <h2 className="text-center font-serif text-2xl font-semibold sm:text-3xl">
             {t.gallery.videosTitle}
           </h2>

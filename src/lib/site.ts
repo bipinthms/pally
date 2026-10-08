@@ -14,7 +14,7 @@ export const site = {
   established: 1937,
   description:
     "St. Mary's Orthodox Syrian Church, Alencherry is an active Malankara Orthodox Syrian parish in Anchal, Kollam — a peaceful home of prayer, worship, counselling and spiritual guidance, welcoming all who seek God's grace.",
-  url: "https://stmarysalayamon.org",
+  url: "https://www.alencherrychurch.org",
   locale: "en_IN",
 
   contact: {
@@ -67,6 +67,7 @@ export const navItems: NavItem[] = [
   { key: "gallery", label: "Gallery", href: "/gallery" },
   { key: "events", label: "Events", href: "/events" },
   { key: "prayer", label: "Prayer Requests", href: "/prayer-requests" },
-  { key: "donations", label: "Donations", href: "/donations" },
+  // Temporarily routed to Contact until online giving is ready.
+  { key: "donations", label: "Donations", href: "/contact" },
   { key: "contact", label: "Contact", href: "/contact" },
 ];

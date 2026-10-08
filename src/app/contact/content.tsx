@@ -27,6 +27,11 @@ export function ContactContent() {
     { icon: Mail, title: t.contact.emailUs, lines: [site.contact.email], href: `mailto:${site.contact.email}` },
   ];
 
+  const sections = [
+    { id: "get-in-touch", label: t.sections.getInTouch },
+    { id: "map", label: t.sections.map },
+  ];
+
   return (
     <>
       <PageHero
@@ -36,9 +41,10 @@ export function ContactContent() {
         verse={t.contact.heroVerse}
         imageKey="churchStone"
         crumbs={[{ label: t.nav.contact.label }]}
+        sections={sections}
       />
 
-      <section className="section-y">
+      <section id="get-in-touch" className="section-y">
         <div className="container-x grid gap-12 lg:grid-cols-[1fr_1fr]">
           {/* Info */}
           <Reveal>
@@ -119,7 +125,7 @@ export function ContactContent() {
       </section>
 
       {/* Map */}
-      <section className="pb-20">
+      <section id="map" className="pb-20">
         <div className="container-x">
           <Reveal>
             <div className="overflow-hidden rounded-[2rem] border border-border shadow-sm">

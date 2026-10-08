@@ -40,7 +40,7 @@ export const SiteMenu = React.forwardRef<
         {navItems.map((item, i) => {
           const active = isActive(pathname, item.href);
           return (
-            <li key={item.href} className="flex min-h-0 flex-1 flex-col">
+            <li key={item.key} className="flex min-h-0 flex-1 flex-col">
               <Link
                 href={item.href}
                 onClick={onNavigate}

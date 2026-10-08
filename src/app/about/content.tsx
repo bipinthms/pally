@@ -21,6 +21,13 @@ export function AboutContent() {
   const { locale, t } = useLocale();
   const { missionVision, patronSaint, timeline } = getData(locale);
 
+  const sections = [
+    { id: "heritage", label: t.sections.heritage },
+    { id: "mission-vision", label: t.sections.missionVision },
+    { id: "patron-saint", label: t.sections.patron },
+    { id: "journey", label: t.sections.journey },
+  ];
+
   return (
     <>
       <PageHero
@@ -30,10 +37,11 @@ export function AboutContent() {
         verse={t.about.heroVerse}
         imageKey="churchExterior"
         crumbs={[{ label: t.nav.about.label }]}
+        sections={sections}
       />
 
       {/* Intro */}
-      <section className="section-y">
+      <section id="heritage" className="section-y">
         <div className="container-x grid items-center gap-14 lg:grid-cols-2">
           <Reveal className="relative order-2 lg:order-1">
             <div className="relative aspect-[5/4] overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)]">
@@ -65,7 +73,7 @@ export function AboutContent() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="section-y bg-secondary/40">
+      <section id="mission-vision" className="section-y bg-secondary/40">
         <div className="container-x">
           <SectionHeading eyebrow={t.about.mvEyebrow} title={t.about.mvTitle} subtitle={t.about.mvSubtitle} />
           <div className="mt-14 grid gap-6 md:grid-cols-2">
@@ -106,7 +114,7 @@ export function AboutContent() {
       </section>
 
       {/* Patron Saint */}
-      <section className="section-y">
+      <section id="patron-saint" className="section-y">
         <div className="container-x grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
           <Reveal>
             <span className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-700 dark:text-gold-400">
@@ -141,7 +149,7 @@ export function AboutContent() {
       </section>
 
       {/* Timeline */}
-      <section className="section-y bg-brown-900 text-cream">
+      <section id="journey" className="section-y bg-brown-900 text-cream">
         <div className="container-x">
           <SectionHeading light eyebrow={t.about.timelineEyebrow} title={t.about.timelineTitle} subtitle={t.about.timelineSubtitle} />
 

@@ -20,6 +20,12 @@ export function OrganizationsContent() {
   const { locale, t } = useLocale();
   const { organizations, missionProjects } = getData(locale);
 
+  const sections = [
+    { id: "ministries", label: t.sections.ministries },
+    { id: "mission-projects", label: t.sections.missionProjects },
+    { id: "join", label: t.sections.join },
+  ];
+
   return (
     <>
       <PageHero
@@ -29,9 +35,10 @@ export function OrganizationsContent() {
         verse={t.orgs.heroVerse}
         imageKey="gathering"
         crumbs={[{ label: t.nav.organizations.label }]}
+        sections={sections}
       />
 
-      <section className="section-y">
+      <section id="ministries" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.orgs.eyebrow} title={t.orgs.title} subtitle={t.orgs.subtitle} />
           <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -91,7 +98,7 @@ export function OrganizationsContent() {
       </section>
 
       {/* Join CTA */}
-      <section className="py-24">
+      <section id="join" className="py-24">
         <div className="container-x">
           <Reveal>
             <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-maroon-800 via-maroon-900 to-maroon-950 px-8 py-14 text-center text-cream md:px-16 md:py-20">

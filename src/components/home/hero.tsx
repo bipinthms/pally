@@ -13,6 +13,7 @@ import { EASE } from "@/lib/motion";
 import { useLocale } from "@/lib/i18n/provider";
 import { Button } from "@/components/ui/button";
 import { SiteMenu } from "@/components/site-menu";
+import { SectionMenu, type PageSection } from "@/components/section-menu";
 import { cn } from "@/lib/utils";
 import type { Variants } from "framer-motion";
 
@@ -25,7 +26,7 @@ const rise: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: EASE } },
 };
 
-export function Hero() {
+export function Hero({ sections = [] }: { sections?: PageSection[] }) {
   const { locale, t } = useLocale();
   const { heroVerse } = getData(locale);
 
@@ -148,6 +149,11 @@ export function Hero() {
                 </span>
               </div>
             ))}
+          </motion.div>
+
+          {/* Sections of the home page */}
+          <motion.div variants={rise} className="mt-8 w-full max-w-full">
+            <SectionMenu sections={sections} className="sm:[&>ul]:justify-center lg:[&>ul]:justify-start" />
           </motion.div>
         </motion.div>
 

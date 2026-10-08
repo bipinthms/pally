@@ -9,6 +9,11 @@ import { useLocale } from "@/lib/i18n/provider";
 export function GalleryContent() {
   const { t } = useLocale();
 
+  const sections = [
+    { id: "photos", label: t.sections.photos },
+    { id: "videos", label: t.sections.videos },
+  ];
+
   return (
     <>
       <PageHero
@@ -18,9 +23,10 @@ export function GalleryContent() {
         verse={t.gallery.heroVerse}
         imageKey="ornateCeiling"
         crumbs={[{ label: t.nav.gallery.label }]}
+        sections={sections}
       />
 
-      <section className="section-y">
+      <section id="photos" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.gallery.eyebrow} title={t.gallery.title} subtitle={t.gallery.subtitle} />
           <div className="mt-14">

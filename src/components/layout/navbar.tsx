@@ -9,7 +9,6 @@ import { useLocale } from "@/lib/i18n/provider";
 import { Wordmark } from "@/components/brand";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageToggle } from "@/components/layout/language-toggle";
-import { SearchDialog } from "@/components/search-dialog";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { Button } from "@/components/ui/button";
 
@@ -25,7 +24,7 @@ function useScrolled(threshold = 16) {
 }
 
 /**
- * Slim utility bar: brand, language, search, theme and Donate. On desktop, page
+ * Slim utility bar: brand, language, theme and Donate. On desktop, page
  * navigation lives in the hero sections (see SiteMenu); below `lg` a Menu button
  * opens it full screen (see MobileMenu).
  */
@@ -58,10 +57,9 @@ export function Navbar() {
         <div className="flex shrink-0 items-center gap-1 sm:gap-1.5 max-[379px]:[&_button]:size-9">
           <LanguageToggle className="mr-0.5 hidden sm:inline-flex" />
           <LanguageToggle variant="compact" className="sm:hidden max-[379px]:!w-auto max-[379px]:px-2.5" />
-          <SearchDialog />
           <ThemeToggle />
           <Button asChild variant="gold" size="sm" className="ml-1 hidden sm:inline-flex">
-            <Link href="/donations">
+            <Link href="/contact">
               <Heart className="size-4" />
               {t.common.donate}
             </Link>

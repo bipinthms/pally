@@ -53,6 +53,15 @@ export function ClergyContent({ photos }: { photos: string[] }) {
   const hasCommitteePhoto = hasPhoto("committee/group.jpg");
   const { prelates, parishPriest, managingCommittee, committeeMembers, auditors, sacristans, formerVicars } = getData(locale);
 
+  const sections = [
+    { id: "leadership", label: t.sections.leadership },
+    { id: "managing-committee", label: t.sections.managing },
+    { id: "committee-members", label: t.sections.members },
+    { id: "auditors", label: t.sections.auditors },
+    { id: "sacristan", label: t.sections.sacristan },
+    { id: "former-vicars", label: t.sections.formerVicars },
+  ];
+
   return (
     <>
       <PageHero
@@ -62,9 +71,10 @@ export function ClergyContent({ photos }: { photos: string[] }) {
         verse={t.clergy.heroVerse}
         imageKey="churchWarm"
         crumbs={[{ label: t.nav.clergy.label }]}
+        sections={sections}
       />
 
-      <section className="section-y">
+      <section id="leadership" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.clergy.prelatesEyebrow} title={t.clergy.prelatesTitle} subtitle={t.clergy.prelatesSubtitle} />
           <RevealGroup className="mx-auto mt-14 grid max-w-4xl gap-8 sm:grid-cols-2">
@@ -100,7 +110,7 @@ export function ClergyContent({ photos }: { photos: string[] }) {
       </section>
 
       {/* Managing committee */}
-      <section className="section-y">
+      <section id="managing-committee" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.clergy.managingEyebrow} title={t.clergy.managingTitle} subtitle={t.clergy.managingSubtitle} />
           <RevealGroup className="mx-auto mt-14 grid max-w-2xl gap-4 sm:grid-cols-2">
@@ -136,7 +146,7 @@ export function ClergyContent({ photos }: { photos: string[] }) {
       </section>
 
       {/* Committee members */}
-      <section className="section-y bg-secondary/40">
+      <section id="committee-members" className="section-y bg-secondary/40">
         <div className="container-x">
           <SectionHeading eyebrow={t.clergy.membersEyebrow} title={t.clergy.membersTitle} subtitle={t.clergy.membersSubtitle} />
           <Reveal className="mx-auto mt-14 max-w-4xl">
@@ -188,7 +198,7 @@ export function ClergyContent({ photos }: { photos: string[] }) {
       </section>
 
       {/* Auditors */}
-      <section className="section-y">
+      <section id="auditors" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.clergy.auditorsEyebrow} title={t.clergy.auditorsTitle} subtitle={t.clergy.auditorsSubtitle} />
           <RevealGroup className="mx-auto mt-14 grid max-w-md grid-cols-2 gap-4">
@@ -219,7 +229,7 @@ export function ClergyContent({ photos }: { photos: string[] }) {
       </section>
 
       {/* Sacristan */}
-      <section className="section-y bg-secondary/40">
+      <section id="sacristan" className="section-y bg-secondary/40">
         <div className="container-x">
           <SectionHeading eyebrow={t.clergy.sacristanEyebrow} title={t.clergy.sacristanTitle} subtitle={t.clergy.sacristanSubtitle} />
           <RevealGroup className="mx-auto mt-14 grid max-w-[14rem] gap-4">
@@ -250,7 +260,7 @@ export function ClergyContent({ photos }: { photos: string[] }) {
       </section>
 
       {/* Former vicars */}
-      <section className="section-y">
+      <section id="former-vicars" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.clergy.formerEyebrow} title={t.clergy.formerTitle} subtitle={t.clergy.formerSubtitle} />
           <RevealGroup className="mx-auto mt-14 grid max-w-4xl gap-4 sm:grid-cols-2">

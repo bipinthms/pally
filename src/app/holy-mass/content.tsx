@@ -52,6 +52,12 @@ export function HolyMassContent() {
   const { locale, t } = useLocale();
   const { sundayMass, weekdayMass, devotions, specialSchedules } = getData(locale);
 
+  const sections = [
+    { id: "timings", label: t.sections.timings },
+    { id: "devotions", label: t.sections.devotions },
+    { id: "feasts", label: t.sections.feasts },
+  ];
+
   return (
     <>
       <PageHero
@@ -61,10 +67,11 @@ export function HolyMassContent() {
         verse={t.mass.heroVerse}
         imageKey="churchWide"
         crumbs={[{ label: t.nav.holyMass.label }]}
+        sections={sections}
       />
 
       {/* Weekly schedule */}
-      <section className="section-y">
+      <section id="timings" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.mass.weeklyEyebrow} title={t.mass.weeklyTitle} subtitle={t.mass.weeklySubtitle} />
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
@@ -79,7 +86,7 @@ export function HolyMassContent() {
       </section>
 
       {/* Devotions */}
-      <section className="section-y bg-secondary/40">
+      <section id="devotions" className="section-y bg-secondary/40">
         <div className="container-x">
           <SectionHeading eyebrow={t.mass.devEyebrow} title={t.mass.devTitle} subtitle={t.mass.devSubtitle} />
           <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2">
@@ -102,7 +109,7 @@ export function HolyMassContent() {
       </section>
 
       {/* Special schedules */}
-      <section className="section-y">
+      <section id="feasts" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.mass.specialEyebrow} title={t.mass.specialTitle} subtitle={t.mass.specialSubtitle} />
           <RevealGroup className="mt-14 grid gap-5 md:grid-cols-2">

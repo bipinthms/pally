@@ -7,6 +7,7 @@ import { ChevronRight } from "lucide-react";
 import { image, type ImageKey } from "@/lib/images";
 import { EASE } from "@/lib/motion";
 import { SiteMenu } from "@/components/site-menu";
+import { SectionMenu, type PageSection } from "@/components/section-menu";
 import { cn } from "@/lib/utils";
 import { useLocale } from "@/lib/i18n/provider";
 
@@ -17,6 +18,7 @@ type Verse = { text: string; ref: string };
  * Shared hero band used at the top of every interior page. It fills the viewport,
  * like the home hero, so every page opens with a hero of the same height, and
  * keeps the site menu open beside the text with the current page highlighted.
+ * `sections` adds an "On this page" row of links below the verse.
  */
 export function PageHero({
   title,
@@ -25,6 +27,7 @@ export function PageHero({
   verse,
   imageKey,
   crumbs = [],
+  sections = [],
   className,
 }: {
   title: string;
@@ -33,6 +36,7 @@ export function PageHero({
   verse: Verse;
   imageKey: ImageKey;
   crumbs?: Crumb[];
+  sections?: PageSection[];
   className?: string;
 }) {
   const { t } = useLocale();
@@ -103,6 +107,8 @@ export function PageHero({
               — {verse.ref}
             </figcaption>
           </figure>
+
+          <SectionMenu sections={sections} className="mt-8" />
         </div>
 
         {/* Site menu, always open on desktop (phones/tablets use the navbar Menu button). It matches the home hero's menu height,
