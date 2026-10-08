@@ -42,9 +42,10 @@ export const site = {
   },
 
   social: {
-    facebook: "https://www.facebook.com/alencherrypally/?ref=1",
+    facebook: "https://www.facebook.com/alencherrypally/",
     instagram: "https://www.instagram.com/alencherry_pally/",
-    youtube: "https://www.youtube.com/",
+    // Add the parish channel URL to show the YouTube icon; empty links are hidden.
+    youtube: "",
   },
 } as const;
 
@@ -71,3 +72,11 @@ export const navItems: NavItem[] = [
   { key: "donations", label: "Donations", href: "/contact" },
   { key: "contact", label: "Contact", href: "/contact" },
 ];
+
+/**
+ * The nav item for the current page. When several items share a page (Donations
+ * and Contact), the last one wins, so only one item is ever marked current.
+ */
+export function activeNavItem(pathname: string): NavItem | undefined {
+  return navItems.findLast((n) => (n.href === "/" ? pathname === "/" : pathname.startsWith(n.href)));
+}

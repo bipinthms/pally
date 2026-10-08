@@ -5,13 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 
-import { navItems } from "@/lib/site";
+import { navItems, activeNavItem } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { useLocale } from "@/lib/i18n/provider";
-
-function isActive(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
-}
 
 /**
  * The site's primary navigation: every page, always fully visible (never scrolls),
@@ -24,6 +20,7 @@ export const SiteMenu = React.forwardRef<
   { id?: string; className?: string; onNavigate?: () => void }
 >(function SiteMenu({ id, className, onNavigate }, ref) {
   const pathname = usePathname();
+  const activeKey = activeNavItem(pathname)?.key;
   const { t } = useLocale();
 
   return (
@@ -38,7 +35,7 @@ export const SiteMenu = React.forwardRef<
       </p>
       <ol className="flex min-h-0 flex-1 flex-col p-2">
         {navItems.map((item, i) => {
-          const active = isActive(pathname, item.href);
+          const active = item.key === activeKey;
           return (
             <li key={item.key} className="flex min-h-0 flex-1 flex-col">
               <Link

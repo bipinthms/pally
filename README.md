@@ -1,12 +1,11 @@
-# St. Mary's Orthodox Syrian Church, Alayamon — Parish Website
+# St. Mary's Orthodox Syrian Church, Alencherry — Parish Website
 
 A premium, modern website for **St. Mary's Orthodox Syrian Church**, a Malankara
-Orthodox Syrian parish in Alayamon (Alanchery, Anchal, Kollam district, Kerala —
-under the Thiruvananthapuram Diocese). Designed to feel peaceful, spiritual and
+Orthodox Syrian parish in Alencherry (Alayamon, Anchal, Kollam district, Kerala —
+under the Thiruvananthapuram Diocese). Live at https://www.alencherrychurch.org. Designed to feel peaceful, spiritual and
 welcoming while honouring the heritage of the St. Thomas Christians.
 
-Contact: Alenchery Onthupacha Road, Alayamon, Anchal, Kollam, Kerala 691306 ·
-+91-0475-2274526 · the church opens daily at 6:00 AM for worship.
+Contact details, social links and navigation live in `src/lib/site.ts`.
 
 ## Tech Stack
 
@@ -14,20 +13,24 @@ Contact: Alenchery Onthupacha Road, Alayamon, Anchal, Kollam, Kerala 691306 ·
 - **Tailwind CSS v4** (CSS-first theme) with a shadcn/ui–style component layer
 - **Framer Motion** for scroll & UI animation
 - **next-themes** for light / dark mode
-- `qrcode` for the build-time UPI QR, `lucide-react` for icons
+- `lucide-react` for icons
+- Static export (`output: "export"`) deployed to GitHub Pages by
+  `.github/workflows/deploy-pages.yml` on every push to `main` and daily (to
+  refresh date-dependent content such as upcoming events)
 
 ## Getting Started
 
 ```bash
-pnpm install
-pnpm dev          # http://localhost:3000
-pnpm build && pnpm start   # production build
+npm ci
+npm run dev       # http://localhost:3000
+npm run lint
+npm run build     # static site in out/ (stop `npm run dev` first)
 ```
 
 ## Pages
 
 Home · About · Holy Mass · Clergy · Organizations · Gallery · Events ·
-Prayer Requests · Donations · Contact — plus a custom 404, loading state,
+Prayer Requests · Contact — plus a custom 404, loading state,
 `sitemap.xml`, `robots.txt` and a web manifest.
 
 ## Languages (English & Malayalam)
@@ -35,8 +38,8 @@ Prayer Requests · Donations · Contact — plus a custom 404, loading state,
 The site is fully bilingual. **English is the default**; visitors switch to
 **Malayalam (മലയാളം)** with the toggle in the navigation bar. The choice is
 saved in a cookie and the whole site — navigation, content, dates and forms —
-re-renders on the server in the chosen language (so both languages are
-SEO-indexable, with the correct `<html lang>`).
+re-renders in the browser in the chosen language. Because the site is a static
+export, the HTML served to search engines is English only.
 
 - UI text lives in `src/lib/i18n/dictionary.ts` (`en` and `ml` objects).
 - Page/section content lives in `src/lib/data.ts` as `{ en, ml }` pairs.
@@ -55,29 +58,25 @@ touching the components:
 
 ### Using the parish's own photos
 
-Images are currently pulled from verified stock photography so the site looks
-complete out of the box. To use real parish photos:
-
-1. Drop the files into `public/images/` (e.g. `public/images/hero.jpg`).
-2. In `src/lib/images.ts`, replace the relevant value — instead of an Unsplash
-   ID, point the key at your file, e.g. change the component to use
-   `"/images/hero.jpg"`. Everything else (sizing, optimisation) stays the same.
-
-Remote image hosts are whitelisted in `next.config.ts` (`images.remotePatterns`).
+All photos are local files in `public/images/`, mapped to keys in
+`src/lib/images.ts`. Images are served as-is (no optimisation on a static
+site), so resize photos to about 2000px on the long side before adding them.
+The social-share image is `public/og.jpg` (1200×630).
 
 ### Wiring up the forms
 
-The **Prayer Request** and **Contact** forms currently simulate submission and
-show a confirmation. To receive real messages, connect the `handleSubmit` in
-`src/components/prayer/prayer-form.tsx` and `src/components/contact/contact-form.tsx`
-to an API route or a form service (e.g. Formspree, Resend).
+The site has no backend, so the **Prayer Request** and **Contact** forms open
+WhatsApp (to `site.contact.whatsapp`) with the message filled in, and offer
+email as a fallback (`src/lib/compose.ts`). To receive submissions directly
+instead, post the form to a service such as Formspree or Web3Forms.
 
-### Things to replace before going live
+### Still to fill in
 
-- `src/lib/site.ts` — real address, phone, email, WhatsApp number, Google Maps
-  embed URL, and the actual social links.
-- `src/lib/data.ts` — the `giving` block (UPI ID, bank account, IFSC) and the
-  `videos` YouTube IDs.
+- `src/lib/site.ts` — the parish YouTube channel (`social.youtube`; the icon is
+  hidden while empty).
+- `src/lib/data.ts` — the `giving` block (UPI ID, bank account, IFSC) before
+  re-enabling `/donations` (currently redirected to Contact), and `videosRaw`
+  (the gallery Videos section is hidden while empty).
 - `patronSaint`, `parishPriest`, `formerVicars`, `timeline` — confirm the real
   parish details.
 

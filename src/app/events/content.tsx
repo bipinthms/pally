@@ -1,10 +1,10 @@
 "use client";
 
+import * as React from "react";
 import Image from "next/image";
 import { CalendarDays, MapPin, Clock, Newspaper } from "lucide-react";
 
 import { image } from "@/lib/images";
-import { site } from "@/lib/site";
 import { getData, type ChurchEvent } from "@/lib/data";
 import { formatDateRange, dateParts, monthYearLabel } from "@/lib/format";
 import { PageHero } from "@/components/page-hero";
@@ -19,8 +19,14 @@ export function EventsContent({ today }: { today: string }) {
   const { locale, t } = useLocale();
   const { events } = getData(locale);
 
-  // `today` comes from the server so the build output and the hydrated page agree.
-  const now = new Date(today);
+  // Start from the build date so the static HTML and hydration agree, then switch
+  // to the visitor's date so events that have ended move out of "Upcoming".
+  const [now, setNow] = React.useState(() => new Date(today));
+  React.useEffect(() => {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    setNow(d);
+  }, []);
 
   const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
   const upcoming = sorted.filter((e) => new Date(e.endDate ?? e.date) >= now);

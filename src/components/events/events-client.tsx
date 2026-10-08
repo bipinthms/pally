@@ -24,6 +24,7 @@ export function EventsClient({ events }: { events: ChurchEvent[] }) {
         {categories.map((c) => (
           <button
             key={c}
+            aria-pressed={active === c}
             onClick={() => setActive(c)}
             className={cn(
               "rounded-full border px-4 py-2 text-sm font-medium transition-all",

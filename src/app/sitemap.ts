@@ -8,7 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Several nav items can share a page (Donations points at Contact for now).
   const hrefs = [...new Set(navItems.map((item) => item.href))];
   return hrefs.map((href) => ({
-    url: `${site.url}${href === "/" ? "" : href}`,
+    // Match the exported URLs (trailingSlash: true) and the canonical links.
+    url: `${site.url}${href === "/" ? "/" : `${href}/`}`,
     lastModified: now,
     changeFrequency: href === "/" ? "weekly" : "monthly",
     priority: href === "/" ? 1 : 0.7,

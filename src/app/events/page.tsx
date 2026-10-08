@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { image } from "@/lib/images";
 import { site } from "@/lib/site";
 import { getData } from "@/lib/data";
 import { EventsContent } from "./content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Events & News",
+  path: "/events/",
   description:
     "Upcoming feasts, celebrations and parish news at St. Mary's Church, Alencherry, with a calendar of the events in the life of our community.",
-};
+});
 
 export default function EventsPage() {
   const today = new Date();

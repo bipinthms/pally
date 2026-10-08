@@ -113,7 +113,7 @@ export type ImageKey = keyof typeof IMAGES;
 
 /**
  * Resolve an image key to its local path. `opts` is accepted for backwards
- * compatibility but ignored — next/image optimises local files automatically.
+ * compatibility but ignored — images are served as-is (static export, unoptimized).
  */
 export function image(key: ImageKey, _opts?: { w?: number; h?: number; q?: number }): string {
   return IMAGES[key];

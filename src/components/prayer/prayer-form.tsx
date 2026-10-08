@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Send, CheckCircle2, Loader2, HandHeart } from "lucide-react";
+import { Send, CheckCircle2, HandHeart, Mail, MessageCircle } from "lucide-react";
 
 import { getData } from "@/lib/data";
+import { whatsappHref, mailtoHref, type ComposedMessage } from "@/lib/compose";
 import { useLocale } from "@/lib/i18n/provider";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,19 +17,29 @@ export function PrayerForm() {
   const { locale, t } = useLocale();
   const { prayerCategories } = getData(locale);
   const [catIndex, setCatIndex] = React.useState(0);
-  const [status, setStatus] = React.useState<"idle" | "sending" | "done">("idle");
+  const [message, setMessage] = React.useState<ComposedMessage | null>(null);
   const [name, setName] = React.useState("");
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("sending");
-    // No backend wired up — simulate a submission. Replace with a POST to your
-    // API route or a form service (e.g. Formspree) to receive live requests.
-    setTimeout(() => setStatus("done"), 1100);
+    const data = new FormData(e.currentTarget);
+    const field = (key: string) => String(data.get(key) ?? "");
+    const msg: ComposedMessage = {
+      subject: t.prayer.send,
+      lines: [
+        [t.prayer.yourName, field("name")],
+        [t.prayer.contactLabel, field("contact")],
+        [t.prayer.intentionType, prayerCategories[catIndex]],
+        [t.prayer.requestLabel, field("intention")],
+        ...(data.get("private") ? [[t.prayer.privateNote, "✓"] as [string, string]] : []),
+      ],
+    };
+    setMessage(msg);
+    window.open(whatsappHref(msg), "_blank", "noopener");
   }
 
   function reset() {
-    setStatus("idle");
+    setMessage(null);
     setCatIndex(0);
     setName("");
   }
@@ -36,7 +47,7 @@ export function PrayerForm() {
   return (
     <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
       <AnimatePresence mode="wait">
-        {status === "done" ? (
+        {message ? (
           <motion.div
             key="confirm"
             initial={{ opacity: 0, scale: 0.96 }}
@@ -62,7 +73,21 @@ export function PrayerForm() {
                 {t.prayer.doneVerseRef}
               </span>
             </p>
-            <Button onClick={reset} variant="outline" className="mt-8">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button asChild variant="gold">
+                <a href={whatsappHref(message)} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="size-4" />
+                  {t.common.openWhatsapp}
+                </a>
+              </Button>
+              <Button asChild variant="outline">
+                <a href={mailtoHref(message)}>
+                  <Mail className="size-4" />
+                  {t.common.sendByEmail}
+                </a>
+              </Button>
+            </div>
+            <Button onClick={reset} variant="ghost" className="mt-3">
               {t.prayer.submitAnother}
             </Button>
           </motion.div>
@@ -89,6 +114,7 @@ export function PrayerForm() {
                 <Label htmlFor="name">{t.prayer.yourName}</Label>
                 <Input
                   id="name"
+                  name="name"
                   required
                   placeholder={t.prayer.namePlaceholder}
                   value={name}
@@ -97,17 +123,18 @@ export function PrayerForm() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="contact">{t.prayer.contactLabel}</Label>
-                <Input id="contact" placeholder={t.prayer.contactPlaceholder} />
+                <Input id="contact" name="contact" placeholder={t.prayer.contactPlaceholder} />
               </div>
             </div>
 
             <div className="space-y-2.5">
-              <Label>{t.prayer.intentionType}</Label>
-              <div className="flex flex-wrap gap-2">
+              <Label id="intention-type">{t.prayer.intentionType}</Label>
+              <div role="group" aria-labelledby="intention-type" className="flex flex-wrap gap-2">
                 {prayerCategories.map((c, i) => (
                   <button
                     type="button"
                     key={c}
+                    aria-pressed={catIndex === i}
                     onClick={() => setCatIndex(i)}
                     className={cn(
                       "rounded-full border px-3.5 py-1.5 text-sm transition-all",
@@ -126,6 +153,7 @@ export function PrayerForm() {
               <Label htmlFor="intention">{t.prayer.requestLabel}</Label>
               <Textarea
                 id="intention"
+                name="intention"
                 required
                 rows={5}
                 placeholder={t.prayer.requestPlaceholder}
@@ -135,24 +163,19 @@ export function PrayerForm() {
             <label className="flex items-start gap-3 text-sm text-muted-foreground">
               <input
                 type="checkbox"
+                name="private"
                 className="mt-1 size-4 rounded border-input accent-[var(--primary)]"
               />
               <span>{t.prayer.privateNote}</span>
             </label>
 
-            <Button type="submit" size="lg" className="w-full" disabled={status === "sending"}>
-              {status === "sending" ? (
-                <>
-                  <Loader2 className="size-4 animate-spin" />
-                  {t.common.sending}
-                </>
-              ) : (
-                <>
-                  <Send className="size-4" />
-                  {t.prayer.send}
-                </>
-              )}
-            </Button>
+            <div>
+              <Button type="submit" size="lg" className="w-full">
+                <Send className="size-4" />
+                {t.prayer.send}
+              </Button>
+              <p className="mt-2 text-center text-xs text-muted-foreground">{t.common.viaWhatsappNote}</p>
+            </div>
           </motion.form>
         )}
       </AnimatePresence>

@@ -6,6 +6,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 import { site, navItems } from "@/lib/site";
 import { useLocale } from "@/lib/i18n/provider";
+import { useCurrentYear } from "@/lib/use-current-year";
 import { Wordmark } from "@/components/brand";
 import { Ornament } from "@/components/ornament";
 import { FacebookIcon, InstagramIcon, YoutubeIcon } from "@/components/social-icons";
@@ -14,11 +15,11 @@ const socials = [
   { href: site.social.facebook, icon: FacebookIcon, label: "Facebook" },
   { href: site.social.instagram, icon: InstagramIcon, label: "Instagram" },
   { href: site.social.youtube, icon: YoutubeIcon, label: "YouTube" },
-];
+].filter((s) => s.href);
 
 export function Footer() {
   const { t } = useLocale();
-  const year = new Date().getFullYear();
+  const year = useCurrentYear();
 
   return (
     <footer className="relative overflow-hidden bg-brown-900 text-cream/80">

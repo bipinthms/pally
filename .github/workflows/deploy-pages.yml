@@ -3,6 +3,9 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: [main]
+  # Rebuild daily so build-time dates (upcoming events, event JSON-LD, the year) stay current.
+  schedule:
+    - cron: "30 0 * * *"
   workflow_dispatch:
 
 permissions:

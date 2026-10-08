@@ -16,7 +16,7 @@ const socials = [
   { href: site.social.facebook, icon: FacebookIcon, label: "Facebook" },
   { href: site.social.instagram, icon: InstagramIcon, label: "Instagram" },
   { href: site.social.youtube, icon: YoutubeIcon, label: "YouTube" },
-];
+].filter((s) => s.href);
 
 export function ContactContent() {
   const { t } = useLocale();

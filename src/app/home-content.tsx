@@ -28,12 +28,13 @@ import { OrgCard } from "@/components/cards";
 import { Hero } from "@/components/home/hero";
 import { FeastBanner } from "@/components/home/feast-banner";
 import { useLocale } from "@/lib/i18n/provider";
+import { useCurrentYear } from "@/lib/use-current-year";
 
 export function HomeContent() {
   const { locale, t } = useLocale();
   const d = getData(locale);
 
-  const years = new Date().getFullYear() - site.established;
+  const years = useCurrentYear() - site.established;
 
   // Bento layout that tiles a 4-col (desktop) and 2-col (mobile) grid with no gaps.
   const galleryTiles = [

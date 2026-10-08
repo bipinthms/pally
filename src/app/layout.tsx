@@ -3,6 +3,7 @@ import { Playfair_Display, Inter, Noto_Sans_Malayalam, Noto_Serif_Malayalam } fr
 import "./globals.css";
 
 import { site } from "@/lib/site";
+import { OG_IMAGE } from "@/lib/seo";
 import { assetPath, image } from "@/lib/images";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { LanguageProvider } from "@/lib/i18n/provider";
@@ -46,13 +47,18 @@ const mlSerif = Noto_Serif_Malayalam({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
+  // "Alencherry" leads every title: it is what people search for.
   title: {
-    default: `${site.name} — ${site.tagline}`,
-    template: `%s · ${site.name}`,
+    default: `${site.legalName} — Anchal, Kollam`,
+    template: `%s · ${site.shortName}`,
   },
   description: site.description,
   applicationName: site.name,
   keywords: [
+    "Alencherry church",
+    "Alenchery church",
+    "St. Mary's Church Alencherry",
+    "Alencherry pally",
     "St. Mary's Orthodox Syrian Church",
     "Malankara Orthodox Church",
     "Orthodox Church Alencherry",
@@ -64,28 +70,20 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: site.name }],
   creator: site.name,
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: site.locale,
     url: site.url,
-    siteName: site.name,
-    title: `${site.name} — ${site.tagline}`,
+    siteName: site.legalName,
+    title: `${site.legalName} — Anchal, Kollam`,
     description: site.description,
-    images: [
-      {
-        url: image("heroInterior", { w: 1200, h: 630, q: 75 }),
-        width: 1200,
-        height: 630,
-        alt: `${site.name} — ${site.tagline}`,
-      },
-    ],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
+    title: `${site.legalName} — Anchal, Kollam`,
     description: site.description,
-    images: [image("heroInterior", { w: 1200, h: 630, q: 75 })],
+    images: [OG_IMAGE.url],
   },
   icons: {
     icon: [{ url: assetPath("/favicon.svg"), type: "image/svg+xml" }],
@@ -127,7 +125,7 @@ const orgJsonLd = {
     "@type": "Organization",
     name: `${site.diocese}, Malankara Orthodox Syrian Church`,
   },
-  sameAs: [site.social.facebook, site.social.instagram, site.social.youtube],
+  sameAs: Object.values(site.social).filter(Boolean),
 };
 
 export default async function RootLayout({

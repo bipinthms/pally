@@ -22,6 +22,9 @@ const en = {
     copy: "Copy",
     copied: "Copied",
     sending: "Sending…",
+    viaWhatsappNote: "This opens WhatsApp with your message ready to send to the parish.",
+    openWhatsapp: "Open WhatsApp again",
+    sendByEmail: "Send by email instead",
     home: "Home",
     breadcrumb: "Breadcrumb",
     menu: "Menu",
@@ -152,7 +155,7 @@ const en = {
     heroEyebrow: "Our Story",
     heroTitle: "About Our Parish",
     heroDesc:
-      "A living community of faith in the tradition of the St. Thomas Christians — worshipping, growing and serving together for over a century.",
+      "A living community of faith in the tradition of the St. Thomas Christians — worshipping, growing and serving together for nearly ninety years.",
     heroVerse: {
       text: "Do not move the ancient boundary stone set up by your forefathers.",
       ref: "Proverbs 22:28",
@@ -313,10 +316,10 @@ const en = {
     privateNote:
       "Please keep my intention private (shared only with our priests, not read aloud in the community).",
     send: "Send Prayer Request",
-    doneTitle: "Your prayer has been received",
+    doneTitle: "Your prayer request is ready to send",
     doneBodyThanks: "Thank you",
     doneBody:
-      "Your intention will be lovingly remembered by our priests and prayer community, and lifted up at the altar during the Holy Qurbana.",
+      "Press Send in WhatsApp to share it with the parish. Our priests and prayer community will lovingly remember your intention, and lift it up at the altar during the Holy Qurbana.",
     doneVerse: "“The prayer of a righteous person is powerful and effective.”",
     doneVerseRef: "— James 5:16",
     submitAnother: "Submit Another Intention",
@@ -386,9 +389,9 @@ const en = {
     message: "Message",
     messagePlaceholder: "Write your message…",
     sendMessage: "Send Message",
-    doneTitle: "Message sent",
+    doneTitle: "Your message is ready to send",
     doneBody:
-      "Thank you for reaching out. The parish office will get back to you as soon as possible. God bless you.",
+      "Press Send in WhatsApp to reach the parish office, and we will get back to you as soon as possible. God bless you.",
     sendAnother: "Send Another Message",
   },
   sections: {
@@ -495,6 +498,9 @@ const ml: Dict = {
     copy: "പകർത്തുക",
     copied: "പകർത്തി",
     sending: "അയയ്ക്കുന്നു…",
+    viaWhatsappNote: "നിങ്ങളുടെ സന്ദേശം ഇടവകയ്ക്ക് അയയ്ക്കാൻ തയ്യാറാക്കി വാട്ട്‌സ്ആപ്പ് തുറക്കും.",
+    openWhatsapp: "വാട്ട്‌സ്ആപ്പ് വീണ്ടും തുറക്കുക",
+    sendByEmail: "പകരം ഇമെയിലായി അയയ്ക്കുക",
     home: "ഹോം",
     breadcrumb: "പാത",
     menu: "മെനു",
@@ -625,7 +631,7 @@ const ml: Dict = {
     heroEyebrow: "ഞങ്ങളുടെ കഥ",
     heroTitle: "ഞങ്ങളുടെ ഇടവകയെക്കുറിച്ച്",
     heroDesc:
-      "മാർത്തോമ്മാ ക്രിസ്ത്യാനികളുടെ പാരമ്പര്യത്തിലുള്ള ഒരു ജീവനുള്ള വിശ്വാസ കൂട്ടായ്മ — ഒരു നൂറ്റാണ്ടിലേറെയായി ഒരുമിച്ചു ആരാധിക്കുകയും വളരുകയും സേവിക്കുകയും ചെയ്യുന്നു.",
+      "മാർത്തോമ്മാ ക്രിസ്ത്യാനികളുടെ പാരമ്പര്യത്തിലുള്ള ഒരു ജീവനുള്ള വിശ്വാസ കൂട്ടായ്മ — ഏകദേശം തൊണ്ണൂറ് വർഷമായി ഒരുമിച്ചു ആരാധിക്കുകയും വളരുകയും സേവിക്കുകയും ചെയ്യുന്നു.",
     heroVerse: {
       text: "നിന്റെ പിതാക്കന്മാർ സ്ഥാപിച്ച പുരാതനമായ അതിർ നീക്കരുത്.",
       ref: "സദൃശവാക്യങ്ങൾ 22:28",
@@ -677,7 +683,7 @@ const ml: Dict = {
       "മലങ്കര ഓർത്തഡോക്സ് സുറിയാനി സഭയുടെ ശ്ലൈഹിക വിശ്വാസത്തിൽ ഞങ്ങളുടെ ഇടവകയെ മേയിക്കുന്ന മേല്പട്ടക്കാരും വൈദികരും.",
     heroVerse: {
       text: "എന്റെ ഹൃദയത്തിനിണങ്ങുന്ന ഇടയന്മാരെ ഞാൻ നിങ്ങൾക്കു നൽകും; അവർ അറിവോടും വിവേകത്തോടും കൂടെ നിങ്ങളെ പോറ്റും.",
-      ref: "ജെറമിയ 3:15",
+      ref: "യിരെമ്യാവ് 3:15",
     },
     formerEyebrow: "നന്ദിയോടെ",
     formerTitle: "മുൻ വികാരിമാർ",
@@ -780,10 +786,10 @@ const ml: Dict = {
     privateNote:
       "എന്റെ നിയോഗം സ്വകാര്യമായി സൂക്ഷിക്കുക (വൈദികരുമായി മാത്രം പങ്കുവയ്ക്കുക, കൂട്ടായ്മയിൽ ഉറക്കെ വായിക്കരുത്).",
     send: "പ്രാർത്ഥനാ അപേക്ഷ അയയ്ക്കുക",
-    doneTitle: "നിങ്ങളുടെ പ്രാർത്ഥന ലഭിച്ചു",
+    doneTitle: "നിങ്ങളുടെ പ്രാർത്ഥനാ അപേക്ഷ അയയ്ക്കാൻ തയ്യാർ",
     doneBodyThanks: "നന്ദി",
     doneBody:
-      "നിങ്ങളുടെ നിയോഗം ഞങ്ങളുടെ വൈദികരും പ്രാർത്ഥനാ കൂട്ടായ്മയും സ്നേഹപൂർവ്വം ഓർക്കുകയും വിശുദ്ധ കുർബ്ബാനയിൽ ബലിപീഠത്തിൽ സമർപ്പിക്കുകയും ചെയ്യും.",
+      "ഇടവകയുമായി പങ്കുവയ്ക്കാൻ വാട്ട്‌സ്ആപ്പിൽ Send അമർത്തുക. നിങ്ങളുടെ നിയോഗം ഞങ്ങളുടെ വൈദികരും പ്രാർത്ഥനാ കൂട്ടായ്മയും സ്നേഹപൂർവ്വം ഓർക്കുകയും വിശുദ്ധ കുർബ്ബാനയിൽ ബലിപീഠത്തിൽ സമർപ്പിക്കുകയും ചെയ്യും.",
     doneVerse: "“നീതിമാന്റെ പ്രാർത്ഥന ശക്തവും ഫലപ്രദവുമാണ്.”",
     doneVerseRef: "— യാക്കോബ് 5:16",
     submitAnother: "മറ്റൊരു നിയോഗം സമർപ്പിക്കുക",
@@ -853,9 +859,9 @@ const ml: Dict = {
     message: "സന്ദേശം",
     messagePlaceholder: "നിങ്ങളുടെ സന്ദേശം എഴുതുക…",
     sendMessage: "സന്ദേശം അയയ്ക്കുക",
-    doneTitle: "സന്ദേശം അയച്ചു",
+    doneTitle: "നിങ്ങളുടെ സന്ദേശം അയയ്ക്കാൻ തയ്യാർ",
     doneBody:
-      "ബന്ധപ്പെട്ടതിന് നന്ദി. ഇടവക ഓഫീസ് കഴിയുന്നത്ര വേഗം നിങ്ങളെ ബന്ധപ്പെടും. ദൈവം അനുഗ്രഹിക്കട്ടെ.",
+      "ഇടവക ഓഫീസുമായി ബന്ധപ്പെടാൻ വാട്ട്‌സ്ആപ്പിൽ Send അമർത്തുക. കഴിയുന്നത്ര വേഗം ഞങ്ങൾ മറുപടി നൽകും. ദൈവം അനുഗ്രഹിക്കട്ടെ.",
     sendAnother: "മറ്റൊരു സന്ദേശം അയയ്ക്കുക",
   },
   sections: {

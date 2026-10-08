@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Send, CheckCircle2, Loader2 } from "lucide-react";
+import { Send, CheckCircle2, Mail, MessageCircle } from "lucide-react";
 
 import { useLocale } from "@/lib/i18n/provider";
+import { whatsappHref, mailtoHref, type ComposedMessage } from "@/lib/compose";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -12,20 +13,29 @@ import { Button } from "@/components/ui/button";
 
 export function ContactForm() {
   const { t } = useLocale();
-  const [status, setStatus] = React.useState<"idle" | "sending" | "done">("idle");
+  const [message, setMessage] = React.useState<ComposedMessage | null>(null);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("sending");
-    // No backend wired up — simulate a submission. Replace with a POST to your
-    // API route or a form service to receive live messages.
-    setTimeout(() => setStatus("done"), 1100);
+    const data = new FormData(e.currentTarget);
+    const field = (key: string) => String(data.get(key) ?? "");
+    const msg: ComposedMessage = {
+      subject: field("subject").trim() || t.contact.sendTitle,
+      lines: [
+        [t.contact.name, field("name")],
+        [t.common.phone, field("phone")],
+        [t.common.email, field("email")],
+        [t.contact.message, field("message")],
+      ],
+    };
+    setMessage(msg);
+    window.open(whatsappHref(msg), "_blank", "noopener");
   }
 
   return (
     <div className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
       <AnimatePresence mode="wait">
-        {status === "done" ? (
+        {message ? (
           <motion.div
             key="done"
             initial={{ opacity: 0, scale: 0.96 }}
@@ -44,7 +54,21 @@ export function ContactForm() {
             <p className="mt-3 max-w-sm leading-relaxed text-muted-foreground">
               {t.contact.doneBody}
             </p>
-            <Button onClick={() => setStatus("idle")} variant="outline" className="mt-8">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button asChild variant="gold">
+                <a href={whatsappHref(message)} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="size-4" />
+                  {t.common.openWhatsapp}
+                </a>
+              </Button>
+              <Button asChild variant="outline">
+                <a href={mailtoHref(message)}>
+                  <Mail className="size-4" />
+                  {t.common.sendByEmail}
+                </a>
+              </Button>
+            </div>
+            <Button onClick={() => setMessage(null)} variant="ghost" className="mt-3">
               {t.contact.sendAnother}
             </Button>
           </motion.div>
@@ -60,38 +84,32 @@ export function ContactForm() {
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="c-name">{t.contact.name}</Label>
-                <Input id="c-name" required placeholder={t.contact.namePlaceholder} />
+                <Input id="c-name" name="name" required placeholder={t.contact.namePlaceholder} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="c-phone">{t.common.phone}</Label>
-                <Input id="c-phone" type="tel" placeholder={t.contact.phonePlaceholder} />
+                <Input id="c-phone" name="phone" type="tel" placeholder={t.contact.phonePlaceholder} />
               </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="c-email">{t.common.email}</Label>
-              <Input id="c-email" type="email" required placeholder="you@example.com" />
+              <Input id="c-email" name="email" type="email" required placeholder="you@example.com" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="c-subject">{t.contact.subject}</Label>
-              <Input id="c-subject" placeholder={t.contact.subjectPlaceholder} />
+              <Input id="c-subject" name="subject" placeholder={t.contact.subjectPlaceholder} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="c-message">{t.contact.message}</Label>
-              <Textarea id="c-message" required rows={5} placeholder={t.contact.messagePlaceholder} />
+              <Textarea id="c-message" name="message" required rows={5} placeholder={t.contact.messagePlaceholder} />
             </div>
-            <Button type="submit" size="lg" className="w-full" disabled={status === "sending"}>
-              {status === "sending" ? (
-                <>
-                  <Loader2 className="size-4 animate-spin" />
-                  {t.common.sending}
-                </>
-              ) : (
-                <>
-                  <Send className="size-4" />
-                  {t.contact.sendMessage}
-                </>
-              )}
-            </Button>
+            <div>
+              <Button type="submit" size="lg" className="w-full">
+                <Send className="size-4" />
+                {t.contact.sendMessage}
+              </Button>
+              <p className="mt-2 text-center text-xs text-muted-foreground">{t.common.viaWhatsappNote}</p>
+            </div>
           </motion.form>
         )}
       </AnimatePresence>

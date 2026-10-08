@@ -4,14 +4,16 @@ import { PageHero } from "@/components/page-hero";
 import { SectionHeading } from "@/components/section-heading";
 import { GalleryClient } from "@/components/gallery/gallery-client";
 import { useLocale } from "@/lib/i18n/provider";
+import { getData } from "@/lib/data";
 
 
 export function GalleryContent() {
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
+  const { videos } = getData(locale);
 
   const sections = [
     { id: "photos", label: t.sections.photos },
-    { id: "videos", label: t.sections.videos },
+    ...(videos.length > 0 ? [{ id: "videos", label: t.sections.videos }] : []),
   ];
 
   return (

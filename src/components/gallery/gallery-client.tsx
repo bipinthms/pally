@@ -174,6 +174,7 @@ export function GalleryClient() {
             {organizations.map((o) => (
               <button
                 key={o.slug}
+                aria-pressed={o.slug === org.slug}
                 onClick={() => selectOrg(o.slug)}
                 className={cn(
                   "rounded-full border px-4 py-2 text-sm font-medium transition-all",
@@ -225,6 +226,7 @@ export function GalleryClient() {
           {galleryCategories.map((c) => (
             <button
               key={c}
+              aria-pressed={category === c}
               onClick={() => setCategory(c)}
               className={cn(
                 "rounded-full border px-4 py-2 text-sm font-medium transition-all",
@@ -275,7 +277,7 @@ export function GalleryClient() {
       </div>
 
       {/* Videos */}
-      {view === "photos" && (
+      {view === "photos" && videos.length > 0 && (
         <div id="videos" className="mt-20">
           <h2 className="text-center font-serif text-2xl font-semibold sm:text-3xl">
             {t.gallery.videosTitle}
@@ -318,10 +320,14 @@ export function GalleryClient() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={active.title}
             className="fixed inset-0 z-[70] flex items-center justify-center bg-brown-900/95 p-4 backdrop-blur-sm"
             onClick={close}
           >
             <button
+              autoFocus
               aria-label={t.a11y.close}
               onClick={close}
               className="absolute right-4 top-4 z-10 flex size-11 items-center justify-center rounded-full bg-white/10 text-cream transition hover:bg-white/20"
@@ -382,7 +388,7 @@ export function GalleryClient() {
         open={!!activeVideo}
         onOpenChange={(o) => !o && setActiveVideo(null)}
       >
-        <DialogContent className="max-w-3xl overflow-hidden p-0">
+        <DialogContent aria-describedby={undefined} closeLabel={t.a11y.close} className="max-w-3xl overflow-hidden p-0">
           <DialogTitle className="sr-only">
             {activeVideo?.title ?? "Video"}
           </DialogTitle>

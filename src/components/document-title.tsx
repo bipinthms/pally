@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { usePathname } from "next/navigation";
-import { navItems } from "@/lib/site";
+import { activeNavItem } from "@/lib/site";
 import { useLocale } from "@/lib/i18n/provider";
 
 /**
@@ -15,10 +15,7 @@ export function DocumentTitle() {
 
   React.useEffect(() => {
     if (locale === "en") return;
-    const item =
-      pathname === "/"
-        ? undefined
-        : navItems.find((n) => n.href !== "/" && pathname.startsWith(n.href));
+    const item = activeNavItem(pathname);
     const title =
       pathname === "/"
         ? `${t.site.name} — ${t.site.tagline}`

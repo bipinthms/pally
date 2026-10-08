@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
   // Expose the prefix to code that builds raw asset URLs (see assetPath).
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
+    // Lets client code render the build year before hydration (see useCurrentYear).
+    NEXT_PUBLIC_BUILD_YEAR: String(new Date().getFullYear()),
   },
   // Export each route as a directory index so direct GitHub Pages URLs work.
   trailingSlash: true,

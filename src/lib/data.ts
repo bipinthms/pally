@@ -148,7 +148,7 @@ const specialSchedulesRaw = [
   {
     occasion: B("Shunoyo — Dormition of St. Mary", "ശുനോയോ — വിശുദ്ധ മറിയത്തിന്റെ വാങ്ങിപ്പ്"),
     dates: B("15 Aug", "ഓഗ 15"),
-    detail: B("Preceded by the Ettu Nombu (eight-day Lent); solemn Holy Qurbana at 8:00 AM.", "എട്ടു നോമ്പിനു ശേഷം; 8:00 AM-ന് ആഘോഷ വിശുദ്ധ കുർബ്ബാന."),
+    detail: B("Preceded by the fifteen-day Shunoyo Nombu (1–15 Aug); solemn Holy Qurbana at 8:00 AM.", "പതിനഞ്ചു നോമ്പിനു ശേഷം; 8:00 AM-ന് ആഘോഷ വിശുദ്ധ കുർബ്ബാന."),
   },
 ];
 
@@ -157,8 +157,8 @@ const announcementsRaw = [
     title: B("Parish Feast Nombu begins", "ഇടവക പെരുന്നാൾ നോമ്പ് ആരംഭിക്കുന്നു"),
     date: B("31 Aug 2026", "31 ഓഗ 2026"),
     body: B(
-      "The eight-day Ettu Nombu in honour of St. Mary begins with flag hoisting after the 6:00 PM Qurbana. All parishioners are warmly invited.",
-      "പരിശുദ്ധ അമ്മയുടെ ബഹുമാനാർത്ഥമുള്ള എട്ടു ദിവസത്തെ നോമ്പ് 6:00 PM കുർബ്ബാനയ്ക്കു ശേഷം കൊടിയേറ്റോടെ ആരംഭിക്കുന്നു. എല്ലാ ഇടവകാംഗങ്ങളെയും സ്നേഹപൂർവ്വം ക്ഷണിക്കുന്നു.",
+      "The eight-day Ettu Nombu in honour of St. Mary begins with flag hoisting after the 6:00 PM evening prayer (Sandhya Namaskaram). All parishioners are warmly invited.",
+      "പരിശുദ്ധ അമ്മയുടെ ബഹുമാനാർത്ഥമുള്ള എട്ടു ദിവസത്തെ നോമ്പ് 6:00 PM സന്ധ്യാനമസ്കാരത്തിനു ശേഷം കൊടിയേറ്റോടെ ആരംഭിക്കുന്നു. എല്ലാ ഇടവകാംഗങ്ങളെയും സ്നേഹപൂർവ്വം ക്ഷണിക്കുന്നു.",
     ),
     tag: B("Feast", "പെരുന്നാൾ"),
   },
@@ -210,7 +210,7 @@ const eventsRaw: {
     ),
   },
   {
-    slug: "kcym-retreat",
+    slug: "ocym-retreat",
     title: B("OCYM Youth Retreat", "ഒസിവൈഎം യുവജന ധ്യാനം"),
     date: "2026-08-02", time: B("8:30 AM – 5:00 PM", "8:30 AM – 5:00 PM"),
     location: B("Parish Hall & Adoration Chapel", "ഇടവക ഹാളും ആരാധനാ കപ്പേളയും"),
@@ -228,8 +228,8 @@ const eventsRaw: {
     location: B("Parish Church", "ഇടവക പള്ളി"),
     category: "Feast", image: "candles",
     excerpt: B(
-      "A great feast of St. Mary, preceded by the Ettu Nombu. Solemn Holy Qurbana with festal prayers.",
-      "എട്ടു നോമ്പിനു ശേഷമുള്ള വിശുദ്ധ മറിയത്തിന്റെ വലിയ പെരുന്നാൾ. ആഘോഷ വിശുദ്ധ കുർബ്ബാനയും തിരുനാൾ പ്രാർത്ഥനകളും.",
+      "A great feast of St. Mary, at the close of the fifteen-day Shunoyo Nombu. Solemn Holy Qurbana with festal prayers.",
+      "പതിനഞ്ചു നോമ്പിന്റെ സമാപനത്തിലുള്ള വിശുദ്ധ മറിയത്തിന്റെ വലിയ പെരുന്നാൾ. ആഘോഷ വിശുദ്ധ കുർബ്ബാനയും പെരുന്നാൾ പ്രാർത്ഥനകളും.",
     ),
     featured: true,
   },
@@ -435,11 +435,11 @@ const formerVicarsRaw: { name: Bi; role?: Bi; years: string; note?: Bi }[] = [
   { name: B("Rev. Fr. Joseph Samuel Karukayil", "റവ. ഫാ. ജോസഫ് ശമുവേൽ കറുകയിൽ"), role: B("Vicar", "വികാരി"), years: "1994 – 1997" },
   { name: B("Rev. Fr. C. D. Rajan", "റവ. ഫാ. സി. ഡി. രാജൻ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1994 – 1997" },
   { name: B("Rev. Fr. Anil John", "റവ. ഫാ. അനിൽ ജോൺ"), role: B("Vicar", "വികാരി"), years: "1997 – 2000" },
-  { name: B("Rev. Fr. C. Johnson Mulamuttil", "റവ. ഫാ. ജോൺസൺ മുളമൂട്ടിൽ"), role: B("Vicar", "വികാരി"), years: "2000 – 2003" },
+  { name: B("Rev. Fr. C. Johnson Mulamuttil", "റവ. ഫാ. സി. ജോൺസൺ മുളമൂട്ടിൽ"), role: B("Vicar", "വികാരി"), years: "2000 – 2003" },
   { name: B("Rev. Fr. Mathew Abraham", "റവ. ഫാ. മാത്യു ഏബ്രഹാം"), role: B("Vicar", "വികാരി"), years: "2003 – 2005" },
   { name: B("Rev. Fr. John Philip", "റവ. ഫാ. ജോൺ ഫിലിപ്പ്"), role: B("Vicar", "വികാരി"), years: "2005 – 2009" },
   { name: B("Rev. Fr. John Daniel", "റവ. ഫാ. ജോൺ ഡാനിയേൽ"), role: B("Vicar", "വികാരി"), years: "2009" },
-  { name: B("Rev. Fr. K. G. Jacob Panicker", "റവ. ഫാ. ജേക്കബ് പണിക്കർ"), role: B("Vicar", "വികാരി"), years: "2009 – 2012" },
+  { name: B("Rev. Fr. K. G. Jacob Panicker", "റവ. ഫാ. കെ. ജി. ജേക്കബ് പണിക്കർ"), role: B("Vicar", "വികാരി"), years: "2009 – 2012" },
   { name: B("Rev. Fr. Sam Kanjickal", "റവ. ഫാ. സാം കാഞ്ഞിക്കൽ"), role: B("Vicar", "വികാരി"), years: "2012 – 2015" },
   { name: B("Rev. Fr. Mathew Thomas", "റവ. ഫാ. മാത്യു തോമസ്"), role: B("Vicar", "വികാരി"), years: "2015 – 2018" },
   { name: B("Rev. Fr. Varghese Abraham", "റവ. ഫാ. വർഗീസ് ഏബ്രഹാം"), years: "2018 – 2024" },
@@ -471,7 +471,7 @@ const organizationsRaw: {
     short: B("Faith formation for children", "കുട്ടികളുടെ വിശ്വാസ പരിശീലനം"),
     description: B(
       "Systematic teaching of Scripture, faith and the Orthodox tradition for children, following the Diocesan Sunday School syllabus.",
-      "രൂപത വേദപാഠ സിലബസ് പിന്തുടർന്ന്, കുട്ടികൾക്കായി വിശുദ്ധ ഗ്രന്ഥവും വിശ്വാസവും ഓർത്തഡോക്സ് പാരമ്പര്യവും ചിട്ടയായി പഠിപ്പിക്കുന്നു.",
+      "ഭദ്രാസന സൺഡേ സ്കൂൾ സിലബസ് പിന്തുടർന്ന്, കുട്ടികൾക്കായി വിശുദ്ധ ഗ്രന്ഥവും വിശ്വാസവും ഓർത്തഡോക്സ് പാരമ്പര്യവും ചിട്ടയായി പഠിപ്പിക്കുന്നു.",
     ),
     meeting: B("Sundays · after Holy Qurbana", "ഞായറാഴ്ചകൾ · വിശുദ്ധ കുർബ്ബാനയ്ക്കു ശേഷം"),
     icon: "BookOpen", image: "cathedralArches", photos: ["scripture", "cathedralArches", "celebration"],
@@ -623,12 +623,12 @@ const missionProjectsRaw: { name: Bi; tagline: Bi; description: Bi; icon: string
     tagline: B("Pension Scheme", "പെൻഷൻ പദ്ധതി"),
     description: B(
       "A monthly pension of ₹1,000 for ten people facing financial hardship — eight within the parish and two from outside it. Prayer group secretaries identify the beneficiaries.",
-      "സാമ്പത്തീക ബുദ്ധിമുട്ട് അനുഭവിക്കുന്ന പത്തുപേർക്ക് പ്രതിമാസം ആയിരം രൂപ പെൻഷൻ നൽകുന്ന പദ്ധതി. ഇടവകയിലെ എട്ട് പേർക്കും ഇടവകയ്ക്ക് പുറത്തുള്ള രണ്ടു പേർക്കും ആയിട്ടാണ് ഈ പദ്ധതി. (ഗുണഭോക്‌താക്കളെ കണ്ടെത്താനുള്ള ചുമതല പ്രാർത്ഥനായോഗം സെക്രട്ടറിമാർക്കാകും.)",
+      "സാമ്പത്തിക ബുദ്ധിമുട്ട് അനുഭവിക്കുന്ന പത്തുപേർക്ക് പ്രതിമാസം ആയിരം രൂപ പെൻഷൻ നൽകുന്ന പദ്ധതി. ഇടവകയിലെ എട്ട് പേർക്കും ഇടവകയ്ക്ക് പുറത്തുള്ള രണ്ടു പേർക്കും ആയിട്ടാണ് ഈ പദ്ധതി. (ഗുണഭോക്‌താക്കളെ കണ്ടെത്താനുള്ള ചുമതല പ്രാർത്ഥനായോഗം സെക്രട്ടറിമാർക്കാകും.)",
     ),
     icon: "HandCoins",
   },
   {
-    name: B("Aalambam", "ആലംമ്പം"),
+    name: B("Aalambam", "ആലംബം"),
     tagline: B("Quarterly Gathering", "ത്രൈമാസ സംഗമം"),
     description: B(
       "Once every three months, parents and brethren long unable to come to church through illness or age are brought to worship, receive Holy Qurbana, spend time in the church and join a fellowship meal.",
@@ -701,10 +701,10 @@ const missionProjectsRaw: { name: Bi; tagline: Bi; description: Bi; icon: string
   },
   {
     name: B("Athmabodhana Sangham", "ആത്മബോധന സംഘം"),
-    tagline: B("Ministry of the Word", "വചന ശുശ്രുഷാ സംഘം"),
+    tagline: B("Ministry of the Word", "വചന ശുശ്രൂഷാ സംഘം"),
     description: B(
       "The fellowship of the parish's evangelists, leading the ministry of the Word in prayer groups and spiritual movements.",
-      "ഇടവകയിലെ സുവിശേഷ പ്രവർത്തകരുടെ കൂട്ടായ്മ. പ്രാർത്ഥനയോഗങ്ങളിലെയും ആത്‌മീയ പ്രസ്ഥാനങ്ങളിലും വചന ശുശ്രുഷയ്ക്ക് നേതൃത്വം നൽകുന്ന സംഘം.",
+      "ഇടവകയിലെ സുവിശേഷ പ്രവർത്തകരുടെ കൂട്ടായ്മ. പ്രാർത്ഥനയോഗങ്ങളിലെയും ആത്‌മീയ പ്രസ്ഥാനങ്ങളിലും വചന ശുശ്രൂഷയ്ക്ക് നേതൃത്വം നൽകുന്ന സംഘം.",
     ),
     icon: "BookOpen",
   },
@@ -738,11 +738,9 @@ const galleryRaw: { image: ImageKey; title: Bi; category: GalleryCategory; span?
   { image: "churchAlt3", title: B("His Holiness the Catholicos", "പരിശുദ്ധ കാതോലിക്കാ ബാവ"), category: "Heritage" },
 ];
 
-const videosRaw: { title: Bi; poster: ImageKey; youtubeId: string; duration: string }[] = [
-  { title: B("Parish Feast — Solemn Procession", "ഇടവക പെരുന്നാൾ — പ്രദക്ഷിണം"), poster: "churchDusk", youtubeId: "y6120QOlsfU", duration: "4:20" },
-  { title: B("Christmas Carol Service", "ക്രിസ്മസ് കരോൾ"), poster: "churchWarm", youtubeId: "e5jQqp1Ad3c", duration: "6:12" },
-  { title: B("A Walk Through Our Heritage", "ഞങ്ങളുടെ പൈതൃകത്തിലൂടെ"), poster: "cathedralArches", youtubeId: "0-2QcM6L5Zk", duration: "3:47" },
-];
+// Parish videos for the gallery; the Videos section is hidden while this is empty.
+// Example: { title: B("Parish Feast — Procession", "ഇടവക പെരുന്നാൾ — പ്രദക്ഷിണം"), poster: "churchDusk", youtubeId: "<YouTube id>", duration: "4:20" },
+const videosRaw: { title: Bi; poster: ImageKey; youtubeId: string; duration: string }[] = [];
 
 const testimonialsRaw = [
   {
@@ -847,7 +845,7 @@ const prayerCategoriesRaw: Bi[] = [
   B("Healing & Health", "സൗഖ്യവും ആരോഗ്യവും"),
   B("Family", "കുടുംബം"),
   B("Guidance", "മാർഗ്ഗനിർദേശം"),
-  B("Departed Souls", "മൃതാത്മാക്കൾ"),
+  B("Departed Souls", "വാങ്ങിപ്പോയവർ"),
   B("Vocation", "ദൈവവിളി"),
   B("Other", "മറ്റുള്ളവ"),
 ];
@@ -894,7 +892,14 @@ export type ParishData = {
   prayerCategories: string[];
 };
 
+// Cached per locale so callers get stable references (safe as effect/memo deps).
+const dataCache: Partial<Record<Locale, ParishData>> = {};
+
 export function getData(locale: Locale): ParishData {
+  return (dataCache[locale] ??= buildData(locale));
+}
+
+function buildData(locale: Locale): ParishData {
   const L = <T,>(b: { en: T; ml: T }) => pick(b, locale);
   return {
     verses: versesRaw.map((v) => ({ text: L(v.text), ref: L(v.ref) })),

@@ -18,6 +18,17 @@ export function MobileMenu({ className }: { className?: string }) {
   const [open, setOpen] = React.useState(false);
   const { t } = useLocale();
 
+  // The sheet is hidden from `lg` up; close it there too, or the (invisible) modal
+  // keeps scrolling locked after e.g. rotating a tablet to landscape.
+  React.useEffect(() => {
+    if (!open) return;
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const close = () => mq.matches && setOpen(false);
+    close();
+    mq.addEventListener("change", close);
+    return () => mq.removeEventListener("change", close);
+  }, [open]);
+
   return (
     <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
       <DialogPrimitive.Trigger asChild>
