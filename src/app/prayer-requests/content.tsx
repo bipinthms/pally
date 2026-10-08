@@ -36,7 +36,7 @@ export function PrayerRequestsContent() {
         title={t.prayer.heroTitle}
         description={t.prayer.heroDesc}
         verse={t.prayer.heroVerse}
-        imageKey="candlesPrayer"
+        imageKey="prayerBlessing"
         crumbs={[{ label: t.nav.prayer.label }]}
       />
 

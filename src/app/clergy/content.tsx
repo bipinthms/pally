@@ -66,7 +66,7 @@ export function ClergyContent({ photos }: { photos: string[] }) {
         title={t.clergy.heroTitle}
         description={t.clergy.heroDesc}
         verse={t.clergy.heroVerse}
-        imageKey="churchWarm"
+        imageKey="churchWide"
         crumbs={[{ label: t.nav.clergy.label }]}
         sections={sections}
       />

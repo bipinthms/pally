@@ -35,6 +35,10 @@ const FILES = {
   reception: "events/reception.jpg",
   blessing: "events/blessing.jpg",
   preaching: "events/preaching.jpg",
+  stGeorge: "events/st-george.jpg",
+  abunaYoosuf: "events/abuna-yoosuf.jpg",
+  holyQurbana: "events/holy-qurbana.jpeg",
+  prayerBlessing: "events/prayer-blessing.jpeg",
   sundaySchool: "organizations/sunday-school.jpg",
   youthMeeting: "organizations/youth-meeting.jpg",
   youthGathering: "organizations/youth-gathering.jpg",
@@ -93,6 +97,10 @@ export const IMAGES = {
   celebration: f("reception"),
   navathiInauguration: f("navathiInauguration"),
   relicsStGregorios: f("relicsStGregorios"),
+  stGeorge: f("stGeorge"),
+  abunaYoosuf: f("abunaYoosuf"),
+  holyQurbana: f("holyQurbana"),
+  prayerBlessing: f("prayerBlessing"),
 
   // Clergy
   priest1: f("vicar"),
@@ -128,6 +136,7 @@ export function image(key: ImageKey, _opts?: { w?: number; h?: number; q?: numbe
  */
 const ALBUMS = {
   relicsStGregorios: { folder: "relics-st-gregorios", count: 23 },
+  abunaYoosuf: { folder: "abuna-yoosuf", count: 25 },
 } as const;
 
 export type AlbumKey = keyof typeof ALBUMS;

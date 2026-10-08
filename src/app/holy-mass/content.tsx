@@ -65,7 +65,7 @@ export function HolyMassContent() {
         title={t.mass.heroTitle}
         description={t.mass.heroDesc}
         verse={t.mass.heroVerse}
-        imageKey="churchWide"
+        imageKey="holyQurbana"
         crumbs={[{ label: t.nav.holyMass.label }]}
         sections={sections}
       />

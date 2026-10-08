@@ -202,6 +202,28 @@ const eventsRaw: {
   category: EventCategory; image: ImageKey; excerpt: Bi; featured?: boolean; album?: AlbumKey;
 }[] = [
   {
+    slug: "martha-mariam-pilgrimage-centre",
+    title: B("International Martha Mariam Pilgrimage Centre", "അന്താരാഷ്ട്ര മർത്തമറിയം തീർത്ഥാടന കേന്ദ്രം"),
+    date: "2010-09-03", time: B("Declaration", "പ്രഖ്യാപനം"),
+    location: B("Parish Church", "ഇടവക പള്ളി"),
+    category: "News", image: "marianShrine",
+    excerpt: B(
+      "The church was declared an International Martha Mariam Pilgrimage Centre by H.H. Baselios Marthoma Didymos I Catholicos.",
+      "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ ദിദിമോസ് പ്രഥമൻ കാതോലിക്കാ ബാവ നമ്മുടെ ദേവാലയത്തെ അന്താരാഷ്ട്ര മർത്തമറിയം തീർത്ഥാടന കേന്ദ്രമായി പ്രഖ്യാപിച്ചു.",
+    ),
+  },
+  {
+    slug: "abuna-yoosuf-visit-2016",
+    title: B("Visit of Abuna Yoosuf", "അബൂന യൂസഫ് തിരുമേനിയുടെ സന്ദർശനം"),
+    date: "2016-08-15", time: B("Reception", "സ്വീകരണം"),
+    location: B("Parish Church", "ഇടവക പള്ളി"),
+    category: "News", image: "abunaYoosuf", album: "abunaYoosuf",
+    excerpt: B(
+      "Abuna Yoosuf visited our church and was received by the parish with chenda melam and a ceremonial procession to the pilgrimage centre.",
+      "അബൂന യൂസഫ് തിരുമേനി നമ്മുടെ ദേവാലയം സന്ദർശിച്ചു. ചെണ്ടമേളത്തോടും ആഘോഷമായ ഘോഷയാത്രയോടും കൂടി ഇടവക തിരുമേനിയെ തീർത്ഥാടന കേന്ദ്രത്തിലേക്ക് സ്വീകരിച്ചു.",
+    ),
+  },
+  {
     slug: "vbs-2026",
     title: B("Vacation Bible School — 'Rooted in Christ'", "വെക്കേഷൻ ബൈബിൾ സ്കൂൾ — 'ക്രിസ്തുവിൽ വേരൂന്നി'"),
     date: "2026-05-04", endDate: "2026-05-09",
@@ -318,9 +340,9 @@ const eventsRaw: {
   {
     slug: "st-george-feast-2027",
     title: B("Feast of St. George", "വിശുദ്ധ ഗീവർഗീസ് സഹദായുടെ പെരുന്നാൾ"),
-    date: "2027-05-06", time: B("See parish notices", "ഇടവക അറിയിപ്പുകൾ കാണുക"),
+    date: "2027-05-09", time: B("See parish notices", "ഇടവക അറിയിപ്പുകൾ കാണുക"),
     location: B("Parish Church", "ഇടവക പള്ളി"),
-    category: "Feast", image: "candles",
+    category: "Feast", image: "stGeorge",
     excerpt: B(
       "The parish commemorates the great martyr St. George with festal Holy Qurbana and intercessory prayers.",
       "മഹാരക്തസാക്ഷിയായ വിശുദ്ധ ഗീവർഗീസ് സഹദായെ ഇടവക തിരുനാൾ കുർബ്ബാനയോടും മദ്ധ്യസ്ഥ പ്രാർത്ഥനയോടും കൂടി അനുസ്മരിക്കുന്നു.",
@@ -511,7 +533,7 @@ const organizationsRaw: {
       "The Mar Gregorios Orthodox Christian Student Movement — nurturing school and college students in faith, study circles and service.",
       "മാർ ഗ്രിഗോറിയോസ് ഓർത്തഡോക്സ് ക്രിസ്ത്യൻ സ്റ്റുഡന്റ് മൂവ്‌മെന്റ് — സ്കൂൾ, കോളേജ് വിദ്യാർത്ഥികളെ വിശ്വാസത്തിലും പഠന കൂട്ടായ്മകളിലും സേവനത്തിലും വളർത്തുന്നു.",
     ),
-    meeting: B("Fourth Sunday · 4:00 PM", "നാലാം ഞായർ · 4:00 PM"),
+    meeting: B("Saturdays · after Evening Prayer", "ശനിയാഴ്ചകൾ · സന്ധ്യാ നമസ്കാരത്തിനു ശേഷം"),
     icon: "Users", image: "gathering", photos: ["peacefulPath", "gathering", "churchWarm"],
     audience: B("Students", "വിദ്യാർത്ഥികൾ"),
   },
