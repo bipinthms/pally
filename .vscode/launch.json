@@ -7,6 +7,11 @@
       "request": "launch",
       "command": "npm run dev -- --hostname 0.0.0.0 --port 3000",
       "cwd": "${workspaceFolder}",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**",
+        "!**/.next/server/vendor-chunks/**"
+      ],
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://\\S+)",
         "uriFormat": "%s",

@@ -53,7 +53,7 @@ export const site = {
 
 export type NavKey =
   | "home" | "about" | "holyMass" | "clergy" | "committee" | "organizations"
-  | "gallery" | "events" | "prayer" | "donations" | "contact";
+  | "navathi" | "gallery" | "events" | "prayer" | "contact";
 
 export type NavItem = {
   key: NavKey;
@@ -68,18 +68,14 @@ export const navItems: NavItem[] = [
   { key: "clergy", label: "Clergy", href: "/clergy" },
   { key: "committee", label: "Committee", href: "/committee" },
   { key: "organizations", label: "Organizations", href: "/organizations" },
+  { key: "navathi", label: "Navathi (90th Anniversary)", href: "/navathi" },
   { key: "gallery", label: "Gallery", href: "/gallery" },
   { key: "events", label: "Events", href: "/events" },
   { key: "prayer", label: "Prayer Requests", href: "/prayer-requests" },
-  // Temporarily routed to Contact until online giving is ready.
-  { key: "donations", label: "Donations", href: "/contact" },
   { key: "contact", label: "Contact", href: "/contact" },
 ];
 
-/**
- * The nav item for the current page. When several items share a page (Donations
- * and Contact), the last one wins, so only one item is ever marked current.
- */
+/** The nav item for the current page; the last match wins if two share a page. */
 export function activeNavItem(pathname: string): NavItem | undefined {
   return navItems.findLast((n) => (n.href === "/" ? pathname === "/" : pathname.startsWith(n.href)));
 }

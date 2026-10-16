@@ -86,8 +86,11 @@ export const metadata: Metadata = {
     images: [OG_IMAGE.url],
   },
   icons: {
-    icon: [{ url: assetPath("/favicon.svg"), type: "image/svg+xml" }],
-    apple: assetPath("/favicon.svg"),
+    icon: [
+      { url: assetPath("/icon-96.png"), sizes: "96x96", type: "image/png" },
+      { url: assetPath("/icon-192.png"), sizes: "192x192", type: "image/png" },
+    ],
+    apple: { url: assetPath("/apple-touch-icon.png"), sizes: "180x180" },
   },
   robots: {
     index: true,

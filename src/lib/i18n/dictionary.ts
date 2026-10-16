@@ -79,6 +79,7 @@ const en = {
     clergy: { label: "Clergy", desc: "Our priests, past & present" },
     committee: { label: "Committee", desc: "Managing committee, members & auditors" },
     organizations: { label: "Organizations", desc: "OCYM, Sunday School, Choir & more" },
+    navathi: { label: "Navathi (90th Anniversary)", desc: "Programmes for the celebration year" },
     gallery: { label: "Gallery", desc: "Moments of faith & fellowship" },
     events: { label: "Events", desc: "Feasts, news & calendar" },
     prayer: { label: "Prayer Requests", desc: "Let us pray with you" },
@@ -309,6 +310,38 @@ const en = {
     newsSubtitle: "Recent moments from the life of our community.",
     all: "All",
   },
+  navathi: {
+    heroEyebrow: "1937 – 2027 · Ninety years of grace",
+    heroTitle: "Navathi Celebrations",
+    heroDesc:
+      "A year of thanksgiving for ninety years since our first church was consecrated — with worship, service and fellowship for the whole parish family.",
+    heroVerse: {
+      text: "Lord, you have been our dwelling place throughout all generations.",
+      ref: "Psalm 90:1",
+    },
+    aboutEyebrow: "Ninety years of grace",
+    aboutTitle: "Celebrating our Navathi",
+    aboutP1:
+      "On 28 August 1937 the first church at Alencherry was consecrated. Ninety years on, the parish gives thanks for a faith handed down through the generations, and for the God who has been our dwelling place all along.",
+    aboutP2:
+      "The Navathi year was inaugurated during the 2026 parish feast and runs until the feast of 2027, with programmes of worship, charity, heritage and fellowship that bring together every family and organization in the parish.",
+    statConsecrated: "First church consecrated",
+    statYears: "Years of grace",
+    statYear: "Celebration year",
+    programmesEyebrow: "The Navathi year",
+    programmesTitle: "Programme Calendar",
+    programmesSubtitle:
+      "Programmes of the celebration year, as they are announced.",
+    completed: "Completed",
+    next: "Up next",
+    dateTba: "Date to be announced",
+    comingSoonTitle: "More programmes coming soon",
+    comingSoonBody: "The full programme for the Navathi year will be announced here soon.",
+    involvedTitle: "Be part of the Navathi",
+    involvedBody:
+      "To volunteer, sponsor a programme, or share old photographs and memories of the parish, please contact the parish office.",
+    involvedCta: "Contact the parish office",
+  },
   prayer: {
     heroEyebrow: "We pray with you",
     heroTitle: "Prayer Requests",
@@ -438,6 +471,9 @@ const en = {
     ministries: "Ministries",
     missionProjects: "Mission projects",
     join: "Join a ministry",
+    navathi: "About Navathi",
+    programmes: "Programmes",
+    involved: "Get involved",
     news: "Parish news",
     upcoming: "Upcoming events",
     calendar: "Parish calendar",
@@ -574,6 +610,7 @@ const ml: Dict = {
     clergy: { label: "വൈദികർ", desc: "ഇന്നലെയും ഇന്നും" },
     committee: { label: "കമ്മിറ്റി", desc: "മാനേജിംഗ് കമ്മിറ്റി, അംഗങ്ങൾ, ഓഡിറ്റർമാർ" },
     organizations: { label: "സംഘടനകൾ", desc: "ഒസിവൈഎം, വേദപാഠം, ഗായകസംഘം" },
+    navathi: { label: "നവതി (90-ാം വാർഷികം)", desc: "ആഘോഷവർഷത്തെ പരിപാടികൾ" },
     gallery: { label: "ചിത്രശാല", desc: "വിശ്വാസത്തിന്റെ നിമിഷങ്ങൾ" },
     events: { label: "പരിപാടികൾ", desc: "പെരുന്നാൾ, വാർത്തകൾ, കലണ്ടർ" },
     prayer: { label: "പ്രാർത്ഥനാ അപേക്ഷകൾ", desc: "ഞങ്ങൾ നിങ്ങൾക്കായി പ്രാർത്ഥിക്കാം" },
@@ -799,6 +836,38 @@ const ml: Dict = {
     newsSubtitle: "ഞങ്ങളുടെ കൂട്ടായ്മയുടെ ജീവിതത്തിലെ സമീപകാല നിമിഷങ്ങൾ.",
     all: "എല്ലാം",
   },
+  navathi: {
+    heroEyebrow: "1937 – 2027 · തൊണ്ണൂറ് വർഷത്തെ ദൈവകൃപ",
+    heroTitle: "നവതി ആഘോഷങ്ങൾ",
+    heroDesc:
+      "നമ്മുടെ പ്രഥമ ദേവാലയം കൂദാശ ചെയ്തതിന്റെ തൊണ്ണൂറാം വർഷം — ആരാധനയും സേവനവും കൂട്ടായ്മയുമായി ഇടവക കുടുംബം ഒന്നാകെ ആഘോഷിക്കുന്ന സ്തോത്രവർഷം.",
+    heroVerse: {
+      text: "കർത്താവേ, അവിടുന്ന് തലമുറതലമുറയായി ഞങ്ങളുടെ വാസസ്ഥലമായിരിക്കുന്നു.",
+      ref: "സങ്കീർത്തനം 90:1",
+    },
+    aboutEyebrow: "തൊണ്ണൂറ് വർഷത്തെ ദൈവകൃപ",
+    aboutTitle: "നമ്മുടെ നവതി",
+    aboutP1:
+      "1937 ഓഗസ്റ്റ് 28-ന് ആലഞ്ചേരിയിലെ പ്രഥമ ദേവാലയം കൂദാശ ചെയ്യപ്പെട്ടു. തൊണ്ണൂറ് വർഷങ്ങൾക്കിപ്പുറം, തലമുറകളിലൂടെ കൈമാറിവന്ന വിശ്വാസത്തിനും എക്കാലവും നമ്മുടെ വാസസ്ഥലമായിരുന്ന ദൈവത്തിനും ഇടവക നന്ദി അർപ്പിക്കുന്നു.",
+    aboutP2:
+      "2026-ലെ ഇടവക പെരുന്നാളിനോടനുബന്ധിച്ച് ഉദ്ഘാടനം ചെയ്ത നവതി വർഷം 2027-ലെ പെരുന്നാൾ വരെ നീളുന്നു. ആരാധന, കാരുണ്യപ്രവർത്തനം, പൈതൃകം, കൂട്ടായ്മ എന്നിവയിലൂന്നിയ പരിപാടികളിൽ ഇടവകയിലെ എല്ലാ കുടുംബങ്ങളും സംഘടനകളും പങ്കുചേരുന്നു.",
+    statConsecrated: "പ്രഥമ ദേവാലയ കൂദാശ",
+    statYears: "വർഷത്തെ ദൈവകൃപ",
+    statYear: "ആഘോഷവർഷം",
+    programmesEyebrow: "നവതി വർഷം",
+    programmesTitle: "പരിപാടികളുടെ കലണ്ടർ",
+    programmesSubtitle:
+      "ആഘോഷവർഷത്തിലെ പരിപാടികൾ, പ്രഖ്യാപിക്കുന്ന മുറയ്ക്ക്.",
+    completed: "പൂർത്തിയായി",
+    next: "അടുത്തത്",
+    dateTba: "തീയതി പിന്നീട് അറിയിക്കും",
+    comingSoonTitle: "കൂടുതൽ പരിപാടികൾ ഉടൻ",
+    comingSoonBody: "നവതി വർഷത്തെ പരിപാടികളുടെ പൂർണ്ണ വിവരം ഉടൻ ഇവിടെ പ്രസിദ്ധീകരിക്കും.",
+    involvedTitle: "നവതിയിൽ പങ്കാളികളാകുക",
+    involvedBody:
+      "സന്നദ്ധസേവനത്തിനും പരിപാടികൾ സ്പോൺസർ ചെയ്യുന്നതിനും ഇടവകയുടെ പഴയ ചിത്രങ്ങളും ഓർമ്മകളും പങ്കുവയ്ക്കുന്നതിനും ഇടവക ഓഫീസുമായി ബന്ധപ്പെടുക.",
+    involvedCta: "ഇടവക ഓഫീസുമായി ബന്ധപ്പെടുക",
+  },
   prayer: {
     heroEyebrow: "ഞങ്ങൾ നിങ്ങൾക്കായി പ്രാർത്ഥിക്കുന്നു",
     heroTitle: "പ്രാർത്ഥനാ അപേക്ഷകൾ",
@@ -927,6 +996,9 @@ const ml: Dict = {
     ministries: "കൂട്ടായ്മകൾ",
     missionProjects: "കർമ്മ പദ്ധതികൾ",
     join: "ശുശ്രൂഷയിൽ ചേരുക",
+    navathi: "നവതിയെക്കുറിച്ച്",
+    programmes: "പരിപാടികൾ",
+    involved: "പങ്കാളികളാകുക",
     news: "ഇടവക വാർത്തകൾ",
     upcoming: "വരാനിരിക്കുന്ന പരിപാടികൾ",
     calendar: "ഇടവക കലണ്ടർ",

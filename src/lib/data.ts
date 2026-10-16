@@ -24,6 +24,15 @@ export type ChurchEvent = {
   /** Photo album shown in the Gallery's Parish News tab. */
   album?: AlbumKey;
 };
+/** A programme of the Navathi year. `date` is YYYY-MM-DD, or YYYY-MM while the day is not fixed. */
+export type NavathiProgram = {
+  date: string;
+  endDate?: string;
+  time?: string;
+  title: string;
+  description: string;
+  location: string;
+};
 export type Clergy = {
   name: string;
   role: string;
@@ -361,6 +370,24 @@ const eventsRaw: {
   },
 ];
 
+/* Navathi (90th anniversary) programmes, September 2026 – September 2027.
+   The page shows "Coming soon" after the list until the full programme is added.
+   Use YYYY-MM for a programme whose day is not fixed yet; the page shows
+   "Date to be announced" until a full date is filled in. */
+const navathiProgramsRaw: {
+  date: string; endDate?: string; time?: Bi; title: Bi; description: Bi; location: Bi;
+}[] = [
+  {
+    date: "2026-09-05",
+    title: B("Inauguration of the Navathi Celebrations", "നവതി ആഘോഷങ്ങളുടെ ഉദ്ഘാടനം"),
+    description: B(
+      "The Navathi year was formally inaugurated during the parish feast.",
+      "ഇടവക പെരുന്നാളിനോടനുബന്ധിച്ച് നവതി വർഷം ഔദ്യോഗികമായി ഉദ്ഘാടനം ചെയ്തു.",
+    ),
+    location: B("Parish Church", "ഇടവക പള്ളി"),
+  },
+];
+
 const prelatesRaw = [
   {
     name: B("H.H. Baselios Marthoma Mathews III", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് തൃതീയൻ കാതോലിക്കാ ബാവ"),
@@ -408,6 +435,7 @@ const assistantPriestRaw = {
 
 // Photos go in public/images/committee/office-bearers/
 const managingCommitteeRaw = [
+  { name: parishPriestRaw.name, role: B("President", "പ്രസിഡന്റ്"), photo: "committee/office-bearers/fr-varghese-t-varghese.jpeg" },
   { name: B("P. J. Philip Aruvickal", "പി. ജെ. ഫിലിപ്പ് അരുവിക്കൽ"), role: B("Trustee", "ട്രസ്റ്റി"), photo: "committee/office-bearers/p-j-philip-aruvickal.jpeg" },
   { name: B("Joseph K. V.", "ജോസഫ് കെ. വി."), role: B("Secretary", "സെക്രട്ടറി"), photo: "committee/office-bearers/joseph-k-v.jpeg" },
 ];
@@ -442,7 +470,7 @@ const sacristansRaw = [
 // Photos go in public/images/clergy/parish-priests/. Leave out `photo` to show a placeholder;
 // `memorial` adds an "In loving memory" line above the name.
 const parishPriestsRaw: { name: Bi; role?: Bi; photo?: string; memorial?: boolean }[] = [
-  { name: B("Rev. Fr. Yacob OIC", "റവ. ഫാ. യാക്കോബ് ഒ.ഐ.സി."), memorial: true },
+  { name: B("Rev. Fr. Yacob OIC", "റവ. ഫാ. യാക്കോബ് ഒ.ഐ.സി."), photo: "clergy/parish-priests/yacob-oic.jpeg", memorial: true },
   { name: B("Very Rev. Thomas T. Varghese Cor Episcopa", "വെരി റവ. തോമസ് ടി. വർഗീസ് കോർ എപ്പിസ്കോപ്പ"), photo: "clergy/parish-priests/thomas-t-varghese-cor-episcopa.jpeg" },
   { name: B("Rev. Fr. Thomas Daniel", "റവ. ഫാ. തോമസ് ഡാനിയേൽ"), photo: "clergy/parish-priests/thomas-daniel.jpeg" },
   { name: B("Rev. Fr. Sam Thomas", "റവ. ഫാ. സാം തോമസ്"), photo: "clergy/parish-priests/sam-thomas.jpeg" },
@@ -464,7 +492,7 @@ const formerVicarsRaw: { name: Bi; role?: Bi; years: string; note?: Bi }[] = [
   { name: B("Rev. Fr. K. P. Philip", "റവ. ഫാ. കെ. പി. ഫിലിപ്പ്"), role: B("Vicar", "വികാരി"), years: "1979 – 1981" },
   { name: B("Rev. Fr. Zacharia Abraham", "റവ. ഫാ. സഖറിയ ഏബ്രഹാം"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1979 – 1981" },
   { name: B("Rev. Fr. Thomas T. Varghese", "റവ. ഫാ. തോമസ് ടി. വർഗീസ്"), role: B("Vicar", "വികാരി"), years: "1981 – 1988" },
-  { name: B("Rev. Fr. Yohannan Panicker", "റവ. ഫാ. യോഹന്നാൻ പണിക്കർ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1981 – 1988" },
+  { name: B("Rev. Fr. Yohannan Panicker", "റവ. ഫാ. യോഹന്നാൻ പണിക്കർ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1980" },
   { name: B("Rev. Fr. K. K. Thomas", "റവ. ഫാ. കെ. കെ. തോമസ്"), role: B("Vicar", "വികാരി"), years: "1988 – 1992" },
   { name: B("Rev. Fr. C. Koshy", "റവ. ഫാ. സി. കോശി"), role: B("Vicar", "വികാരി"), years: "1992 – 1994" },
   { name: B("Rev. Fr. Joseph Samuel Karukayil", "റവ. ഫാ. ജോസഫ് ശമുവേൽ കറുകയിൽ"), role: B("Vicar", "വികാരി"), years: "1994 – 1997" },
@@ -580,7 +608,7 @@ const organizationsRaw: {
       "ഇടവകയുടെ പ്രാർത്ഥനയെ ഗാനത്തിലുയർത്തുന്നു — മലങ്കര ഓർത്തഡോക്സ് ആരാധനക്രമത്തിന്റെ വിശുദ്ധ സംഗീതത്തിൽ സമൂഹത്തെ നയിക്കുന്നു.",
     ),
     meeting: B("Friday · 7:00 PM rehearsal", "വെള്ളി · 7:00 PM പരിശീലനം"),
-    icon: "Music", image: "churchWarm", photos: ["churchWarm", "stainedGlass", "cathedralArches"],
+    icon: "Music", image: "choir", photos: ["choir", "churchWarm", "stainedGlass", "cathedralArches"],
     audience: B("All ages", "എല്ലാ പ്രായക്കാർക്കും"),
   },
   {
@@ -834,16 +862,19 @@ const missionVisionRaw = {
 
 // From the parish history plaque ("ഇടവകയുടെ നാൾവഴികൾ"), unveiled 21 April 2024.
 const timelineRaw: { year: string | Bi; date?: Bi; title: Bi; body: Bi }[] = [
+  { year: "1932", title: B("Sunday School begins", "സൺഡേ സ്കൂൾ ആരംഭം"), body: B("The parish Sunday School was started.", "ഇടവകയിൽ സൺഡേ സ്കൂൾ ആരംഭിച്ചു.") },
   { year: "1934", date: B("29 January", "ജനുവരി 29"), title: B("The forefathers' covenant", "പൂർവ്വികരുടെ കരാർ"), body: B("George Ummen of Bethel Bungalow, Eapen of Kandathil, Kochu Koshy of Poykavilayil, Koshy of Bethel Vadakkethil, Ummen of Vattavilayil Mukalupurathu, Tharian of Kalangazhikathu, Joseph of Kochukonathu Puthenveettil, Chacko of Thekkethil Veedu and Chacko of Kizhakkekara Charuvila Veedu drew up and registered an agreement to establish the first church.", "ബെഥേൽ ബംഗ്ലാവിൽ ജോർജ്ജ് ഉമ്മൻ, കണ്ടത്തിൽ ഈപ്പൻ, പൊയ്കവിളയിൽ കൊച്ചു കോശി, ബെഥേൽ വടക്കേതിൽ കോശി, വട്ടവിളയിൽ മുകളുപുറത്ത് ഉമ്മൻ, കളങ്ങഴികത്ത് തര്യൻ, കൊച്ചുകോണത്ത് പുത്തൻവീട്ടിൽ ജോസഫ്, തെക്കേതിൽ വീട്ടിൽ ചാക്കോ, കിഴക്കേക്കര ചരുവിള വീട്ടിൽ ചാക്കോ എന്നീ പൂർവ്വികർ പ്രഥമ ദേവാലയം സ്ഥാപിക്കുന്നതിന് കരാർ തയ്യാറാക്കി രജിസ്റ്റർ ചെയ്തു.") },
-  { year: "1937", date: B("28 April", "ഏപ്രിൽ 28"), title: B("The first church consecrated", "പ്രഥമ ദേവാലയ കൂദാശ"), body: B("St. Mary's Orthodox Church, Alencherry was consecrated by H.G. Puthenkavil Geevarghese Mar Philoxenos Metropolitan and included in the Diocese of Kollam. First vicar: Ayoor Mavilazhikathu Koshy Kathanar.", "ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് ദേവാലയം പുത്തൻകാവിൽ ഗീവർഗ്ഗീസ് മാർ പീലക്സീനോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്ത് കൊല്ലം ഭദ്രാസനത്തിൽ ഉൾപ്പെടുത്തി. പ്രഥമ വികാരി: ആയൂർ മാവിലഴികത്ത് കോശി കത്തനാർ.") },
-  { year: "1937", date: B("21 November", "നവംബർ 21"), title: B("Icon from Mount Athos", "മൗണ്ട് ആതോസിൽ നിന്നൊരു ചിത്രം"), body: B("Shimona, a monk of the Mount Athos monastery, dedicated an icon of the Mother of God and a cross to the church.", "മൗണ്ട് ആതോസ് ആശ്രമാംഗമായ ശിമോന ദൈവമാതാവിന്റെ ചിത്രവും കുരിശും സമർപ്പിച്ചു.") },
-  { year: "1937", date: B("18 December", "ഡിസംബർ 18"), title: B("The metal-clad cross", "ലോഹചട്ടയുള്ള കുരിശ്"), body: B("Shimona dedicated a wooden cross encased in metal.", "ശിമോന ലോഹചട്ടയുള്ള തടികുരിശ് സമർപ്പിച്ചു.") },
+  { year: "1937", date: B("28 August", "ഓഗസ്റ്റ് 28"), title: B("The first church consecrated", "പ്രഥമ ദേവാലയ കൂദാശ"), body: B("St. Mary's Orthodox Church, Alencherry was consecrated by H.G. Puthenkavil Geevarghese Mar Philoxenos Metropolitan and included in the Diocese of Kollam. First vicar: Ayoor Mavilazhikathu Koshy Kathanar.", "ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് ദേവാലയം പുത്തൻകാവിൽ ഗീവർഗ്ഗീസ് മാർ പീലക്സീനോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്ത് കൊല്ലം ഭദ്രാസനത്തിൽ ഉൾപ്പെടുത്തി. പ്രഥമ വികാരി: ആയൂർ മാവിലഴികത്ത് കോശി കത്തനാർ.") },
+  { year: "1937", date: B("21 November", "നവംബർ 21"), title: B("Icon from Mount Athos", "മൗണ്ട് ആതോസിൽ നിന്നൊരു ചിത്രം"), body: B("Shimona (Br. Schema-monk Constantine Gustovit), a monk of the Mount Athos monastery, dedicated an icon of the Mother of God and a cross to the church.", "മൗണ്ട് ആതോസ് ആശ്രമാംഗമായ ശിമോന (Br. Schema-monk Constantine Gustovit) ദൈവമാതാവിന്റെ ചിത്രവും കുരിശും സമർപ്പിച്ചു.") },
+  { year: "1937", date: B("18 December", "ഡിസംബർ 18"), title: B("The metal-clad cross", "ലോഹചട്ടയുള്ള കുരിശ്"), body: B("Shimona (Br. Schema-monk Constantine Gustovit) dedicated a wooden cross encased in metal.", "ശിമോന (Br. Schema-monk Constantine Gustovit) ലോഹചട്ടയുള്ള തടികുരിശ് സമർപ്പിച്ചു.") },
+  { year: "1961", date: B("26 December", "ഡിസംബർ 26"), title: B("Foundation of the second church", "രണ്ടാം ദേവാലയത്തിന് ശിലാസ്ഥാപനം"), body: B("H.G. Mathews Mar Coorilos laid the foundation stone for the second church.", "അഭിവന്ദ്യ മാത്യൂസ് മാർ കൂറിലോസ് തിരുമേനി രണ്ടാം ദേവാലയത്തിന് ശിലാസ്ഥാപന കർമ്മം നിർവഹിച്ചു.") },
   { year: "1965", date: B("1 September", "സെപ്റ്റംബർ 1"), title: B("Ettunombu feast begins", "എട്ടുനോമ്പ് പെരുന്നാൾ"), body: B("The Ettunombu (eight-day Lent) feast was celebrated for the first time.", "എട്ടുനോമ്പ് പെരുന്നാൾ ആരംഭിച്ചു.") },
   { year: "1966", date: B("13 February", "ഫെബ്രുവരി 13"), title: B("The second church", "രണ്ടാം ദേവാലയം"), body: B("H.G. Mathews Mar Coorilos consecrated the second church.", "അഭിവന്ദ്യ മാത്യൂസ് മാർ കൂറിലോസ് തിരുമേനി രണ്ടാം ദേവാലയം കൂദാശ ചെയ്തു.") },
+  { year: "1975", date: B("6 September", "സെപ്റ്റംബർ 6"), title: B("Apostolic visit", "ശ്ലൈഹിക സന്ദർശനം"), body: B("H.H. Baselios Marthoma Mathews I Catholicos made an apostolic visit to the parish.", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് പ്രഥമൻ കാതോലിക്കാ ബാവ ഇടവകയിൽ ശ്ലൈഹിക സന്ദർശനം നടത്തി.") },
   { year: "1979", title: B("Diocese of Thiruvananthapuram", "തിരുവനന്തപുരം ഭദ്രാസനം"), body: B("The church was included in the Diocese of Thiruvananthapuram.", "ദേവാലയം തിരുവനന്തപുരം ഭദ്രാസനത്തിൽ ഉൾപ്പെടുത്തി.") },
   { year: "1982", date: B("1 September", "സെപ്റ്റംബർ 1"), title: B("Shrine of the Mother of God", "ദൈവമാതാവിന്റെ ധ്യാന മന്ദിരം"), body: B("H.G. Geevarghese Mar Dioscoros Metropolitan consecrated the meditation shrine (Dhyana Mandiram) of the Mother of God.", "ദൈവമാതാവിന്റെ ധ്യാന മന്ദിരം അഭിവന്ദ്യ ഗീവർഗ്ഗീസ് മാർ ദിയസ്കോറോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
   { year: "2001", date: B("6 September", "സെപ്റ്റംബർ 6"), title: B("Foundation of the third church", "മൂന്നാം ദേവാലയത്തിന് ശിലാസ്ഥാപനം"), body: B("H.H. Baselios Marthoma Mathews II Catholicos laid the foundation stone for the third church.", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് ദ്വിതീയൻ കാതോലിക്കാ ബാവ മൂന്നാം ദേവാലയത്തിന് ശിലാസ്ഥാപന കർമ്മം നിർവഹിച്ചു.") },
-  { year: "2002", date: B("8 September", "സെപ്റ്റംബർ 8"), title: B("The second meditation shrine", "രണ്ടാം ധ്യാന മന്ദിരം"), body: B("H.G. Zacharias Mar Athanasios Metropolitan consecrated the second meditation shrine (Dhyana Mandiram) of the Mother of God.", "ദൈവമാതാവിന്റെ രണ്ടാം ധ്യാന മന്ദിരം അഭിവന്ദ്യ സഖറിയാസ് മാർ അത്താനാസ്യോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
+  { year: "2002", date: B("8 September", "സെപ്റ്റംബർ 8"), title: B("The second meditation shrine", "രണ്ടാം ധ്യാന മന്ദിരം"), body: B("H.G. Zacharias Mar Anthonios Metropolitan consecrated the second meditation shrine (Dhyana Mandiram) of the Mother of God.", "ദൈവമാതാവിന്റെ രണ്ടാം ധ്യാന മന്ദിരം അഭിവന്ദ്യ സഖറിയാസ് മാർ അന്തോണിയോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
   { year: "2006", date: B("30–31 August", "ഓഗസ്റ്റ് 30, 31"), title: B("The third church consecrated", "മൂന്നാം ദേവാലയ കൂദാശ"), body: B("H.H. Baselios Marthoma Didymos I Catholicos consecrated the third church.", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ ദിദിമോസ് പ്രഥമൻ കാതോലിക്കാ ബാവ മൂന്നാം ദേവാലയം കൂദാശ ചെയ്തു.") },
   { year: "2010", date: B("3 September", "സെപ്റ്റംബർ 3"), title: B("International Martha Mariam pilgrimage centre", "അന്താരാഷ്ട്ര മർത്തമറിയം തീർത്ഥാടന കേന്ദ്രം"), body: B("The church was declared an International Martha Mariam Pilgrimage Centre by H.H. Baselios Marthoma Didymos I Catholicos.", "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ ദിദിമോസ് പ്രഥമൻ കാതോലിക്കാ ബാവ അന്താരാഷ്ട്ര മർത്തമറിയം തീർത്ഥാടന കേന്ദ്രമായി പ്രഖ്യാപിച്ചു.") },
   { year: "2011", date: B("28 August", "ഓഗസ്റ്റ് 28"), title: B("Shrine renewed", "ധ്യാന മന്ദിരം നവീകരിച്ചു"), body: B("H.G. Dr. Gabriel Mar Gregorios Metropolitan consecrated the renovated meditation shrine of the Mother of God.", "നവീകരിച്ച ദൈവമാതാവിന്റെ ധ്യാന മന്ദിരം അഭി. ഡോ. ഗബ്രിയേൽ മാർ ഗ്രീഗോറിയോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
@@ -909,6 +940,7 @@ export type ParishData = {
   announcements: Announcement[];
   upcomingFeast: { title: string; malayalam: string; date: string; blurb: string; image: ImageKey };
   events: ChurchEvent[];
+  navathiPrograms: NavathiProgram[];
   prelates: { name: string; title: string; image: ImageKey; file: string }[];
   parishPriest: Clergy;
   assistantPriest: Clergy;
@@ -967,6 +999,10 @@ function buildData(locale: Locale): ParishData {
       slug: e.slug, title: L(e.title), date: e.date, endDate: e.endDate,
       time: L(e.time), location: L(e.location), category: e.category,
       image: e.image, excerpt: L(e.excerpt), featured: e.featured, album: e.album,
+    })),
+    navathiPrograms: navathiProgramsRaw.map((p) => ({
+      date: p.date, endDate: p.endDate, time: p.time && L(p.time),
+      title: L(p.title), description: L(p.description), location: L(p.location),
     })),
     prelates: prelatesRaw.map((p) => ({ name: L(p.name), title: L(p.title), image: p.image, file: p.file })),
     parishPriest: {

@@ -30,7 +30,7 @@ export function CommitteeContent({ photos }: { photos: string[] }) {
         title={t.committee.heroTitle}
         description={t.committee.heroDesc}
         verse={t.committee.heroVerse}
-        imageKey="gathering"
+        imageKey="churchIlluminated"
         crumbs={[{ label: t.nav.committee.label }]}
         sections={sections}
       />
@@ -39,7 +39,7 @@ export function CommitteeContent({ photos }: { photos: string[] }) {
       <section id="managing-committee" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.committee.managingEyebrow} title={t.committee.managingTitle} subtitle={t.committee.managingSubtitle} />
-          <RevealGroup className="mx-auto mt-14 grid max-w-2xl gap-4 sm:grid-cols-2">
+          <RevealGroup className="mx-auto mt-14 grid max-w-4xl gap-4 sm:grid-cols-3">
             {managingCommittee.map((m, i) => (
               <RevealItem key={`${m.role}-${i}`}>
                 {m.photo && hasPhoto(m.photo) ? (
@@ -48,7 +48,7 @@ export function CommitteeContent({ photos }: { photos: string[] }) {
                       src={assetPath(`/images/${m.photo}`)}
                       alt={m.name}
                       fill
-                      sizes="(max-width: 640px) 100vw, 18rem"
+                      sizes="(max-width: 640px) 100vw, 20rem"
                       className="object-cover object-top"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-4 pb-5 pt-16">

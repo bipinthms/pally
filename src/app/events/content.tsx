@@ -52,7 +52,7 @@ export function EventsContent({ today }: { today: string }) {
         title={t.events.heroTitle}
         description={t.events.heroDesc}
         verse={t.events.heroVerse}
-        imageKey="celebration"
+        imageKey="eventsHero"
         crumbs={[{ label: t.nav.events.label }]}
         sections={sections}
       />

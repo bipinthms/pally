@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  // Several nav items can share a page (Donations points at Contact for now).
+  // Nav items could share a page; list each page once.
   const hrefs = [...new Set(navItems.map((item) => item.href))];
   return hrefs.map((href) => ({
     // Match the exported URLs (trailingSlash: true) and the canonical links.
