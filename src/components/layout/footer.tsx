@@ -1,9 +1,11 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
+import { IMAGES } from "@/lib/images";
 import { site, navItems } from "@/lib/site";
 import { useLocale } from "@/lib/i18n/provider";
 import { useCurrentYear } from "@/lib/use-current-year";
@@ -27,7 +29,19 @@ export function Footer() {
       <div className="pointer-events-none absolute -left-24 -top-24 size-72 rounded-full bg-maroon-700/30 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-24 right-0 size-72 rounded-full bg-gold-700/20 blur-3xl" />
 
-      <div className="container-x relative py-16">
+      {/* Aerial view of the church, fading into the footer */}
+      <div className="relative h-56 sm:h-72 lg:h-96">
+        <Image
+          src={IMAGES.aerialView}
+          alt={t.a11y.altAerialView}
+          fill
+          sizes="100vw"
+          className="object-cover object-[center_65%]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-brown-900" />
+      </div>
+
+      <div className="container-x relative pb-16 pt-8">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
           {/* Brand */}
           <div>
@@ -37,6 +51,15 @@ export function Footer() {
             />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-cream/70">
               {t.home.heroSubtitle}
+            </p>
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-cream/70">
+              {t.footer.newsPortal}
+              <a
+                href={site.url}
+                className="mt-1 block font-semibold text-gold-300 transition hover:text-gold-200"
+              >
+                {site.url.replace(/^https?:\/\//, "")}
+              </a>
             </p>
             <div className="mt-6 flex gap-3">
               {socials.map((s) => (

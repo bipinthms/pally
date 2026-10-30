@@ -43,6 +43,11 @@ export const site = {
     qrPng: "/images/qr/prayer-request-form.png",
   },
 
+  offering: {
+    upiId: "msqr.alench@sib",
+    upiUrl: "upi://pay?pa=msqr.alench@sib",
+  },
+
   social: {
     facebook: "https://www.facebook.com/alencherrypally/",
     instagram: "https://www.instagram.com/alencherry_pally/",
@@ -70,7 +75,7 @@ export const navItems: NavItem[] = [
   { key: "organizations", label: "Organizations", href: "/organizations" },
   { key: "navathi", label: "Navathi (90th Anniversary)", href: "/navathi" },
   { key: "gallery", label: "Gallery", href: "/gallery" },
-  { key: "events", label: "Events", href: "/events" },
+  { key: "events", label: "Events / News", href: "/events" },
   { key: "prayer", label: "Prayer Requests", href: "/prayer-requests" },
   { key: "contact", label: "Contact", href: "/contact" },
 ];

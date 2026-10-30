@@ -40,7 +40,7 @@ export function SearchDialog({ triggerClassName }: { triggerClassName?: string }
       })),
       ...events.map((e) => ({
         title: e.title,
-        href: `/events#${e.slug}`,
+        href: `/events/${e.slug}`,
         group: t.search.events,
         keywords: `${e.category} ${e.location}`,
       })),

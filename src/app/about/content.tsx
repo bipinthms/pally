@@ -19,11 +19,20 @@ import { useLocale } from "@/lib/i18n/provider";
 
 export function AboutContent() {
   const { locale, t } = useLocale();
-  const { missionVision, patronSaint, timeline } = getData(locale);
+  const { parishHistory, missionVision, missionFramework, patronSaint, timeline } = getData(locale);
+  const [historyLead, ...historyRest] = parishHistory;
+
+  const historyStats = [
+    { value: "279", label: t.about.statFamilies },
+    { value: "1600+", label: t.about.statMembers },
+    { value: "3", label: t.about.statPriests },
+  ];
 
   const sections = [
     { id: "heritage", label: t.sections.heritage },
+    { id: "history", label: t.sections.history },
     { id: "mission-vision", label: t.sections.missionVision },
+    { id: "mission-framework", label: t.sections.missionFramework },
     { id: "patron-saint", label: t.sections.patron },
     { id: "journey", label: t.sections.journey },
   ];
@@ -46,8 +55,8 @@ export function AboutContent() {
           <Reveal className="relative order-2 lg:order-1">
             <div className="relative aspect-[5/4] overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)]">
               <Image
-                src={image("cathedralArches", { w: 900, q: 70 })}
-                alt={t.a11y.altArches}
+                src={image("oldChurch", { w: 900, q: 70 })}
+                alt={t.a11y.altOldChurch}
                 fill
                 sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"
@@ -72,8 +81,33 @@ export function AboutContent() {
         </div>
       </section>
 
+      {/* Parish history */}
+      <section id="history" className="section-y bg-secondary/40">
+        <div className="container-x">
+          <SectionHeading eyebrow={t.about.historyEyebrow} title={t.about.historyTitle} />
+
+          <RevealGroup className="mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-3 sm:gap-4">
+            {historyStats.map((s) => (
+              <RevealItem key={s.label}>
+                <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-border bg-card px-3 py-5 text-center">
+                  <p className="font-serif text-2xl font-bold text-primary sm:text-3xl">{s.value}</p>
+                  <p className="mt-1 text-[0.7rem] uppercase tracking-wider text-muted-foreground sm:text-xs">{s.label}</p>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+
+          <Reveal className="mx-auto mt-12 max-w-3xl space-y-5 leading-relaxed text-muted-foreground">
+            <p className="text-lg leading-relaxed text-foreground/85">{historyLead}</p>
+            {historyRest.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
       {/* Mission & Vision */}
-      <section id="mission-vision" className="section-y bg-secondary/40">
+      <section id="mission-vision" className="section-y">
         <div className="container-x">
           <SectionHeading eyebrow={t.about.mvEyebrow} title={t.about.mvTitle} subtitle={t.about.mvSubtitle} />
           <div className="mt-14 grid gap-6 md:grid-cols-2">
@@ -110,6 +144,46 @@ export function AboutContent() {
               </RevealItem>
             ))}
           </RevealGroup>
+        </div>
+      </section>
+
+      {/* Mission framework */}
+      <section id="mission-framework" className="section-y bg-secondary/40">
+        <div className="container-x">
+          <SectionHeading eyebrow={t.about.frameworkEyebrow} title={t.about.frameworkTitle} />
+
+          <Reveal className="mx-auto mt-10 max-w-3xl text-center">
+            <blockquote className="font-serif text-xl italic leading-relaxed text-foreground sm:text-2xl">
+              “{missionFramework.verse.text}”
+            </blockquote>
+            <p className="mt-3 text-sm font-semibold uppercase tracking-widest text-gold-700 dark:text-gold-400">
+              {missionFramework.verse.ref}
+            </p>
+          </Reveal>
+
+          <Reveal className="mx-auto mt-10 max-w-3xl leading-relaxed text-muted-foreground">
+            <p>{missionFramework.intro}</p>
+          </Reveal>
+
+          <div className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-2">
+            {missionFramework.pillars.map((p, i) => (
+              <Reveal key={p.title} delay={i * 0.1}>
+                <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-8">
+                  <span className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    <Icon name={p.icon} className="size-7" />
+                  </span>
+                  <h3 className="mt-6 font-serif text-2xl font-semibold">{p.title}</h3>
+                  <p className="mt-3 leading-relaxed text-muted-foreground">{p.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mx-auto mt-6 max-w-5xl">
+            <p className="rounded-3xl border border-gold-500/30 bg-gold-500/10 p-8 leading-relaxed text-foreground/85">
+              {missionFramework.closing}
+            </p>
+          </Reveal>
         </div>
       </section>
 

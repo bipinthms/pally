@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>St. Mary's Orthodox Syrian Church, Alencherry</title>
+<meta name="description" content="A Malankara Orthodox Syrian parish in Alencherry, Anchal, Kollam. Holy Qurbana every Sunday at 7:00 AM. Ninety years of grace, 1937 to 2027.">
+<meta name="theme-color" content="#070506">
+<link rel="icon" href="assets/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Marcellus&family=Noto+Serif+Malayalam:wght@400;500&display=swap">
+<link rel="preload" as="image" href="assets/gate-church.webp">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  :root {
+    --sc-canvas:     #070506;
+    --sc-surface:    #160f0e;
+    --sc-ink:        #f2e9dc;
+    --sc-ink-soft:   #bcab9b;
+    --sc-accent:     #d9ad52;
+    --sc-accent-ink: #150d09;
+    --sc-font-display: "Marcellus", "Cormorant Garamond", Georgia, serif;
+    --sc-font-text:    "Figtree", system-ui, sans-serif;
+    --sc-font-mono:    "Figtree", system-ui, sans-serif;
+    --ml: "Noto Serif Malayalam", serif;
+    --brass-1: #5b3d14; --brass-2: #b98a3a; --brass-3: #f0d48a;
+    --veil-1: #3a0a0f; --veil-2: #6a141d; --veil-3: #8e2630;
+    --sc-shadow-color: 10 40% 2%;
+  }
+  html { background: var(--sc-canvas); }
+  body { font-weight: 400; }
+  .sc-display { font-weight: 400; letter-spacing: -0.01em; }
+  a { color: inherit; }
+  .label {
+    font-size: var(--sc-t-xs); letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--sc-ink-soft); font-weight: 500;
+  }
+  .ml { font-family: var(--ml); letter-spacing: 0; }
+
+  /* ---------- buttons: one label per intent ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: var(--sc-2);
+    min-height: 44px; padding: 0 var(--sc-5);
+    border-radius: var(--sc-r-pill);
+    background: var(--sc-accent); color: var(--sc-accent-ink);
+    font-weight: 600; font-size: var(--sc-t-sm); text-decoration: none; white-space: nowrap;
+    box-shadow: var(--sc-e2), inset 0 1px 0 rgb(255 255 255 / 0.28);
+    transition: transform var(--sc-d-fast) var(--sc-ease-out), background-color var(--sc-d-fast) var(--sc-ease-out);
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn--ghost { background: transparent; color: var(--sc-ink); box-shadow: inset 0 0 0 1px var(--sc-hairline-strong); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover { background: #e7c06c; }
+    .btn--ghost:hover { background: rgb(242 233 220 / 0.08); }
+  }
+  .textlink { text-decoration: underline; text-decoration-color: color-mix(in oklab, var(--sc-accent) 70%, transparent); }
+  @media (hover: hover) and (pointer: fine) { .textlink:hover { color: var(--sc-accent); } }
+
+  /* =========================================================== 1 · GATE == */
+  .gate-stage { background: radial-gradient(120% 70% at 50% 100%, #120b0a 0%, #050407 60%), #050407; }
+  .gate-plane { position: absolute; left: 0; top: 0; will-change: transform; pointer-events: none; }
+  .gate-plane img { position: absolute; max-width: none; }
+  .gate-plane--moon { mix-blend-mode: screen; }
+  .gate-plane--church img, .gate-plane--road img {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  }
+  .gate-name {
+    position: absolute; left: var(--sc-gutter); right: var(--sc-gutter); top: 6.5svh;
+    margin: 0; z-index: 2; will-change: transform; transform-origin: 0 0;
+    font-family: var(--sc-font-display); font-weight: 400; color: var(--sc-ink);
+  }
+  .gate-name__big {
+    display: block; font-size: min(12.4vw, 21svh); line-height: 0.86;
+    letter-spacing: 0.01em; text-transform: uppercase; white-space: nowrap;
+  }
+  .gate-name__small {
+    display: block; margin-top: var(--sc-4);
+    font-size: var(--sc-t-lg); letter-spacing: 0.02em; color: var(--sc-ink);
+  }
+  .gate-intro { position: absolute; z-index: var(--sc-z-copy); left: var(--sc-gutter); }
+  .gate-intro .ml { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); margin: 0 0 var(--sc-5); max-width: 30ch; line-height: 1.7; }
+  .gate-bar {
+    position: absolute; z-index: 30; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: var(--sc-4) var(--sc-gutter);
+  }
+  .gate-bar__mark { display: flex; align-items: center; gap: var(--sc-3); text-decoration: none; }
+  .gate-bar__mark img { width: 40px; height: 40px; border-radius: 50%; }
+  .gate-bar nav { display: flex; gap: var(--sc-5); font-size: var(--sc-t-sm); }
+  .gate-bar nav a { text-decoration: none; color: var(--sc-ink-soft); padding: var(--sc-2) 0; }
+  @media (hover: hover) and (pointer: fine) { .gate-bar nav a:hover { color: var(--sc-ink); } }
+  .gate-bar__more { display: none; }
+  .gate-beat {
+    position: absolute; z-index: var(--sc-z-copy);
+    right: var(--sc-gutter); bottom: clamp(2.5rem, 9svh, 6rem); text-align: right; max-width: 34rem;
+  }
+  .gate-beat p { margin: var(--sc-4) 0 0 auto; max-width: 40ch; color: var(--sc-ink-soft); }
+  .gate-scrim { z-index: 5; }
+
+  /* ======================================================= 2 · COVENANT == */
+  .covenant { padding-block: clamp(5rem, 12vw, 10rem) clamp(4rem, 9vw, 8rem); }
+  .covenant__grid {
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--sc-5); align-items: start;
+  }
+  .covenant__cross { grid-column: 1 / span 4; position: sticky; top: 10svh; }
+  .covenant__cross img { width: 100%; height: auto; filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.5)); }
+  .covenant__cross figcaption { margin-top: var(--sc-4); }
+  .covenant__text { grid-column: 6 / span 7; }
+  .covenant__text h2 { max-width: 14ch; }
+  .covenant__lede { font-size: var(--sc-t-lg); line-height: 1.5; margin-top: var(--sc-6) !important; max-width: 36ch; }
+  .names {
+    list-style: none; padding: var(--sc-5) 0 0; margin: var(--sc-6) 0 0 !important;
+    border-top: 1px solid var(--sc-hairline);
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: var(--sc-3) var(--sc-6);
+    font-size: var(--sc-t-sm); color: var(--sc-ink-soft);
+  }
+  .names b { display: block; font-weight: 500; color: var(--sc-ink); }
+  .athos { margin-top: var(--sc-8) !important; }
+  .three {
+    margin-top: clamp(4rem, 10vw, 9rem);
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--sc-5); align-items: end;
+  }
+  .three__text { grid-column: 1 / span 4; padding-bottom: var(--sc-4); }
+  .three__years { display: flex; gap: var(--sc-5); margin: var(--sc-5) 0 !important; font-family: var(--sc-font-display); font-size: var(--sc-t-xl); }
+  .three__years span:last-child { color: var(--sc-accent); }
+  .three figure { grid-column: 6 / span 7; margin: 0; }
+  .three img { width: 100%; height: auto; border-radius: var(--sc-r-sm); box-shadow: var(--sc-e3); }
+  .three figcaption, .parish figcaption { margin-top: var(--sc-3); font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
+
+  /* ========================================================== 3 · VEIL ==== */
+  .veil-stage { background: #0d0606; }
+  .veil-altar { position: absolute; inset: 0; overflow: hidden; }
+  .veil-altar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; max-width: none; transform-origin: 50% 45%; will-change: transform; }
+  .veil-dim { position: absolute; inset: 0; background: #0b0505; will-change: opacity; }
+  .veil-panel {
+    position: absolute; top: 0; bottom: 0; width: 50.6%; overflow: hidden; z-index: 3;
+    will-change: transform;
+    background:
+      linear-gradient(180deg, rgb(0 0 0 / 0.35), transparent 22%, transparent 70%, rgb(0 0 0 / 0.45)),
+      repeating-linear-gradient(90deg,
+        var(--veil-1) 0, var(--veil-2) 1.1vw, var(--veil-3) 1.9vw, var(--veil-2) 2.7vw,
+        var(--veil-1) 3.6vw, #2c070b 4.2vw, var(--veil-1) 4.7vw);
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.2);
+  }
+  .veil-panel::after { /* woven texture, not decoration: breaks up the gradient banding */
+    content: ""; position: absolute; inset: 0; opacity: 0.22; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9 0.06' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+  }
+  .veil-panel--l { left: 0; transform-origin: 0 50%; }
+  .veil-panel--r { right: 0; transform-origin: 100% 50%; }
+  .veil-panel--l .veil-edge { right: 0; }
+  .veil-panel--r .veil-edge { left: 0; }
+  .veil-edge {
+    position: absolute; top: 0; bottom: 0; width: 14px;
+    background: linear-gradient(90deg, #6b4a1a, #e8c87a 45%, #9a7030 70%, #5a3d12);
+  }
+  .veil-hem {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 26px;
+    background:
+      repeating-linear-gradient(90deg, #c99a45 0 3px, transparent 3px 7px) bottom / 100% 14px no-repeat,
+      linear-gradient(180deg, #e3c071, #8a6224) top / 100% 12px no-repeat;
+  }
+  .veil-cross {
+    position: absolute; top: 46%; width: min(20vw, 30svh); filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.45)); aspect-ratio: 1; translate: 0 -50%;
+  }
+  .veil-panel--l .veil-cross { right: 0; translate: 50% -50%; }
+  .veil-panel--r .veil-cross { left: 0; translate: -50% -50%; }
+  .veil-valance {
+    position: absolute; z-index: 4; top: 0; left: 0; right: 0; height: 9svh;
+    background:
+      linear-gradient(180deg, rgb(0 0 0 / 0.45), transparent),
+      repeating-linear-gradient(90deg, #2e070b 0, #4f0f16 2vw, #2e070b 4vw);
+    box-shadow: 0 10px 24px rgb(0 0 0 / 0.45);
+  }
+  .veil-valance::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -12px; height: 14px;
+    background: repeating-linear-gradient(90deg, #c99a45 0 2px, transparent 2px 6px);
+  }
+  .veil-seam {
+    position: absolute; z-index: 3; top: 9svh; bottom: 0; left: 50%; width: 3px; translate: -50% 0;
+    background: linear-gradient(180deg, transparent, #ffe2a0 30%, #ffd27a 70%, transparent);
+    opacity: 0; will-change: opacity;
+  }
+  .veil-hush {
+    position: absolute; z-index: 6; left: 50%; bottom: 14svh; translate: -50% 0; width: max-content; max-width: 90vw;
+    text-align: center; margin: 0; font-family: var(--sc-font-display); font-size: var(--sc-t-xl); color: var(--sc-ink);
+  }
+  .veil-hush-plate {
+    position: absolute; z-index: 5; left: 50%; bottom: calc(14svh - 3.5rem); translate: -50% 0;
+    width: min(46rem, 100vw); height: 9rem; pointer-events: none;
+    background: radial-gradient(closest-side, rgb(14 4 6 / 0.82), rgb(14 4 6 / 0.55) 55%, transparent);
+  }
+  .veil-scrim { z-index: 5; }
+  .veil-copy { position: absolute; z-index: var(--sc-z-copy); left: 50%; bottom: clamp(2rem, 7svh, 5rem); translate: -50% 0; width: min(46rem, 88vw); text-align: center; }
+  .veil-copy p { margin: var(--sc-4) auto 0; max-width: 40ch; }
+  .veil-copy .label { margin-top: var(--sc-5); }
+
+  /* ======================================================== 4 · MOTHER ==== */
+  .mother { padding-block: clamp(5rem, 11vw, 10rem); overflow: clip; }
+  .mother__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--sc-5); align-items: center; }
+  .mother__art { grid-column: 1 / span 7; position: relative; aspect-ratio: 7 / 8; }
+  .mother__shrine { position: absolute; left: 0; top: 0; width: 66%; margin: 0; }
+  .mother__icon { position: absolute; right: 2%; bottom: -4%; width: 46%; margin: 0; z-index: 2; }
+  .mother__art img { width: 100%; height: auto; border-radius: var(--sc-r-sm); }
+  .mother__shrine img { box-shadow: var(--sc-e2); }
+  .mother__icon img { box-shadow: 0 30px 60px rgb(0 0 0 / 0.55), 0 6px 14px rgb(0 0 0 / 0.4); outline: 1px solid rgb(240 212 138 / 0.25); outline-offset: -1px; }
+  .mother__text { grid-column: 9 / span 4; }
+  .times { list-style: none; padding: 0; margin: var(--sc-6) 0 0 !important; border-top: 1px solid var(--sc-hairline); }
+  .times li { display: grid; grid-template-columns: 8.5rem 1fr; gap: var(--sc-4); padding: var(--sc-3) 0; border-bottom: 1px solid var(--sc-hairline); font-size: var(--sc-t-sm); }
+  .times b { font-weight: 500; font-variant-numeric: tabular-nums; }
+  .times span { color: var(--sc-ink-soft); }
+
+  /* ======================================================== 5 · PARISH ==== */
+  .parish { padding-block: clamp(4rem, 9vw, 8rem) clamp(5rem, 11vw, 10rem); }
+  .parish__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(2.5rem, 6vw, 5rem) var(--sc-5); }
+  .parish__head { grid-column: 1 / span 6; }
+  .parish__head p { margin-top: var(--sc-5); }
+  .parish figure { margin: 0; }
+  .parish img { width: 100%; height: auto; border-radius: var(--sc-r-sm); display: block; }
+  .ph-choir { grid-column: 1 / span 8; }
+  .ph-lamp { grid-column: 9 / span 4; align-self: end; }
+  .ph-qurbana { grid-column: 2 / span 5; }
+  .ph-youth { grid-column: 7 / span 6; margin-top: clamp(3rem, 8vw, 7rem) !important; }
+  .parish__links { grid-column: 1 / -1; font-size: var(--sc-t-lg); max-width: 52ch; }
+
+  /* ===================================================== 6 · DISMISSAL ==== */
+  .close-stage { display: grid; grid-template-rows: 1fr auto; background: radial-gradient(60% 70% at 24% 55%, #1d120b 0%, transparent 70%), #070506; }
+  .close__inner {
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--sc-5); align-items: center;
+    padding: clamp(2rem, 6svh, 5rem) var(--sc-gutter) 0; max-width: var(--sc-maxw); margin-inline: auto; width: 100%;
+  }
+  .close__lamp { grid-column: 1 / span 4; justify-self: center; height: min(62svh, 34rem); width: auto; }
+  .close__copy { grid-column: 6 / span 7; }
+  .close__copy p { margin-top: var(--sc-5); }
+  .close__facts { display: grid; grid-template-columns: auto 1fr; gap: var(--sc-2) var(--sc-5); margin: var(--sc-6) 0 0; font-size: var(--sc-t-sm); }
+  .close__facts dt { color: var(--sc-ink-soft); }
+  .close__facts dd { margin: 0; }
+  .close__actions { display: flex; flex-wrap: wrap; gap: var(--sc-3); margin-top: var(--sc-6); }
+  .foot {
+    padding: var(--sc-5) var(--sc-gutter) max(var(--sc-5), env(safe-area-inset-bottom));
+    border-top: 1px solid var(--sc-hairline); font-size: var(--sc-t-xs); color: var(--sc-ink-soft);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sc-3) var(--sc-6);
+  }
+  .foot nav { display: flex; flex-wrap: wrap; gap: var(--sc-1) var(--sc-4); }
+  .foot a { text-decoration: none; padding: 2px 0; }
+  @media (hover: hover) and (pointer: fine) { .foot a:hover { color: var(--sc-ink); text-decoration: underline; } }
+
+  /* =============================================== the lamp (chrome) ===== */
+  .wick .flame-g { opacity: 0; transform: scaleY(0.35); transform-box: fill-box; transform-origin: 50% 100%;
+    transition: opacity 420ms var(--sc-ease-out), transform 520ms var(--sc-ease-out); }
+  .wick.is-lit .flame-g { opacity: 1; transform: none; }
+  .flame { transform-box: fill-box; transform-origin: 50% 100%; }
+  @media (prefers-reduced-motion: no-preference) {
+    .wick.is-lit .flame { animation: flicker 2.6s ease-in-out infinite; }
+    .wick:nth-child(2) .flame { animation-delay: -0.7s; } .wick:nth-child(3) .flame { animation-delay: -1.3s; }
+    .wick:nth-child(4) .flame { animation-delay: -0.4s; } .wick:nth-child(5) .flame { animation-delay: -1.9s; }
+  }
+  @keyframes flicker {
+    0%, 100% { transform: scale(1, 1); } 22% { transform: scale(0.95, 1.05) skewX(-1.5deg); }
+    48% { transform: scale(1.03, 0.97); } 71% { transform: scale(0.97, 1.03) skewX(1.2deg); }
+  }
+  .folio {
+    position: fixed; z-index: var(--sc-z-chrome); left: max(12px, env(safe-area-inset-left)); bottom: max(12px, env(safe-area-inset-bottom));
+    transition: opacity 300ms var(--sc-ease-out), visibility 300ms;
+  }
+  .folio.is-hidden { opacity: 0; visibility: hidden; }
+  .folio__btn {
+    display: flex; align-items: flex-end; gap: var(--sc-3); min-height: 44px;
+    padding: var(--sc-2) var(--sc-4) var(--sc-2) var(--sc-2); border: 0; border-radius: var(--sc-r-md);
+    background: rgb(12 8 8 / 0.62); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    box-shadow: var(--sc-e2), var(--sc-edge); cursor: pointer; color: var(--sc-ink);
+  }
+  .folio__btn svg { width: 30px; height: 66px; flex: none; }
+  .folio__label { display: grid; text-align: left; padding-bottom: 2px; }
+  .folio__label small { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sc-ink-soft); }
+  .folio__label span { font-family: var(--sc-font-display); font-size: var(--sc-t-sm); }
+  .folio__panel {
+    position: absolute; bottom: calc(100% + 8px); left: 0; min-width: 15rem; padding: var(--sc-2);
+    border-radius: var(--sc-r-md); background: #140d0c; box-shadow: var(--sc-e3), var(--sc-edge);
+    opacity: 0; transform: translateY(6px) scale(0.98); transform-origin: 0 100%; visibility: hidden;
+    transition: opacity 180ms var(--sc-ease-out), transform 180ms var(--sc-ease-out), visibility 180ms;
+  }
+  .folio.is-open .folio__panel { opacity: 1; transform: none; visibility: visible; }
+  .folio__panel ol { list-style: none; margin: 0; padding: 0; }
+  .folio__panel a { display: flex; align-items: center; gap: var(--sc-3); padding: var(--sc-2) var(--sc-3); min-height: 40px; border-radius: var(--sc-r-sm); text-decoration: none; font-size: var(--sc-t-sm); }
+  .folio__panel a::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--sc-hairline-strong); }
+  .folio__panel a.is-lit::before { background: #ffc85a; }
+  .folio__panel a[aria-current="true"] { background: rgb(242 233 220 / 0.07); }
+  @media (hover: hover) and (pointer: fine) { .folio__panel a:hover { background: rgb(242 233 220 / 0.1); } }
+
+  /* ================================================================ phone */
+  @media (max-width: 860px) {
+    .gate-bar nav { display: none; }
+    .gate-bar__more { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); text-decoration: none; }
+    .gate-name { top: 11svh; }
+    .gate-name__big { font-size: 15.4vw; }
+    .gate-name__small { font-size: var(--sc-t-base); margin-top: var(--sc-3); }
+    .gate-intro .ml { display: none; }
+    .gate-beat { left: var(--sc-gutter); right: var(--sc-gutter); text-align: left; bottom: 14svh; }
+    .gate-beat p { margin-left: 0; }
+    .gate-beat .sc-display { font-size: var(--sc-t-xl); }
+
+    .covenant__grid, .three, .mother__grid, .parish__grid, .close__inner { grid-template-columns: 1fr; }
+    .covenant__cross { position: relative; top: 0; grid-column: 1; width: 62%; margin: 0 auto var(--sc-8); }
+    .covenant__text, .three__text, .three figure, .mother__text, .parish__head,
+    .ph-choir, .ph-lamp, .ph-qurbana, .ph-youth, .parish__links { grid-column: 1; }
+    .ph-youth { margin-top: 0 !important; }
+    .mother__art { grid-column: 1; margin-bottom: var(--sc-9); }
+    .three figure { margin-top: var(--sc-6); }
+
+    .veil-hush { bottom: 18svh; font-size: var(--sc-t-lg); white-space: nowrap; }
+    .veil-hush-plate { bottom: calc(18svh - 3.5rem); }
+    .veil-scrim, .gate-scrim {
+      background: linear-gradient(to top,
+        color-mix(in oklab, var(--sc-canvas) 96%, transparent) 0%,
+        color-mix(in oklab, var(--sc-canvas) 86%, transparent) 30%,
+        color-mix(in oklab, var(--sc-canvas) 50%, transparent) 50%,
+        transparent 70%);
+    }
+    .veil-cross { width: 40vw; }
+    .veil-panel { background:
+      linear-gradient(180deg, rgb(0 0 0 / 0.35), transparent 22%, transparent 70%, rgb(0 0 0 / 0.45)),
+      repeating-linear-gradient(90deg, var(--veil-1) 0, var(--veil-2) 3vw, var(--veil-3) 5vw, var(--veil-2) 7vw, var(--veil-1) 9.4vw, #2c070b 11vw, var(--veil-1) 12.4vw); }
+
+    .close__inner { padding-top: max(1.25rem, 3svh); row-gap: var(--sc-5); align-content: center; }
+    .close__lamp { grid-column: 1; justify-self: start; height: 17svh; }
+    .close__copy { grid-column: 1; }
+    .close__copy .sc-display { font-size: var(--sc-t-xl); }
+    .close__copy p { margin-top: var(--sc-3); font-size: var(--sc-t-sm); }
+    .close__facts { margin-top: var(--sc-4); gap: var(--sc-1) var(--sc-4); }
+    .close__actions { margin-top: var(--sc-4); }
+    .foot { padding-block: var(--sc-3); gap: var(--sc-2); }
+    .foot nav { gap: 0 var(--sc-3); }
+    .folio { left: auto; right: max(12px, env(safe-area-inset-right)); }
+    .folio__panel { left: auto; right: 0; transform-origin: 100% 100%; }
+    .folio__label { display: none; }
+    .folio__btn { padding: var(--sc-2); }
+  }
+</style>
+</head>
+<body>
+
+<div class="sc-grain" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="brass" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#4a3010"/><stop offset=".2" stop-color="#9c7230"/>
+      <stop offset=".42" stop-color="#f0d48a"/><stop offset=".56" stop-color="#c99a45"/>
+      <stop offset=".82" stop-color="#7a5220"/><stop offset="1" stop-color="#3f2a0e"/>
+    </linearGradient>
+    <linearGradient id="brassTop" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#f5dea0"/><stop offset="1" stop-color="#a77a32"/>
+    </linearGradient>
+    <radialGradient id="flameFill" cx=".5" cy=".72" r=".62">
+      <stop offset="0" stop-color="#fffbe8"/><stop offset=".32" stop-color="#ffdf86"/>
+      <stop offset=".68" stop-color="#f59a2c"/><stop offset="1" stop-color="#d2541a"/>
+    </radialGradient>
+    <radialGradient id="flameLight" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffc864" stop-opacity=".42"/><stop offset="1" stop-color="#ffc864" stop-opacity="0"/>
+    </radialGradient>
+    <symbol id="lamp" viewBox="0 0 120 262">
+      <!-- cross finial, rod, dish -->
+      <rect x="57" y="2" width="6" height="28" rx="1.5" fill="url(#brass)"/>
+      <rect x="48" y="9" width="24" height="6" rx="1.5" fill="url(#brassTop)"/>
+      <ellipse cx="60" cy="33" rx="7" ry="4" fill="url(#brass)"/>
+      <rect x="57.5" y="35" width="5" height="28" fill="url(#brass)"/>
+      <path d="M12 64 C 20 84, 100 84, 108 64 Z" fill="url(#brass)"/>
+      <ellipse cx="60" cy="64" rx="48" ry="6.5" fill="url(#brassTop)"/>
+      <!-- stem with knops -->
+      <path d="M54 80 L66 80 L64 206 L56 206 Z" fill="url(#brass)"/>
+      <ellipse cx="60" cy="88" rx="9" ry="4.5" fill="url(#brass)"/>
+      <ellipse cx="60" cy="122" rx="12" ry="5.5" fill="url(#brass)"/>
+      <ellipse cx="60" cy="162" rx="15" ry="6.5" fill="url(#brass)"/>
+      <ellipse cx="60" cy="196" rx="10" ry="4.5" fill="url(#brass)"/>
+      <!-- bell foot -->
+      <path d="M56 204 C 48 222, 30 236, 20 248 L100 248 C 90 236, 72 222, 64 204 Z" fill="url(#brass)"/>
+      <ellipse cx="60" cy="249" rx="42" ry="7" fill="url(#brass)"/>
+      <ellipse cx="60" cy="247" rx="40" ry="4.5" fill="url(#brassTop)" opacity=".55"/>
+    </symbol>
+    <symbol id="wicks" viewBox="0 0 120 262">
+      <g class="wick" data-wick="0"><rect x="19" y="57" width="2" height="5" fill="#2a1a0c"/><g class="flame-g"><ellipse cx="20" cy="44" rx="11" ry="16" fill="url(#flameLight)"/><path class="flame" d="M20 59 C 25 54 26 46 20 34 C 14 46 15 54 20 59 Z" fill="url(#flameFill)"/></g></g>
+      <g class="wick" data-wick="1"><rect x="39" y="57" width="2" height="5" fill="#2a1a0c"/><g class="flame-g"><ellipse cx="40" cy="44" rx="11" ry="16" fill="url(#flameLight)"/><path class="flame" d="M40 59 C 45 54 46 46 40 34 C 34 46 35 54 40 59 Z" fill="url(#flameFill)"/></g></g>
+      <g class="wick" data-wick="2"><rect x="59" y="57" width="2" height="5" fill="#2a1a0c"/><g class="flame-g"><ellipse cx="60" cy="42" rx="12" ry="18" fill="url(#flameLight)"/><path class="flame" d="M60 59 C 66 53 67 44 60 30 C 53 44 54 53 60 59 Z" fill="url(#flameFill)"/></g></g>
+      <g class="wick" data-wick="3"><rect x="79" y="57" width="2" height="5" fill="#2a1a0c"/><g class="flame-g"><ellipse cx="80" cy="44" rx="11" ry="16" fill="url(#flameLight)"/><path class="flame" d="M80 59 C 85 54 86 46 80 34 C 74 46 75 54 80 59 Z" fill="url(#flameFill)"/></g></g>
+      <g class="wick" data-wick="4"><rect x="99" y="57" width="2" height="5" fill="#2a1a0c"/><g class="flame-g"><ellipse cx="100" cy="44" rx="11" ry="16" fill="url(#flameLight)"/><path class="flame" d="M100 59 C 105 54 106 46 100 34 C 94 46 95 54 100 59 Z" fill="url(#flameFill)"/></g></g>
+    </symbol>
+    <symbol id="cross" viewBox="0 0 100 100">
+      <path d="M38 4 H62 L57 37 L63 43 L96 38 V62 L63 57 L57 63 L62 96 H38 L43 63 L37 57 L4 62 V38 L37 43 L43 37 Z" fill="url(#brassTop)" stroke="#5a3d12" stroke-width="1.4" stroke-linejoin="round"/>
+      <path d="M44 10 H56 L52 40 L60 48 L90 44 V56 L60 52 L52 60 L56 90 H44 L48 60 L40 52 L10 56 V44 L40 48 L48 40 Z" fill="none" stroke="#fff3c8" stroke-opacity=".45" stroke-width="1"/>
+      <circle cx="50" cy="50" r="7" fill="#7a1a22" stroke="#e8c87a" stroke-width="1.6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav class="folio" id="folio" aria-label="Chapters">
+  <div class="folio__panel" id="folio-panel">
+    <ol>
+      <li><a href="#gate" data-ch="0">At the gate</a></li>
+      <li><a href="#covenant" data-ch="1">The covenant</a></li>
+      <li><a href="#veil" data-ch="2">The sanctuary</a></li>
+      <li><a href="#mother" data-ch="3">The Mother of God</a></li>
+      <li><a href="#parish" data-ch="4">The parish</a></li>
+      <li><a href="#visit">Visit us</a></li>
+    </ol>
+  </div>
+  <button class="folio__btn" type="button" aria-expanded="false" aria-controls="folio-panel">
+    <svg viewBox="0 0 120 262" aria-hidden="true"><use href="#lamp"/><g class="wicks"><use href="#wicks"/></g></svg>
+    <span class="folio__label"><small>Chapter</small><span id="folio-now">At the gate</span></span>
+    <span class="sc-visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">Open chapter list</span>
+  </button>
+</nav>
+
+<main id="top">
+
+  <!-- 1 · GATE: pin + independently moving planes. Night, the feast lights. -->
+  <section id="gate" data-sc-act="pin" data-sc-span="1.8" data-sc-drift="#070506" data-ch="0">
+    <div data-sc-stage class="gate-stage">
+      <header class="gate-bar" data-gate-bar data-park="gate">
+        <a class="gate-bar__mark" href="https://www.alencherrychurch.org/" aria-label="St. Mary's Church, Alencherry, home">
+          <img src="assets/logo.webp" width="40" height="40" alt="">
+        </a>
+        <nav aria-label="Parish pages">
+          <a href="https://www.alencherrychurch.org/holy-mass">Holy Qurbana</a>
+          <a href="https://www.alencherrychurch.org/navathi">Navathi</a>
+          <a href="https://www.alencherrychurch.org/gallery">Gallery</a>
+          <a href="https://www.alencherrychurch.org/prayer-requests">Prayer requests</a>
+          <a href="https://www.alencherrychurch.org/contact">Contact</a>
+        </nav>
+        <a class="gate-bar__more" href="#index">All pages</a>
+      </header>
+
+      <div class="gate-plane gate-plane--moon" data-plane="moon" aria-hidden="true">
+        <img src="assets/gate-moon.webp" alt="" style="left:44.44%;top:13.03%;width:41.25%;height:55.05%">
+      </div>
+      <h1 class="gate-name" data-plane="name">
+        <span class="gate-name__big">Alencherry</span>
+        <span class="gate-name__small">St. Mary's Orthodox Syrian Church</span>
+      </h1>
+      <div class="gate-plane gate-plane--church" data-plane="church">
+        <img src="assets/gate-church.webp" alt="St. Mary's Church at night during the parish feast, lit with festival lights, the full moon beside its right tower" style="left:0;top:0;width:100%;height:100%">
+      </div>
+      <div class="gate-plane gate-plane--road" data-plane="road" aria-hidden="true">
+        <img src="assets/gate-road.webp" alt="" style="left:0;top:80.9%;width:100%;height:19.1%">
+      </div>
+      <div class="sc-scrim sc-scrim--trail gate-scrim" aria-hidden="true"></div>
+
+      <div class="gate-intro" data-sc-cue="0 0.5 0" data-gate-intro>
+        <p class="ml" lang="ml">സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളി, ആലഞ്ചേരി</p>
+        <a class="btn" href="https://maps.google.com/?q=St+Mary%27s+Orthodox+Church+Alayamon+Anchal+Kollam+Kerala+691306" data-park="gate">Get directions</a>
+      </div>
+
+      <div class="gate-beat" data-sc-cue="0.42 1 0.2 0.04">
+        <p class="sc-display sc-display--md">Ninety years of grace.</p>
+        <p>A Malankara Orthodox parish of the Thiruvananthapuram Diocese, first consecrated on 28 August 1937.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · COVENANT: flow + in, reveal on the cross. The only act that reads like a document. -->
+  <section id="covenant" class="covenant" data-sc-act="flow" data-sc-drift="#0e0908" data-ch="1">
+    <div class="sc-wrap">
+      <div class="covenant__grid">
+        <figure class="covenant__cross" data-sc-reveal="up" data-sc-reveal-at="0.04 0.3">
+          <img src="assets/cross.webp" width="621" height="921" alt="An antique wooden cross encased in scalloped gilt metal, with a painted crucifixion, on an ivory stand">
+          <figcaption class="label">An antique cross of the parish</figcaption>
+        </figure>
+  
+        <div class="covenant__text sc-stack" data-sc-in data-sc-stagger="70">
+          <h2 class="sc-display sc-display--lg">Nine families made a promise.</h2>
+          <p class="covenant__lede">On 29 January 1934 nine men of Alencherry drew up and registered an agreement to build a church. Three years later, on 28 August 1937, Puthenkavil Geevarghese Mar Philoxenos Metropolitan consecrated it.</p>
+          <ul class="names" aria-label="The signatories of the 1934 covenant">
+            <li><b>George Ummen</b>Bethel Bungalow</li>
+            <li><b>Eapen</b>Kandathil</li>
+            <li><b>Kochu Koshy</b>Poykavilayil</li>
+            <li><b>Koshy</b>Bethel Vadakkethil</li>
+            <li><b>Ummen</b>Vattavilayil Mukalupurathu</li>
+            <li><b>Tharian</b>Kalangazhikathu</li>
+            <li><b>Joseph</b>Kochukonathu Puthenveettil</li>
+            <li><b>Chacko</b>Thekkethil Veedu</li>
+            <li><b>Chacko</b>Kizhakkekara Charuvila Veedu</li>
+          </ul>
+          <p class="sc-body athos">That November, Schema-monk Constantine Gustovit of Mount Athos sent the new church an icon of the Mother of God and a cross. In December he sent a second: a wooden cross encased in metal.</p>
+        </div>
+      </div>
+
+      <div class="three">
+        <div class="three__text sc-stack" data-sc-in data-sc-stagger="70">
+          <p class="label">The same ground</p>
+          <p class="three__years"><span>1937</span><span>1966</span><span>2006</span></p>
+          <p class="sc-body">Three churches have stood here. The third, consecrated by H.H. Baselios Marthoma Didymos I, is the one you see from the road.</p>
+        </div>
+        <figure data-sc-reveal="left" data-sc-reveal-at="0.5 0.82">
+          <img src="assets/church-day.webp" width="1280" height="960" alt="The white church by day under monsoon clouds, its three towers topped with red crosses, palms along the wall">
+          <figcaption>The present church, consecrated 30 and 31 August 2006.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · VEIL (peak): pin. The visitor draws the sanctuary curtain. Centred: symmetry is reserved for this act. -->
+  <section id="veil" data-sc-act="pin" data-sc-span="3.2" data-sc-drift="#120808" data-ch="2">
+    <div data-sc-stage class="veil-stage">
+      <div class="veil-altar">
+        <img src="assets/altar.webp" width="1280" height="676" alt="The Madbaha: a carved and gilded sanctuary with icons of Christ, St. Mary and the apostles above the altar" data-veil-altar>
+      </div>
+      <div class="veil-dim" data-veil-dim aria-hidden="true"></div>
+      <div class="veil-seam" data-veil-seam aria-hidden="true"></div>
+      <div class="veil-panel veil-panel--l" data-veil-panel="l" aria-hidden="true">
+        <div class="veil-edge"></div><div class="veil-hem"></div>
+        <svg class="veil-cross"><use href="#cross"/></svg>
+      </div>
+      <div class="veil-panel veil-panel--r" data-veil-panel="r" aria-hidden="true">
+        <div class="veil-edge"></div><div class="veil-hem"></div>
+        <svg class="veil-cross"><use href="#cross"/></svg>
+      </div>
+      <div class="veil-valance" aria-hidden="true"></div>
+      <div class="veil-hush-plate" data-veil-hush-plate aria-hidden="true"></div>
+      <p class="veil-hush" data-sc-cue="0 0.24 0 0.06" data-veil-hush>Sunday, seven in the morning.</p>
+      <div class="sc-scrim sc-scrim--band veil-scrim" data-veil-scrim aria-hidden="true"></div>
+      <div class="veil-copy" data-sc-cue="0.66 1 0.08 0.03">
+        <h2 class="sc-display sc-display--lg" data-sc-kinetic="lines">Holy Qurbana</h2>
+        <p>Every Sunday at 7:00 AM, in Malayalam. The curtain is drawn back and the parish stands before the altar.</p>
+        <p class="label">The Madbaha, renewed and consecrated in August 2019</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · MOTHER: flow with parallax planes. Intimate scale after the peak. Copy trails. -->
+  <section id="mother" class="mother" data-sc-act="flow" data-sc-drift="#080a12" data-ch="3">
+    <div class="sc-wrap mother__grid">
+      <div class="mother__art">
+        <figure class="mother__shrine" data-sc-parallax="0.9">
+          <img src="assets/shrine-night.webp" width="1200" height="1594" alt="The meditation shrine of the Mother of God at night, her statue lit in blue beneath a carved arch">
+        </figure>
+        <figure class="mother__icon" data-sc-parallax="-1.1">
+          <img src="assets/theotokos.webp" width="900" height="1125" alt="An icon of the Theotokos holding the Christ child, painted in red and gold">
+        </figure>
+      </div>
+      <div class="mother__text sc-stack" data-sc-in data-sc-stagger="70">
+        <h2 class="sc-display sc-display--md">Under the care of the Mother of God</h2>
+        <p class="sc-body">The parish is dedicated to the Nativity of St. Mary, and keeps her feast on 8 September at the close of the eight-day Ettu Nombu. Her meditation shrine was first consecrated in 1982. Since 2010 the church has been an International Martha Mariam Pilgrimage Centre.</p>
+        <ul class="times" aria-label="Weekly prayer to St. Mary">
+          <li><b>Wed, 6:30 AM</b><span>Holy Qurbana with the intercession of St. Mary</span></li>
+          <li><b>Wed, 6:00 PM</b><span>Ardram, intercessory prayer to St. Mary</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · PARISH: flow with large wipes, one per photograph. -->
+  <section id="parish" class="parish" data-sc-act="flow" data-sc-drift="#100a08" data-ch="4">
+    <div class="sc-wrap parish__grid">
+      <div class="parish__head sc-stack" data-sc-in data-sc-stagger="70">
+        <h2 class="sc-display sc-display--lg">More than 270 families.</h2>
+        <p class="sc-body">The Sunday School has met since 1932, before the first church stood. Today there is a choir, a youth movement and a dozen ministries. This is the Navathi year, ninety years since the consecration, kept from the 2026 feast to the feast of 2027.</p>
+      </div>
+      <figure class="ph-choir" data-sc-reveal="right" data-sc-reveal-at="0.16 0.34">
+        <img src="assets/choir.webp" width="1400" height="734" alt="The parish choir, women and men standing in two rows before the gilded sanctuary">
+        <figcaption>The parish choir</figcaption>
+      </figure>
+      <figure class="ph-lamp" data-sc-reveal="up" data-sc-reveal-at="0.22 0.4">
+        <img src="assets/lamp-lighting.webp" width="1280" height="852" alt="Clergy and parishioners gathered around a tall brass lamp garlanded with jasmine">
+        <figcaption>Lighting the lamp</figcaption>
+      </figure>
+      <figure class="ph-qurbana" data-sc-reveal="up" data-sc-reveal-at="0.42 0.6">
+        <img src="assets/qurbana.webp" width="1400" height="1050" alt="A priest in rose vestments at the altar during the Holy Qurbana, servers in white on either side">
+        <figcaption>Holy Qurbana</figcaption>
+      </figure>
+      <figure class="ph-youth" data-sc-reveal="left" data-sc-reveal-at="0.48 0.66">
+        <img src="assets/youth.webp" width="1400" height="788" alt="Young people of the parish sitting together on the floor of the hall">
+        <figcaption>A youth gathering</figcaption>
+      </figure>
+      <p class="parish__links">Find your place: <a class="textlink" href="https://www.alencherrychurch.org/organizations">the organizations</a>, <a class="textlink" href="https://www.alencherrychurch.org/navathi">the Navathi year</a>, <a class="textlink" href="https://www.alencherrychurch.org/events">events</a> and <a class="textlink" href="https://www.alencherrychurch.org/gallery">the gallery</a>.</p>
+    </div>
+  </section>
+
+  <!-- 6 · DISMISSAL: pin, short, last. The lamp, fully lit. Every cue holds. -->
+  <section id="visit" data-sc-act="pin" data-sc-span="1.4" data-sc-drift="#070506">
+    <div data-sc-stage class="close-stage">
+      <div class="close__inner">
+        <svg class="close__lamp" viewBox="0 0 120 262" role="img" aria-label="A brass nilavilakku lamp with all five wicks burning">
+          <use href="#lamp"/><g class="wicks wicks--all"><use href="#wicks"/></g>
+        </svg>
+        <div class="close__copy">
+          <h2 class="sc-display sc-display--lg" data-sc-cue="0.04" data-sc-kinetic="lines">There is a place for you here on Sunday.</h2>
+          <p class="sc-body" data-sc-cue="0.1">Holy Qurbana every Sunday at 7:00 AM. Evening prayer every day at 6:00 PM, when the lamps are lit.</p>
+          <div data-sc-cue="0.14" data-park="visit">
+            <dl class="close__facts">
+              <dt>Where</dt><dd>Alenchery Onthupacha Road, Alencherry, Anchal, Kollam, Kerala 691306</dd>
+              <dt>Office</dt><dd><a class="textlink" href="tel:+918891412360">+91 88914 12360</a> · <a class="textlink" href="tel:+914752274426">0475 2274426</a></dd>
+              <dt>Confession</dt><dd>Saturdays, 5:00 to 6:00 PM</dd>
+            </dl>
+            <div class="close__actions">
+              <a class="btn" href="https://maps.google.com/?q=St+Mary%27s+Orthodox+Church+Alayamon+Anchal+Kollam+Kerala+691306">Get directions</a>
+              <a class="btn btn--ghost" href="https://www.alencherrychurch.org/holy-mass">All service times</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="foot" id="index">
+        <nav aria-label="All pages">
+          <a href="https://www.alencherrychurch.org/about">About</a>
+          <a href="https://www.alencherrychurch.org/holy-mass">Holy Qurbana</a>
+          <a href="https://www.alencherrychurch.org/clergy">Clergy</a>
+          <a href="https://www.alencherrychurch.org/committee">Committee</a>
+          <a href="https://www.alencherrychurch.org/organizations">Organizations</a>
+          <a href="https://www.alencherrychurch.org/navathi">Navathi</a>
+          <a href="https://www.alencherrychurch.org/gallery">Gallery</a>
+          <a href="https://www.alencherrychurch.org/events">Events</a>
+          <a href="https://www.alencherrychurch.org/prayer-requests">Prayer requests</a>
+          <a href="https://www.alencherrychurch.org/contact">Contact</a>
+          <a href="https://www.facebook.com/alencherrypally/">Facebook</a>
+          <a href="https://www.instagram.com/alencherry_pally/">Instagram</a>
+        </nav>
+        <span>St. Mary's Orthodox Syrian Church, Alencherry · Thiruvananthapuram Diocese</span>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="scrollcraft.js"></script>
+<script>
+(function () {
+  'use strict';
+  var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clamp01 = function (x) { return x < 0 ? 0 : x > 1 ? 1 : x; };
+  var range = function (p, a, b) { return clamp01((p - a) / (b - a)); };
+  var ease = function (x) { return x * x * (3 - 2 * x); };
+  var progress = function (el) { return parseFloat(el.style.getPropertyValue('--sc-p')) || 0; };
+
+  /* ---------------------------------------------------------------- GATE --
+     The night photograph is cut into planes that share one coordinate frame
+     (the 1600x1199 source), so the moon, the church and the road stay aligned
+     at rest. Scroll is a crane coming down to the road: the road (nearest)
+     rises fastest, the church a little less, the name less again, and the
+     moon, at infinity, barely moves. */
+  var gate = document.getElementById('gate');
+  var planes = {};
+  gate.querySelectorAll('[data-plane]').forEach(function (el) { planes[el.dataset.plane] = el; });
+  var G = { s: 1, x: 0, y: 0, travel: 0 };
+  var RATE = { moon: 0.1, name: 0.32, church: 0.86, road: 1.0 };
+
+  function layoutGate() {
+    var vw = innerWidth, vh = innerHeight, portrait = vw / vh < 0.9;
+    var s = portrait ? (vw * 2.25) / 1600 : Math.min(Math.max(vw / 1600, (vh * 0.86) / 1002), (vh * 1.35) / 1199);
+    var spireX = 770;
+    var x = portrait ? vw / 2 - spireX * s : vw / 2 - 800 * s;
+    var crossAt = portrait ? 0.4 : 0.31;
+    var y = Math.max(vh * crossAt - 197 * s, vh * (portrait ? 1.07 : 1.0) - 1199 * s);
+    G = { s: s, x: x, y: y, travel: Math.max(0, y + 1199 * s - vh) };
+    ['moon', 'church', 'road'].forEach(function (k) {
+      var el = planes[k];
+      el.style.width = 1600 * s + 'px'; el.style.height = 1199 * s + 'px';
+      el.style.left = x + 'px'; el.style.top = y + 'px';
+    });
+    var intro = gate.querySelector('[data-gate-intro]');
+    intro.style.top = (planes.name.offsetTop + planes.name.offsetHeight + vh * 0.03) + 'px';
+  }
+
+  var bar = gate.querySelector('[data-gate-bar]');
+  function drawGate() {
+    var p = progress(gate);
+    bar.style.opacity = (1 - range(p, 0.04, 0.3)).toFixed(3);
+    bar.style.visibility = p > 0.32 ? 'hidden' : '';
+    var e = RM ? 0 : ease(p);
+    var t = G.travel * e;
+    planes.moon.style.transform = 'translate3d(0,' + (-t * RATE.moon) + 'px,0)';
+    planes.church.style.transform = 'translate3d(0,' + (-t * RATE.church) + 'px,0)';
+    planes.road.style.transform = 'translate3d(0,' + (-t * RATE.road) + 'px,0) scale(' + (1 + 0.05 * e) + ')';
+    planes.road.style.transformOrigin = '50% 100%';
+    planes.name.style.transform = 'translate3d(0,' + (-t * RATE.name) + 'px,0) scale(' + (1 - 0.05 * e) + ')';
+  }
+
+  /* ---------------------------------------------------------------- VEIL --
+     The signature. The panels do not wipe: each one gathers toward its own
+     outer edge, so the folds bunch as it opens, and the gold cross on the seam
+     splits with them. Light shows at the seam before anything moves. */
+  var veil = document.getElementById('veil');
+  var V = {
+    l: veil.querySelector('[data-veil-panel="l"]'), r: veil.querySelector('[data-veil-panel="r"]'),
+    seam: veil.querySelector('[data-veil-seam]'), dim: veil.querySelector('[data-veil-dim]'),
+    altar: veil.querySelector('[data-veil-altar]'), scrim: veil.querySelector('[data-veil-scrim]'),
+    hush: veil.querySelector('[data-veil-hush]'), plate: veil.querySelector('[data-veil-hush-plate]')
+  };
+  function drawVeil() {
+    var p = progress(veil);
+    var glow = range(p, 0.08, 0.3);
+    var o = ease(range(p, 0.28, 0.66));
+    V.seam.style.opacity = (glow * (1 - range(p, 0.28, 0.36))).toFixed(3);
+    V.dim.style.opacity = (0.78 * (1 - o) * (1 - 0.35 * glow)).toFixed(3);
+    V.scrim.style.opacity = range(p, 0.55, 0.7).toFixed(3);
+    V.plate.style.opacity = V.hush.style.opacity || '0';
+    if (RM) {
+      V.l.style.opacity = V.r.style.opacity = (1 - o).toFixed(3);
+      V.l.style.visibility = V.r.style.visibility = o > 0.999 ? 'hidden' : '';
+      return;
+    }
+    var gather = 1 - 0.86 * o;
+    V.l.style.transform = 'scaleX(' + gather + ')';
+    V.r.style.transform = 'scaleX(' + gather + ')';
+    V.altar.style.transform = 'scale(' + (1.14 - 0.14 * ease(range(p, 0.28, 0.9))) + ')';
+  }
+
+  /* ---------------------------------------------------------------- LAMP --
+     One wick per threshold crossed. The sanctuary's wick waits for the
+     curtain. The folio steps aside at the dismissal, where the large lamp
+     takes over, fully lit. */
+  var chapters = Array.prototype.slice.call(document.querySelectorAll('section[data-ch]'));
+  var NAMES = ['At the gate', 'The covenant', 'The sanctuary', 'The Mother of God', 'The parish'];
+  var folio = document.getElementById('folio');
+  var folioBtn = folio.querySelector('.folio__btn');
+  var folioNow = document.getElementById('folio-now');
+  var folioLinks = folio.querySelectorAll('a[data-ch]');
+  var folioWicks = folio.querySelectorAll('.wick');
+  var visit = document.getElementById('visit');
+  document.querySelectorAll('.wicks--all .wick').forEach(function (w) { w.classList.add('is-lit'); });
+  // <use> shadow trees cannot be styled per-instance, so the folio gets its own copy of the wicks.
+  (function inlineWicks() {
+    var g = folio.querySelector('.wicks');
+    g.innerHTML = document.getElementById('wicks').innerHTML;
+    folioWicks = g.querySelectorAll('.wick');
+    var big = document.querySelector('.wicks--all');
+    big.innerHTML = document.getElementById('wicks').innerHTML;
+    big.querySelectorAll('.wick').forEach(function (w) { w.classList.add('is-lit'); });
+  })();
+  var lastLit = -1, lastNow = -1;
+  function drawLamp() {
+    var mid = innerHeight * 0.5, lit = 0, now = 0;
+    chapters.forEach(function (sec, i) {
+      var top = sec.getBoundingClientRect().top;
+      if (top <= mid) now = i;
+      var on = i === 2 ? (top <= 0 && progress(veil) > 0.5) || sec.getBoundingClientRect().bottom < mid : top <= mid;
+      if (on) lit = Math.max(lit, i + 1);
+    });
+    lit = Math.max(lit, 1);
+    if (lit !== lastLit) {
+      folioWicks.forEach(function (w, i) { w.classList.toggle('is-lit', i < lit); });
+      folioLinks.forEach(function (a, i) { a.classList.toggle('is-lit', i < lit); });
+      lastLit = lit;
+    }
+    if (now !== lastNow) {
+      folioNow.textContent = NAMES[now];
+      folioLinks.forEach(function (a, i) { a.setAttribute('aria-current', i === now ? 'true' : 'false'); });
+      lastNow = now;
+    }
+    folio.classList.toggle('is-hidden', visit.getBoundingClientRect().top < innerHeight * 0.55);
+  }
+  folioBtn.addEventListener('click', function () {
+    var open = !folio.classList.contains('is-open');
+    folio.classList.toggle('is-open', open);
+    folioBtn.setAttribute('aria-expanded', String(open));
+  });
+  folio.addEventListener('click', function (e) { if (e.target.closest('a')) { folio.classList.remove('is-open'); folioBtn.setAttribute('aria-expanded', 'false'); } });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && folio.classList.contains('is-open')) { folio.classList.remove('is-open'); folioBtn.setAttribute('aria-expanded', 'false'); folioBtn.focus(); } });
+  document.addEventListener('click', function (e) { if (!folio.contains(e.target)) { folio.classList.remove('is-open'); folioBtn.setAttribute('aria-expanded', 'false'); } });
+
+  /* ------------------------------------------------- keyboard parking --
+     A pinned stage holds one viewport position for its whole act, so the
+     engine cannot centre a control inside it. Park the act where that
+     control's own cue is open: the gate's intro at the start, the close at
+     its end. */
+  document.addEventListener('focusin', function (e) {
+    var host = e.target.closest('[data-park]');
+    if (!host) return;
+    var act = document.getElementById(host.dataset.park);
+    var top = act.getBoundingClientRect().top + scrollY;
+    var travel = act.offsetHeight - innerHeight;
+    var y = host.dataset.park === 'gate' ? top : top + travel;
+    if (Math.abs(scrollY - y) > 2) scrollTo({ top: y, behavior: 'instant' });
+  });
+
+  function frame() { drawGate(); drawVeil(); drawLamp(); requestAnimationFrame(frame); }
+  layoutGate();
+  addEventListener('resize', layoutGate);
+  ScrollCraft.mount(document.body);
+  document.fonts && document.fonts.ready.then(layoutGate);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

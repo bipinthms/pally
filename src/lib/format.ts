@@ -58,3 +58,14 @@ export function monthYearLabel(iso: string, locale: Locale = "en"): string {
   const { y, m } = parse(iso);
   return locale === "ml" ? `${y} ${MONTHS[locale][m]}` : `${MONTHS[locale][m]} ${y}`;
 }
+
+const WEEKDAYS: Record<Locale, string[]> = {
+  en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  ml: ["ഞായർ", "തിങ്കൾ", "ചൊവ്വ", "ബുധൻ", "വ്യാഴം", "വെള്ളി", "ശനി"],
+};
+
+export function weekday(iso: string, locale: Locale = "en"): string {
+  const { y, m, d } = parse(iso);
+  // UTC keeps the weekday independent of the visitor's time zone.
+  return WEEKDAYS[locale][new Date(Date.UTC(y, m, d)).getUTCDay()];
+}

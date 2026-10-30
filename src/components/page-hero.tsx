@@ -18,7 +18,7 @@ type Verse = { text: string; ref: string };
  * Shared hero band used at the top of every interior page. It fills the viewport,
  * like the home hero, so every page opens with a hero of the same height, and
  * keeps the site menu open beside the text with the current page highlighted.
- * `sections` adds an "On this page" row of links below the verse.
+ * `sections` adds an "On this page" row of links below the verse (if any).
  */
 export function PageHero({
   title,
@@ -33,7 +33,7 @@ export function PageHero({
   title: string;
   eyebrow?: string;
   description?: string;
-  verse: Verse;
+  verse?: Verse;
   imageKey: ImageKey;
   crumbs?: Crumb[];
   sections?: PageSection[];
@@ -99,14 +99,16 @@ export function PageHero({
             </p>
           )}
 
-          <figure className="mt-7 max-w-2xl border-l-2 border-gold-400/60 pl-5">
-            <blockquote className="font-serif text-lg italic leading-relaxed text-cream/90 md:text-xl">
-              “{verse.text}”
-            </blockquote>
-            <figcaption className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-gold-300">
-              — {verse.ref}
-            </figcaption>
-          </figure>
+          {verse && (
+            <figure className="mt-7 max-w-2xl border-l-2 border-gold-400/60 pl-5">
+              <blockquote className="font-serif text-lg italic leading-relaxed text-cream/90 md:text-xl">
+                “{verse.text}”
+              </blockquote>
+              <figcaption className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-gold-300">
+                — {verse.ref}
+              </figcaption>
+            </figure>
+          )}
 
           <SectionMenu sections={sections} className="mt-8" />
         </div>

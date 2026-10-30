@@ -2,11 +2,12 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CalendarDays, CheckCircle2, Clock, Hourglass, MapPin, ArrowRight } from "lucide-react";
+import { CalendarDays, CheckCircle2, Clock, Hourglass, Images, MapPin, ArrowRight } from "lucide-react";
 
 import { getData, type NavathiProgram } from "@/lib/data";
 import { formatDateRange, dateParts, monthYearLabel } from "@/lib/format";
 import { PageHero } from "@/components/page-hero";
+import { PhotoAlbum } from "@/components/photo-album";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
 import { Badge } from "@/components/ui/badge";
@@ -26,7 +27,7 @@ function lastDay(p: NavathiProgram) {
 
 export function NavathiContent({ today }: { today: string }) {
   const { locale, t } = useLocale();
-  const { navathiPrograms } = getData(locale);
+  const { navathiPrograms, events } = getData(locale);
 
   // Start from the build date so the static HTML and hydration agree, then switch
   // to the visitor's date so finished programmes are marked as completed.
@@ -39,6 +40,12 @@ export function NavathiContent({ today }: { today: string }) {
 
   const programs = [...navathiPrograms].sort((a, b) => a.date.localeCompare(b.date));
   const nextIndex = programs.findIndex((p) => lastDay(p) >= now);
+
+  // Programmes whose event page has a photo album, shown in the Photos section.
+  const albums = programs.flatMap((p) => {
+    const event = events.find((e) => e.slug === p.event);
+    return event?.album ? [{ p, event, album: event.album }] : [];
+  });
 
   const grouped = programs.reduce<{ month: string; items: { p: NavathiProgram; i: number }[] }[]>(
     (acc, p, i) => {
@@ -54,6 +61,7 @@ export function NavathiContent({ today }: { today: string }) {
   const sections = [
     { id: "about-navathi", label: t.sections.navathi },
     { id: "programmes", label: t.sections.programmes },
+    ...(albums.length > 0 ? [{ id: "photos", label: t.sections.photos }] : []),
     { id: "get-involved", label: t.sections.involved },
   ];
 
@@ -174,6 +182,15 @@ export function NavathiContent({ today }: { today: string }) {
                                 <MapPin className="size-3.5 text-gold-500" />
                                 {p.location}
                               </span>
+                              {albums.some((a) => a.p === p) && (
+                                <a
+                                  href={`#photos-${p.event}`}
+                                  className="flex items-center gap-1.5 font-medium text-primary hover:text-gold-700"
+                                >
+                                  <Images className="size-3.5 text-gold-500" />
+                                  {t.navathi.viewPhotos}
+                                </a>
+                              )}
                             </div>
                           </div>
                         </li>
@@ -194,8 +211,36 @@ export function NavathiContent({ today }: { today: string }) {
         </div>
       </section>
 
+      {/* Photos */}
+      {albums.length > 0 && (
+        <section id="photos" className="section-y">
+          <div className="container-x">
+            <SectionHeading
+              eyebrow={t.navathi.photosEyebrow}
+              title={t.navathi.photosTitle}
+              subtitle={t.navathi.photosSubtitle}
+            />
+            <div className="mx-auto mt-14 max-w-5xl space-y-14">
+              {albums.map(({ p, event, album }) => (
+                <div key={event.slug} id={`photos-${event.slug}`} className="scroll-mt-28">
+                  <h3 className="mb-1 font-serif text-xl font-semibold text-primary">{p.title}</h3>
+                  <p className="mb-6 text-sm text-muted-foreground">
+                    {formatDateRange(p.date, p.endDate, locale)} · {p.location}
+                  </p>
+                  <PhotoAlbum
+                    albumKey={album}
+                    title={p.title}
+                    subtitle={formatDateRange(p.date, p.endDate, locale)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Get involved */}
-      <section id="get-involved" className="section-y">
+      <section id="get-involved" className={cn("section-y", albums.length > 0 && "bg-secondary/40")}>
         <div className="container-x">
           <Reveal className="mx-auto flex max-w-3xl flex-col items-center gap-5 rounded-3xl border border-gold-500/30 bg-card p-8 text-center sm:p-12">
             <h2 className="font-serif text-2xl font-semibold sm:text-3xl">{t.navathi.involvedTitle}</h2>

@@ -17,8 +17,9 @@ export function EventCard({ event }: { event: ChurchEvent }) {
   const { locale, t } = useLocale();
   const { day, month } = dateParts(event.date, locale);
   return (
-    <article
+    <Link
       id={event.slug}
+      href={`/events/${event.slug}`}
       className="card-hover group flex h-full scroll-mt-28 flex-col overflow-hidden rounded-2xl border border-border bg-card"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
@@ -50,6 +51,10 @@ export function EventCard({ event }: { event: ChurchEvent }) {
         <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
           {event.excerpt}
         </p>
+        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
+          {t.events.viewDetails}
+          <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+        </span>
         <div className="mt-5 flex flex-col gap-2 border-t border-border pt-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-2">
             <CalendarDays className="size-3.5 text-gold-500" />
@@ -67,7 +72,7 @@ export function EventCard({ event }: { event: ChurchEvent }) {
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
 

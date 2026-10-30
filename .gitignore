@@ -42,3 +42,7 @@ next-env.d.ts
 
 # playwright mcp output
 /.playwright-mcp/
+
+# scroll-craft verification output
+/scrollcraft/**/lab/
+/scrollcraft/**/node_modules/
