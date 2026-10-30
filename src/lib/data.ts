@@ -8,8 +8,17 @@ export type Verse = { text: string; ref: string };
 export type MassSlot = { day: string; times: string[]; note?: string };
 export type Devotion = { title: string; detail: string; extra: string; icon: string };
 export type SpecialSchedule = { occasion: string; dates: string; detail: string };
-export type Announcement = { title: string; date: string; body: string; tag: string };
+export type Announcement = {
+  title: string; date: string; body: string; tag: string;
+  /** Slug of the event this notice is about; the card links to its page. */
+  event?: string;
+};
 export type EventCategory = "Feast" | "Retreat" | "Sacrament" | "Community" | "Youth" | "News";
+/** One day of an event's programme. `date` is YYYY-MM-DD. */
+export type EventDay = {
+  date: string;
+  items: { time: string; title: string; lines?: string[] }[];
+};
 export type ChurchEvent = {
   slug: string;
   title: string;
@@ -21,8 +30,12 @@ export type ChurchEvent = {
   image: ImageKey;
   excerpt: string;
   featured?: boolean;
-  /** Photo album shown in the Gallery's Parish News tab. */
+  /** Photo album shown on the event page and in the Gallery's Parish News tab. */
   album?: AlbumKey;
+  /** Paragraphs for the event page; the excerpt is shown when absent. */
+  details?: string[];
+  /** Day-by-day programme shown on the event page. */
+  schedule?: EventDay[];
 };
 /** A programme of the Navathi year. `date` is YYYY-MM-DD, or YYYY-MM while the day is not fixed. */
 export type NavathiProgram = {
@@ -32,6 +45,8 @@ export type NavathiProgram = {
   title: string;
   description: string;
   location: string;
+  /** Slug of the event page with details and photos, once the programme has one. */
+  event?: string;
 };
 export type Clergy = {
   name: string;
@@ -167,6 +182,26 @@ const specialSchedulesRaw = [
 
 const announcementsRaw = [
   {
+    title: B("124th Memorial Feast of St. Gregorios of Parumala", "പരിശുദ്ധ പരുമല തിരുമേനിയുടെ 124-ാം ഓർമ്മപ്പെരുന്നാൾ"),
+    date: B("1–8 Nov 2026", "1–8 നവം 2026"),
+    body: B(
+      "The memorial feast of St. Gregorios of Parumala, whose holy relics are enshrined in our church, is celebrated from 6 to 8 November. " +
+        "Sun 1 Nov — flag hoisting after the 7:45 AM Holy Qurbana. " +
+        "Fri 6 Nov — 6:00 PM evening prayer, 6:30 PM hymns, 7:00 PM gospel convention by Rev. Fr. Shiju Baby, Adoor. " +
+        "Sat 7 Nov — 7:15 AM Holy Qurbana; 6:00 PM evening prayer at Puthayam Kurishady, followed by the Raza procession to the church. " +
+        "Sun 8 Nov — 7:45 AM Holy Qurbana on three altars, incense before the holy relics, and honouring of parishioners who have turned 90. " +
+        "All the faithful are warmly invited.",
+      "നമ്മുടെ ദേവാലയത്തിൽ തിരുശേഷിപ്പ് സ്ഥാപിച്ചിരിക്കുന്ന പരിശുദ്ധ പരുമല തിരുമേനിയുടെ ഓർമ്മപ്പെരുന്നാൾ നവംബർ 6 മുതൽ 8 വരെ ആചരിക്കുന്നു. " +
+        "നവം 1 ഞായർ — 7:45 AM വി. കുർബ്ബാനയെ തുടർന്ന് പെരുന്നാൾ കൊടിയേറ്റ്. " +
+        "നവം 6 വെള്ളി — 6:00 PM സന്ധ്യാനമസ്കാരം, 6:30 PM ഗാനശുശ്രൂഷ, 7:00 PM വചനശുശ്രൂഷ (റവ. ഫാ. ഷിജു ബേബി, അടൂർ). " +
+        "നവം 7 ശനി — 7:15 AM വി. കുർബ്ബാന; 6:00 PM പുത്തയം കുരിശ്ശടിയിൽ സന്ധ്യാനമസ്കാരം, തുടർന്ന് ദേവാലയത്തിലേക്ക് റാസ. " +
+        "നവം 8 ഞായർ — 7:45 AM വി. മൂന്നിന്മേൽ കുർബ്ബാന, തിരുശേഷിപ്പിങ്കൽ ധൂപാർപ്പണം, 90 വയസ്സ് പൂർത്തിയായ ഇടവകാംഗങ്ങളെ ആദരിക്കൽ. " +
+        "എല്ലാ വിശ്വാസികളെയും സ്നേഹപൂർവ്വം ക്ഷണിക്കുന്നു.",
+    ),
+    tag: B("Feast", "പെരുന്നാൾ"),
+    event: "st-gregorios-feast-2026",
+  },
+  {
     title: B("Parish Feast Nombu begins", "ഇടവക പെരുന്നാൾ നോമ്പ് ആരംഭിക്കുന്നു"),
     date: B("31 Aug 2026", "31 ഓഗ 2026"),
     body: B(
@@ -209,13 +244,15 @@ const upcomingFeastRaw = {
 const eventsRaw: {
   slug: string; title: Bi; date: string; endDate?: string; time: Bi; location: Bi;
   category: EventCategory; image: ImageKey; excerpt: Bi; featured?: boolean; album?: AlbumKey;
+  details?: Bi[];
+  schedule?: { date: string; items: { time: string; title: Bi; lines?: Bi[] }[] }[];
 }[] = [
   {
     slug: "martha-mariam-pilgrimage-centre",
     title: B("International Martha Mariam Pilgrimage Centre", "അന്താരാഷ്ട്ര മർത്തമറിയം തീർത്ഥാടന കേന്ദ്രം"),
     date: "2010-09-03", time: B("Declaration", "പ്രഖ്യാപനം"),
     location: B("Parish Church", "ഇടവക പള്ളി"),
-    category: "News", image: "marianShrine",
+    category: "News", image: "marthaMariamPilgrimageCentre", album: "marthaMariamPilgrimageCentre",
     excerpt: B(
       "The church was declared an International Martha Mariam Pilgrimage Centre by H.H. Baselios Marthoma Didymos I Catholicos.",
       "പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ ദിദിമോസ് പ്രഥമൻ കാതോലിക്കാ ബാവ നമ്മുടെ ദേവാലയത്തെ അന്താരാഷ്ട്ര മർത്തമറിയം തീർത്ഥാടന കേന്ദ്രമായി പ്രഖ്യാപിച്ചു.",
@@ -233,65 +270,6 @@ const eventsRaw: {
     ),
   },
   {
-    slug: "vbs-2026",
-    title: B("Vacation Bible School — 'Rooted in Christ'", "വെക്കേഷൻ ബൈബിൾ സ്കൂൾ — 'ക്രിസ്തുവിൽ വേരൂന്നി'"),
-    date: "2026-05-04", endDate: "2026-05-09",
-    time: B("9:00 AM – 12:30 PM", "9:00 AM – 12:30 PM"),
-    location: B("Parish Hall", "ഇടവക ഹാൾ"),
-    category: "News", image: "gathering",
-    excerpt: B(
-      "Over 180 children spent a joyful week of songs, scripture and craft. Our thanks to the animators and OCYM volunteers.",
-      "180-ലധികം കുട്ടികൾ പാട്ടും വചനവും കരകൗശലവുമായി സന്തോഷകരമായ ഒരാഴ്ച ചെലവഴിച്ചു. അനിമേറ്റർമാർക്കും ഒസിവൈഎം സന്നദ്ധപ്രവർത്തകർക്കും നന്ദി.",
-    ),
-  },
-  {
-    slug: "ocym-retreat",
-    title: B("OCYM Youth Retreat", "ഒസിവൈഎം യുവജന ധ്യാനം"),
-    date: "2026-08-02", time: B("8:30 AM – 5:00 PM", "8:30 AM – 5:00 PM"),
-    location: B("Parish Hall & Adoration Chapel", "ഇടവക ഹാളും ആരാധനാ കപ്പേളയും"),
-    category: "Youth", image: "candlesPrayer",
-    excerpt: B(
-      "A one-day Spirit-filled retreat for parish youth — praise, teaching, worship and confession. Registration at the office.",
-      "ഇടവക യുവജനങ്ങൾക്കായി ഒരു ദിവസത്തെ ആത്മനിറവുള്ള ധ്യാനം — സ്തുതി, പ്രബോധനം, ആരാധന, കുമ്പസാരം. രജിസ്ട്രേഷൻ ഓഫീസിൽ.",
-    ),
-    featured: true,
-  },
-  {
-    slug: "assumption-2026",
-    title: B("Shunoyo — Dormition of St. Mary", "ശുനോയോ — വിശുദ്ധ മറിയത്തിന്റെ വാങ്ങിപ്പ്"),
-    date: "2026-08-15", time: B("8:00 AM Solemn Qurbana", "8:00 AM ആഘോഷ കുർബ്ബാന"),
-    location: B("Parish Church", "ഇടവക പള്ളി"),
-    category: "Feast", image: "candles",
-    excerpt: B(
-      "A great feast of St. Mary, at the close of the fifteen-day Shunoyo Nombu. Solemn Holy Qurbana with festal prayers.",
-      "പതിനഞ്ചു നോമ്പിന്റെ സമാപനത്തിലുള്ള വിശുദ്ധ മറിയത്തിന്റെ വലിയ പെരുന്നാൾ. ആഘോഷ വിശുദ്ധ കുർബ്ബാനയും പെരുന്നാൾ പ്രാർത്ഥനകളും.",
-    ),
-    featured: true,
-  },
-  {
-    slug: "onam-sneha-virunnu",
-    title: B("Onam Sneha Virunnu — Community Meal", "ഓണം സ്നേഹവിരുന്ന് — കൂട്ടായ്മ സദ്യ"),
-    date: "2026-08-30", time: B("12:30 PM", "12:30 PM"),
-    location: B("Parish Grounds", "ഇടവക മൈതാനം"),
-    category: "Community", image: "celebration",
-    excerpt: B(
-      "The whole parish family shares a traditional Onam sadya in a spirit of harmony and fellowship. All are welcome.",
-      "ഇടവക കുടുംബം മുഴുവൻ ഐക്യത്തിന്റെയും കൂട്ടായ്മയുടെയും ചൈതന്യത്തിൽ പരമ്പരാഗത ഓണസദ്യ പങ്കിടുന്നു. എല്ലാവർക്കും സ്വാഗതം.",
-    ),
-  },
-  {
-    slug: "parish-feast-2026",
-    title: B("Nativity of Mary — Parish Feast (Perunnal)", "പരിശുദ്ധ അമ്മയുടെ ജനനത്തിരുനാൾ — ഇടവക പെരുന്നാൾ"),
-    date: "2026-08-31", endDate: "2026-09-08", time: B("See daily schedule", "ദിവസ സമയക്രമം കാണുക"),
-    location: B("Parish Church", "ഇടവക പള്ളി"),
-    category: "Feast", image: "churchDusk",
-    excerpt: B(
-      "Eight days of the Ettu Nombu and celebration culminating in the solemn feast — flag hoisting, procession, and festal Holy Qurbana.",
-      "എട്ടു നോമ്പും ആഘോഷവും ആഘോഷ തിരുനാളിൽ പര്യവസാനിക്കുന്നു — കൊടിയേറ്റ്, പ്രദക്ഷിണം, തിരുനാൾ കുർബ്ബാന.",
-    ),
-    featured: true,
-  },
-  {
     slug: "parumala-relics-2026",
     title: B("Relics of St. Gregorios of Parumala enshrined", "പരുമല മാർ ഗ്രീഗോറിയോസിന്റെ തിരുശേഷിപ്പ് സ്ഥാപിച്ചു"),
     date: "2026-09-04", time: B("During the Parish Feast", "ഇടവക പെരുന്നാളിനോടനുബന്ധിച്ച്"),
@@ -307,43 +285,10 @@ const eventsRaw: {
     title: B("Navathi (90th Anniversary) Inaugurated", "നവതി ആഘോഷങ്ങളുടെ ഉദ്ഘാടനം"),
     date: "2026-09-05", time: B("During the Parish Feast", "ഇടവക പെരുന്നാളിനോടനുബന്ധിച്ച്"),
     location: B("Parish Church", "ഇടവക പള്ളി"),
-    category: "News", image: "navathiInauguration",
+    category: "News", image: "navathiInauguration", album: "navathiInauguration",
     excerpt: B(
       "The Navathi celebrations marking 90 years since the consecration of our church in 1937 were formally inaugurated.",
       "1937-ൽ നമ്മുടെ ദേവാലയം കൂദാശ ചെയ്തതിന്റെ 90 വർഷങ്ങൾ അനുസ്മരിക്കുന്ന നവതി ആഘോഷങ്ങൾ ഔദ്യോഗികമായി ഉദ്ഘാടനം ചെയ്തു.",
-    ),
-  },
-  {
-    slug: "sunday-school-day",
-    title: B("Sunday School Annual Day", "വേദപാഠ വാർഷികം"),
-    date: "2026-09-20", time: B("8:00 AM", "8:00 AM"),
-    location: B("Parish Church", "ഇടവക പള്ളി"),
-    category: "Community", image: "scripture",
-    excerpt: B(
-      "Our Sunday School children present the year's learning with songs and tableaux, and prizes are distributed.",
-      "ഞങ്ങളുടെ വേദപാഠ കുട്ടികൾ വർഷത്തെ പഠനം പാട്ടുകളിലൂടെയും ദൃശ്യാവിഷ്കാരങ്ങളിലൂടെയും അവതരിപ്പിക്കുന്നു, സമ്മാനങ്ങൾ വിതരണം ചെയ്യുന്നു.",
-    ),
-  },
-  {
-    slug: "mission-sunday",
-    title: B("Edavaka Mission Sunday", "ഇടവക മിഷൻ ഞായർ"),
-    date: "2026-10-18", time: B("All Qurbanas", "എല്ലാ കുർബ്ബാനകളിലും"),
-    location: B("Parish Church", "ഇടവക പള്ളി"),
-    category: "Community", image: "peacefulPath",
-    excerpt: B(
-      "The Edavaka Mission leads the parish in praying and giving for the mission of the Church at home and abroad.",
-      "ഇടവക മിഷൻ നാട്ടിലും വിദേശത്തുമുള്ള സഭയുടെ ദൗത്യത്തിനായി പ്രാർത്ഥിക്കാനും നൽകാനും ഇടവകയെ നയിക്കുന്നു.",
-    ),
-  },
-  {
-    slug: "christmas-2026",
-    title: B("Christmas Carols & Midnight Qurbana", "ക്രിസ്മസ് കരോളും പാതിര കുർബ്ബാനയും"),
-    date: "2026-12-24", time: B("10:00 PM Carols · 11:30 PM Qurbana", "10:00 PM കരോൾ · 11:30 PM കുർബ്ബാന"),
-    location: B("Parish Church", "ഇടവക പള്ളി"),
-    category: "Feast", image: "churchWarm",
-    excerpt: B(
-      "The choir leads a carol service before the joyful celebration of the Lord's Nativity at the Midnight Qurbana.",
-      "പാതിര കുർബ്ബാനയിൽ കർത്താവിന്റെ ജനനത്തിന്റെ സന്തോഷകരമായ ആഘോഷത്തിനു മുമ്പ് ഗായകസംഘം കരോൾ നയിക്കുന്നു.",
     ),
   },
   {
@@ -359,14 +304,128 @@ const eventsRaw: {
   },
   {
     slug: "st-gregorios-feast-2026",
-    title: B("Feast of St. Gregorios of Parumala", "പരുമല മാർ ഗ്രീഗോറിയോസിന്റെ പെരുന്നാൾ"),
-    date: "2026-11-08", time: B("See parish notices", "ഇടവക അറിയിപ്പുകൾ കാണുക"),
+    title: B("124th Memorial Feast of St. Gregorios of Parumala", "പരിശുദ്ധ പരുമല തിരുമേനിയുടെ 124-ാം ഓർമ്മപ്പെരുന്നാൾ"),
+    date: "2026-11-06", endDate: "2026-11-08",
+    time: B("From 6:00 PM, Fri 6 Nov", "നവം 6 വെള്ളി 6:00 PM മുതൽ"),
     location: B("Parish Church", "ഇടവക പള്ളി"),
-    category: "Feast", image: "catholicos",
+    category: "Feast", image: "parumalaPerunnal",
     excerpt: B(
-      "We celebrate the memory of St. Gregorios of Parumala, whose holy relics are enshrined in our church, with festal Holy Qurbana and intercession.",
-      "നമ്മുടെ പള്ളിയിൽ തിരുശേഷിപ്പ് സ്ഥാപിച്ചിരിക്കുന്ന പരുമല മാർ ഗ്രീഗോറിയോസ് തിരുമേനിയുടെ ഓർമ്മ തിരുനാൾ കുർബ്ബാനയോടും മദ്ധ്യസ്ഥ പ്രാർത്ഥനയോടും കൂടി ആഘോഷിക്കുന്നു.",
+      "The memorial feast of St. Gregorios of Parumala, whose holy relics are enshrined in our church — gospel convention, Raza procession from Puthayam Kurishady and Holy Qurbana on three altars. Flag hoisting on Sunday 1 November.",
+      "നമ്മുടെ ദേവാലയത്തിൽ തിരുശേഷിപ്പ് സ്ഥാപിച്ചിരിക്കുന്ന പരിശുദ്ധ പരുമല തിരുമേനിയുടെ ഓർമ്മപ്പെരുന്നാൾ — വചനശുശ്രൂഷ, പുത്തയം കുരിശ്ശടിയിൽ നിന്നുള്ള റാസ, വി. മൂന്നിന്മേൽ കുർബ്ബാന. നവംബർ 1 ഞായറാഴ്ച കൊടിയേറ്റ്.",
     ),
+    featured: true,
+    details: [
+      B(
+        "Beloved in the Lord, the memorial feast of St. Gregorios of Parumala will be celebrated with devotion from 6 to 8 November 2026 at St. Mary's Orthodox Church, Alencherry — the International Martha Mariam Pilgrimage Centre, blessed with the holy relics of St. Gregorios of Parumala.",
+        "കർത്താവിൽ പ്രിയരേ, അന്തർദേശീയ മർത്തമറിയം തീർത്ഥാടന കേന്ദ്രവും പരിശുദ്ധ പരുമല തിരുമേനിയുടെ തിരുശേഷിപ്പിനാൽ അനുഗ്രഹീതവുമായ ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് പള്ളിയിലെ പരിശുദ്ധ പരുമല തിരുമേനിയുടെ ഓർമ്മ പെരുന്നാൾ 2026 നവംബർ 6 മുതൽ 8 വരെയുള്ള തീയതികളിൽ ഭക്തിപുരസരം ആചരിക്കുന്നു.",
+      ),
+      B(
+        "We welcome all the faithful, in the name of the Lord, to take part in the feast services and receive His blessings.",
+        "പെരുന്നാൾ ശുശ്രൂഷകളിൽ വന്ന് സംബന്ധിച്ച് അനുഗ്രഹം പ്രാപിക്കുവാൻ എല്ലാ വിശ്വാസികളെയും കർത്തൃനാമത്തിൽ സ്വാഗതം ചെയ്യുന്നു.",
+      ),
+      B(
+        "On behalf of the parish — Fr. Varghese T. Varghese (Vicar), Philip Aruvickal (Trustee), K. V. Joseph (Secretary).",
+        "എന്ന് ഇടവകയ്ക്കുവേണ്ടി — ഫാ. വർഗീസ് ടി. വർഗീസ് (വികാരി), ഫിലിപ്പ് അരുവിക്കൽ (ട്രസ്റ്റി), കെ. വി. ജോസഫ് (സെക്രട്ടറി).",
+      ),
+      B(
+        "The holy relics of St. Gregorios of Parumala were enshrined in this parish on 4 September 2026 by H.H. Baselios Marthoma Mathews III, Catholicos of the East.",
+        "2026 സെപ്റ്റംബർ നാലാം തീയതി പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് തൃതീയൻ കാതോലിക്കാ ബാവ പരിശുദ്ധ പരുമല തിരുമേനിയുടെ തിരുശേഷിപ്പ് ഈ ഇടവകയിൽ സംസ്ഥാപിച്ചു.",
+      ),
+    ],
+    schedule: [
+      {
+        date: "2026-11-01",
+        items: [
+          { time: "7:00 AM", title: B("Morning Prayer", "പ്രഭാത നമസ്കാരം") },
+          {
+            time: "7:45 AM",
+            title: B("Holy Qurbana", "വി. കുർബ്ബാന"),
+            lines: [
+              B("Feast flag hoisting", "പെരുന്നാൾ കൊടിയേറ്റ്"),
+              B("Rev. Fr. Varghese T. Varghese", "റവ. ഫാ. വർഗീസ് ടി. വർഗീസ്"),
+              B(
+                "Nercha Vilambu (offered by Jacob K. Varghese, Kaithadiyil Puthen Veedu)",
+                "നേർച്ചവിളമ്പ് (സമർപ്പണം: ജേക്കബ് കെ. വർഗ്ഗീസ്, കൈതാടിയിൽ പുത്തൻവീട്)",
+              ),
+            ],
+          },
+        ],
+      },
+      {
+        date: "2026-11-06",
+        items: [
+          { time: "6:00 PM", title: B("Evening Prayer", "സന്ധ്യാനമസ്കാരം") },
+          { time: "6:30 PM", title: B("Hymns", "ഗാനശുശ്രൂഷ") },
+          {
+            time: "7:00 PM",
+            title: B("Gospel Convention", "വചന ശുശ്രൂഷ"),
+            lines: [
+              B("Rev. Fr. Shiju Baby, Adoor", "റവ. ഫാ. ഷിജു ബേബി, അടൂർ"),
+              B("(Offered by Soniya Jaison, Jais Villa)", "(സമർപ്പണം: സോണിയ ജെയ്സൺ, ജെയിസ് വില്ല)"),
+              B("Dedication prayer", "സമർപ്പണ പ്രാർത്ഥന"),
+              B(
+                "Nercha Vilambu (offered by Johny Yohannan, Charuvila Puthen Veedu)",
+                "നേർച്ചവിളമ്പ് (സമർപ്പണം: ജോണി യോഹന്നാൻ, ചരുവിള പുത്തൻ വീട്)",
+              ),
+            ],
+          },
+        ],
+      },
+      {
+        date: "2026-11-07",
+        items: [
+          { time: "6:30 AM", title: B("Morning Prayer", "പ്രഭാത നമസ്കാരം") },
+          {
+            time: "7:15 AM",
+            title: B("Holy Qurbana", "വി. കുർബ്ബാന"),
+            lines: [
+              B("Rev. Fr. Sam Thomas", "റവ. ഫാ. സാം തോമസ്"),
+              B(
+                "Nercha Vilambu (Holy Qurbana and nercha offered by the Aruvickal family)",
+                "നേർച്ചവിളമ്പ് (വിശുദ്ധ കുർബ്ബാനയും നേർച്ചയും സമർപ്പണം: അരുവിക്കൽ ഫാമിലി)",
+              ),
+            ],
+          },
+          {
+            time: "6:00 PM",
+            title: B("Evening Prayer at Puthayam Kurishady", "സന്ധ്യാനമസ്കാരം പുത്തയം കുരിശ്ശടിയിൽ"),
+            lines: [
+              B(
+                "Devout Raza procession, starting from Puthayam Kurishady and reaching the church",
+                "ഭക്തിനിർഭരമായ റാസ — പുത്തയം കുരിശ്ശടിയിൽ നിന്നും ആരംഭിച്ച് ദേവാലയത്തിൽ എത്തിച്ചേരുന്നു",
+              ),
+              B("Benediction", "ആശീർവാദം"),
+              B("Nercha Vilambu (offered by M. D. Mathai, Krupa House)", "നേർച്ചവിളമ്പ് (സമർപ്പണം: എം. ഡി. മത്തായി, കൃപ ഹൗസ്)"),
+            ],
+          },
+        ],
+      },
+      {
+        date: "2026-11-08",
+        items: [
+          { time: "7:00 AM", title: B("Morning Prayer", "പ്രഭാത നമസ്കാരം") },
+          {
+            time: "7:45 AM",
+            title: B("Holy Qurbana on three altars", "വി. മൂന്നിന്മേൽ കുർബ്ബാന"),
+            lines: [
+              B("Very Rev. Thomas T. Varghese Cor Episcopa", "വെരി റവ. തോമസ് ടി. വർഗീസ് കോർഎപ്പിസ്കോപ്പാ"),
+              B("Rev. Fr. A. Lukose", "റവ. ഫാ. എ. ലൂക്കോസ്"),
+              B("Rev. Fr. Varghese T. Varghese", "റവ. ഫാ. വർഗീസ് ടി. വർഗീസ്"),
+              B("Incense before the holy relics", "തിരുശേഷിപ്പിങ്കൽ ധൂപാർപ്പണം"),
+              B(
+                "Honouring the elders — parishioners who have turned 90 are honoured as part of the parish's Navathi",
+                "വയോജന ആദരവ് (ഇടവകയുടെ നവതിയോടനുബന്ധിച്ച് 90 വയസ് പൂർത്തിയായ അംഗങ്ങളെ ആദരിക്കുന്നു)",
+              ),
+              B("Benediction", "ആശീർവാദം"),
+              B(
+                "Nercha Vilambu (offered by Marykutty Kunjappan, Thaluvachira)",
+                "നേർച്ചവിളമ്പ് (സമർപ്പണം: മേരിക്കുട്ടി കുഞ്ഞപ്പൻ, തളുവച്ചിറ)",
+              ),
+            ],
+          },
+        ],
+      },
+    ],
   },
 ];
 
@@ -375,10 +434,11 @@ const eventsRaw: {
    Use YYYY-MM for a programme whose day is not fixed yet; the page shows
    "Date to be announced" until a full date is filled in. */
 const navathiProgramsRaw: {
-  date: string; endDate?: string; time?: Bi; title: Bi; description: Bi; location: Bi;
+  date: string; endDate?: string; time?: Bi; title: Bi; description: Bi; location: Bi; event?: string;
 }[] = [
   {
     date: "2026-09-05",
+    event: "navathi-inauguration",
     title: B("Inauguration of the Navathi Celebrations", "നവതി ആഘോഷങ്ങളുടെ ഉദ്ഘാടനം"),
     description: B(
       "The Navathi year was formally inaugurated during the parish feast.",
@@ -489,10 +549,10 @@ const formerVicarsRaw: { name: Bi; role?: Bi; years: string; note?: Bi }[] = [
   { name: B("Rev. Fr. P. M. Koshy", "റവ. ഫാ. പി. എം. കോശി"), role: B("Vicar", "വികാരി"), years: "1975 – 1977" },
   { name: B("Rev. Fr. P. G. Kurian", "റവ. ഫാ. പി. ജി. കുര്യൻ"), role: B("Vicar", "വികാരി"), years: "1977 – 1979" },
   { name: B("Rev. Fr. P. C. John", "റവ. ഫാ. പി. സി. ജോൺ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1977 – 1979" },
+  { name: B("Rev. Fr. Zacharia Abraham", "റവ. ഫാ. സഖറിയ ഏബ്രഹാം"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1979" },
   { name: B("Rev. Fr. K. P. Philip", "റവ. ഫാ. കെ. പി. ഫിലിപ്പ്"), role: B("Vicar", "വികാരി"), years: "1979 – 1981" },
-  { name: B("Rev. Fr. Zacharia Abraham", "റവ. ഫാ. സഖറിയ ഏബ്രഹാം"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1979 – 1981" },
-  { name: B("Rev. Fr. Thomas T. Varghese", "റവ. ഫാ. തോമസ് ടി. വർഗീസ്"), role: B("Vicar", "വികാരി"), years: "1981 – 1988" },
   { name: B("Rev. Fr. Yohannan Panicker", "റവ. ഫാ. യോഹന്നാൻ പണിക്കർ"), role: B("Asst. Vicar", "സഹ വികാരി"), years: "1980" },
+  { name: B("Rev. Fr. Thomas T. Varghese", "റവ. ഫാ. തോമസ് ടി. വർഗീസ്"), role: B("Vicar", "വികാരി"), years: "1981 – 1988" },
   { name: B("Rev. Fr. K. K. Thomas", "റവ. ഫാ. കെ. കെ. തോമസ്"), role: B("Vicar", "വികാരി"), years: "1988 – 1992" },
   { name: B("Rev. Fr. C. Koshy", "റവ. ഫാ. സി. കോശി"), role: B("Vicar", "വികാരി"), years: "1992 – 1994" },
   { name: B("Rev. Fr. Joseph Samuel Karukayil", "റവ. ഫാ. ജോസഫ് ശമുവേൽ കറുകയിൽ"), role: B("Vicar", "വികാരി"), years: "1994 – 1997" },
@@ -516,7 +576,6 @@ const orgNameMl: Record<string, string> = {
   "martha-mariam": "മർത്തമറിയം വനിതാ സമാജം",
   "prayer-fellowship": "പ്രാർത്ഥനാ യോഗങ്ങൾ",
   choir: "ഇടവക ഗായകസംഘം",
-  "edavaka-mission": "ഇടവക മിഷൻ",
   balasamajam: "ബാലസമാജം",
   "upavasa-prarthana": "ഉപവാസ പ്രാർത്ഥന",
   moms: "എം.ഒ.എം.എസ്.",
@@ -538,7 +597,8 @@ const organizationsRaw: {
       "ഭദ്രാസന സൺഡേ സ്കൂൾ സിലബസ് പിന്തുടർന്ന്, കുട്ടികൾക്കായി വിശുദ്ധ ഗ്രന്ഥവും വിശ്വാസവും ഓർത്തഡോക്സ് പാരമ്പര്യവും ചിട്ടയായി പഠിപ്പിക്കുന്നു.",
     ),
     meeting: B("Sundays · after Holy Qurbana", "ഞായറാഴ്ചകൾ · വിശുദ്ധ കുർബ്ബാനയ്ക്കു ശേഷം"),
-    icon: "BookOpen", image: "cathedralArches", photos: ["scripture", "cathedralArches", "celebration"],
+    icon: "BookOpen", image: "sundaySchoolAssembly",
+    photos: ["sundaySchoolAssembly", "sundaySchoolPrayer", "sundaySchoolAddress", "sundaySchoolSpeech"],
     audience: B("Grades 1–12", "ക്ലാസ് 1–12"),
   },
   {
@@ -550,7 +610,7 @@ const organizationsRaw: {
       "പ്രാർത്ഥന, ധ്യാനം, പഠനം, ജീവകാരുണ്യ പ്രവർത്തനങ്ങൾ എന്നിവയിലൂടെ യുവതീയുവാക്കളെ ശിഷ്യരും സേവന നേതാക്കളുമായി രൂപപ്പെടുത്തുന്നു.",
     ),
     meeting: B("Saturdays · after Evening Prayer", "ശനിയാഴ്ചകൾ · സന്ധ്യാ നമസ്കാരത്തിനു ശേഷം"),
-    icon: "Flame", image: "candlesPrayer", photos: ["gathering", "peacefulPath", "candlesPrayer"],
+    icon: "Flame", image: "ocymPresentation", photos: ["ocymPresentation", "gathering", "peacefulPath"],
     audience: B("Youth (18–35)", "യുവജനം (18–35)"),
   },
   {
@@ -574,7 +634,8 @@ const organizationsRaw: {
       "പ്രാർത്ഥനയിലും പരിശീലനത്തിലും ജീവകാരുണ്യത്തിലും ഒന്നിച്ച ഇടവക വനിതകൾ — ഓരോ ക്രിസ്തീയ ഭവനത്തിന്റെയും നിശ്ശബ്ദ ശക്തി.",
     ),
     meeting: B("Wednesday", "ബുധൻ"),
-    icon: "Heart", image: "peacefulPath", photos: ["marianIcon", "candles", "celebration"],
+    icon: "Heart", image: "marthaMariamGathering",
+    photos: ["marthaMariamGathering", "marthaMariamAddress", "marthaMariamScripture"],
     audience: B("Women", "വനിതകൾ"),
   },
   {
@@ -586,7 +647,7 @@ const organizationsRaw: {
       "സ്തുതിക്കും മാധ്യസ്ഥ്യത്തിനും വചനത്തിനുമായി ഒരുമിക്കുന്ന ഇടവകാംഗങ്ങൾ — പരസ്പരം ആവശ്യങ്ങൾ കർത്താവിനു മുമ്പിൽ സമർപ്പിക്കുന്നു.",
     ),
     meeting: B("Weekly · 8 groups", "ആഴ്ചതോറും · 8 യോഗങ്ങൾ"),
-    icon: "Sparkles", image: "candles", photos: ["ardramPoster", "marianShrine", "marianIcon", "candles"],
+    icon: "Sparkles", image: "candles", photos: ["candles"],
     audience: B("All parishioners", "എല്ലാ ഇടവകാംഗങ്ങൾക്കും"),
     schedule: [
       { name: B("Alencherry Martha Mariam", "Alencherry Martha Mariam"), day: B("Sunday", "ഞായർ"), time: "4:30 PM" },
@@ -608,20 +669,8 @@ const organizationsRaw: {
       "ഇടവകയുടെ പ്രാർത്ഥനയെ ഗാനത്തിലുയർത്തുന്നു — മലങ്കര ഓർത്തഡോക്സ് ആരാധനക്രമത്തിന്റെ വിശുദ്ധ സംഗീതത്തിൽ സമൂഹത്തെ നയിക്കുന്നു.",
     ),
     meeting: B("Friday · 7:00 PM rehearsal", "വെള്ളി · 7:00 PM പരിശീലനം"),
-    icon: "Music", image: "choir", photos: ["choir", "churchWarm", "stainedGlass", "cathedralArches"],
+    icon: "Music", image: "choir", photos: ["choir"],
     audience: B("All ages", "എല്ലാ പ്രായക്കാർക്കും"),
-  },
-  {
-    slug: "edavaka-mission", name: "Edavaka Mission",
-    malayalam: B("Parish Mission", "ഇടവക മിഷൻ"),
-    short: B("Evangelisation & outreach", "സുവിശേഷവേലയും സഹായവും"),
-    description: B(
-      "The mission wing of the parish — deepening faith through Bible study, family visits and works of mercy at home and abroad.",
-      "ഇടവകയുടെ മിഷൻ വിഭാഗം — ബൈബിൾ പഠനം, കുടുംബ സന്ദർശനം, കരുണയുടെ പ്രവൃത്തികൾ എന്നിവയിലൂടെ വിശ്വാസം ആഴപ്പെടുത്തുന്നു.",
-    ),
-    meeting: B("Third Sunday · after Holy Qurbana", "മൂന്നാം ഞായർ · വിശുദ്ധ കുർബ്ബാനയ്ക്കു ശേഷം"),
-    icon: "Shield", image: "churchStone", photos: ["celebration", "churchWarm", "churchStone"],
-    audience: B("All parishioners", "എല്ലാ ഇടവകാംഗങ്ങൾക്കും"),
   },
   {
     slug: "balasamajam", name: "Balasamajam",
@@ -632,7 +681,8 @@ const organizationsRaw: {
       "പ്രാർത്ഥനയിലും ഗാനങ്ങളിലും ബൈബിൾ കഥകളിലും ഒന്നിച്ചുകൂടുന്ന ഇടവകയിലെ കുട്ടികൾ — ചെറുപ്രായം മുതലേ കർത്താവിനെയും പരസ്പരവും സ്നേഹിക്കാൻ പഠിക്കുന്നു.",
     ),
     meeting: B("Last Sunday of every month · after Sunday School", "എല്ലാ മാസവും അവസാന ഞായർ · സൺഡേ സ്കൂളിനു ശേഷം"),
-    icon: "Sprout", image: "peacefulPath", photos: ["peacefulPath", "scripture", "gathering"],
+    icon: "Sprout", image: "balasamajamInauguration",
+    photos: ["balasamajamInauguration", "balasamajamGathering", "balasamajamAddress"],
     audience: B("Children", "കുട്ടികൾ"),
   },
   {
@@ -644,7 +694,7 @@ const organizationsRaw: {
       "ഉപവാസത്തോടെ പ്രാർത്ഥനയിൽ ഒന്നിക്കുന്ന ഇടവകാംഗങ്ങൾ — ദൈവകരുണ തേടി ഇടവകയുടെയും ലോകത്തിന്റെയും ആവശ്യങ്ങൾക്കായി മാധ്യസ്ഥ്യം വഹിക്കുന്നു.",
     ),
     meeting: B("Every Friday · 10:30 AM", "എല്ലാ വെള്ളിയാഴ്ചയും · 10:30 AM"),
-    icon: "Cross", image: "marianShrine", photos: ["marianShrine", "candles", "candlesPrayer"],
+    icon: "Cross", image: "marthaMariamGathering", photos: ["marthaMariamGathering", "marthaMariamAddress"],
     audience: B("All parishioners", "എല്ലാ ഇടവകാംഗങ്ങൾക്കും"),
   },
   {
@@ -655,7 +705,7 @@ const organizationsRaw: {
       "പ്രാർത്ഥനയിലും കൂട്ടായ്മയിലും സേവനത്തിലും അംഗങ്ങളെ ഒന്നിപ്പിക്കുന്ന ഇടവക കൂട്ടായ്മ.",
     ),
     meeting: B("First Tuesday of every month · 10:30 AM", "എല്ലാ മാസവും ഒന്നാം ചൊവ്വ · 10:30 AM"),
-    icon: "HeartHandshake", image: "celebration", photos: ["celebration", "gathering", "churchDusk"],
+    icon: "HeartHandshake", image: "momsGroup", photos: ["momsGroup"],
     audience: B("Members", "അംഗങ്ങൾ"),
   },
   {
@@ -666,7 +716,7 @@ const organizationsRaw: {
       "പ്രാർത്ഥനയിലും കൂട്ടായ്മയിലും സേവനത്തിലും അംഗങ്ങളെ ഒന്നിപ്പിക്കുന്ന ഇടവക കൂട്ടായ്മ.",
     ),
     meeting: B("Schedule to be announced", "സമയക്രമം പിന്നീട് അറിയിക്കും"),
-    icon: "Users", image: "gathering", photos: ["gathering", "churchWarm", "churchExterior"],
+    icon: "Users", image: "sjofMeeting", photos: ["sjofMeeting", "sjofGroup"],
     audience: B("Members", "അംഗങ്ങൾ"),
   },
   {
@@ -677,7 +727,7 @@ const organizationsRaw: {
       "പ്രാർത്ഥനയിലും കൂട്ടായ്മയിലും സേവനത്തിലും അംഗങ്ങളെ ഒന്നിപ്പിക്കുന്ന ഇടവക കൂട്ടായ്മ.",
     ),
     meeting: B("Schedule to be announced", "സമയക്രമം പിന്നീട് അറിയിക്കും"),
-    icon: "Shield", image: "churchExterior", photos: ["churchExterior", "stainedGlass", "archDetail"],
+    icon: "Shield", image: "sdofSunday", photos: ["sdofSunday"],
     audience: B("Members", "അംഗങ്ങൾ"),
   },
 ];
@@ -860,6 +910,67 @@ const missionVisionRaw = {
   ],
 };
 
+// The parish history as written by the parish (Malayalam original; English is a translation).
+const parishHistoryRaw: Bi[] = [
+  B(
+    "St. Mary's Orthodox Syrian Pilgrim Church, Alencherry — a community of the faithful in the Thiruvananthapuram Diocese of the Malankara Orthodox Syrian Church — is one of the principal spiritual centres of the region. The parish's journey began on 29 January 1934, when its founding fathers — George Ummen of Bethel Bungalow, Eapen of Kandathil, Kochu Koshy of Poykavilayil, Koshy of Bethel Bhavan, Ummen of Vattavelil Mukalumpurathu, Tharian of Kalangarazhikathu, Joseph of Kochukonathu Puthenveedu, Chacko of Thekkadathu Veedu and Chacko of Kizhakkumkara Charuvila Veedu — registered the title deed. Construction of the church began in 1936, and in 1937 it was consecrated with H.G. Geevarghese Mar Philoxenos as the chief celebrant. Sri. V. K. Chacko Thayyil, the first headmaster of the parish Sunday School, later served the Church as Rev. Fr. Yacob (OIC), becoming the first priest from the parish.",
+    "മലങ്കര ഓർത്തഡോക്സ് സുറിയാനി സഭയുടെ തിരുവനന്തപുരം ഭദ്രാസനത്തിലെ ഒരു വിശ്വാസസമൂഹമായ ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി തീർത്ഥാടന പള്ളി ഈ പ്രദേശത്തെ പ്രധാന ആത്മീയ കേന്ദ്രങ്ങളിലൊന്നാണ്. 1934 ജനുവരി 29-ന് ജോർജ് ഉമ്മൻ ബേഥേൽ ബംഗ്ലാവ്, ഈപ്പൻ കണ്ടത്തിൽ, കൊച്ചു കോശി പൊയ്കവിളയിൽ, കോശി ബെഥേൽ ഭവൻ, ഉമ്മൻ വട്ടവേലിൽ മുകളും പുറത്ത്, തര്യൻ കളങ്ങരഴികത്ത്, ജോസഫ് കൊച്ചുകോണത്ത് പുത്തൻവീട്, ചാക്കോ തെക്കടത്ത് വീട്, ചാക്കോ കിഴക്കുംകര ചരുവിള വീട് എന്നീ സ്ഥാപക പിതാക്കന്മാർ ആധാരരേഖ രജിസ്റ്റർ ചെയ്തതോടെയാണ് ഇടവകയുടെ ചരിത്രയാത്ര ആരംഭിക്കുന്നത്. 1936-ൽ ദേവാലയ നിർമ്മാണം ആരംഭിക്കുകയും 1937-ൽ അഭിവന്ദ്യ ഗീവർഗ്ഗീസ് മാർ പീലക്സിനോസ് തിരുമേനിയുടെ മുഖ്യകാർമ്മികത്വത്തിൽ ദേവാലയം പ്രതിഷ്ഠിക്കപ്പെടുകയും ചെയ്തു. ഇടവകയുടെ ആദ്യ സൺഡേ സ്കൂൾ ഹെഡ്മാസ്റ്ററായിരുന്ന ശ്രീ. വി. കെ. ചാക്കോ തയ്യിൽ പിന്നീട് റവ. ഫാ. യാക്കോബ് (OIC) ആയി സഭയെ ശുശ്രൂഷിക്കുകയും ഇടവകയിൽനിന്നുള്ള ആദ്യ വൈദികനായി മാറുകയും ചെയ്തു.",
+  ),
+  B(
+    "During a visit to Kerala, Shimona, a monk of the monastery of Mount Athos on the Greek peninsula, lived in a cave at Kudukkathupara near Chanappetta in Kollam district and came to the church to pray and meditate. On the walls of the first church he painted the holy apostles, angels and a vine, and wrote verses of Holy Scripture in Malayalam script. On 21 November 1937 he dedicated to the church an icon of the Holy Mother of God painted on joined wooden boards — anointed with oil he had brought from the Holy Land and with water from the River Jordan — together with a cross carved on a stone gathered from the Jordan. On 18 December of the same year he gave a cross made of metal and wood. These are kept today in the church's meditation room.",
+    "ഗ്രീസിലെ ഉപദ്വീപിൽ ഇന്നും നിലനിൽക്കുന്ന എയ്ഞ്ചൽ ഓഫ് സെന്റ് മൗണ്ട് ആതോസ് ആശ്രമാംഗമായ ‘ശിമോണ’ കേരളസന്ദർശനവേളയിൽ കൊല്ലം ജില്ലയിലെ ചണ്ണപ്പേട്ട കുടുക്കത്തുപാറയിലുള്ള ഗുഹയിൽ താമസിക്കവെ പള്ളിയിൽവന്ന് ധ്യാനമിരിക്കുകയും പ്രഥമ ദേവാലയത്തിന്റെ ഭിത്തികളിൽ വി. ശ്ലീഹൻമാരുടേയും, മാലാഖമാരുടേയും, മുന്തിരിവള്ളിയുടെയും ചിത്രങ്ങൾ വരയ്ക്കുകയും വി. വേദവാക്യങ്ങൾ മലയാള ലിപികളിൽ എഴുതുകയും ചെയ്തു. കൂടാതെ കൂട്ടിചേർത്ത പലകയിൽ വി. ദൈവമാതാവിന്റെ ഒരു ചിത്രം വരച്ച് അതിൽ താൻ വിശുദ്ധ നാട്ടിൽ നിന്നും കൊണ്ടുവന്ന തൈലവും, ജോർദ്ദാൻ നദിയിലെ ജലവും കൊണ്ട് അഭിഷേകം ചെയ്ത ചിത്രത്തോടൊപ്പം ജോർദ്ദാൻ നദിയിൽ നിന്നും ശേഖരിച്ച പാറക്കഷണത്തിൽ കൊത്തിയ ഒരു കുരിശും 1937 നവംബർ 21-ന് പള്ളിക്ക് സമർപ്പിച്ചു. കൂടാതെ അതേ വർഷം ഡിസംബർ 18-ന് ലോഹവും തടിയുംകൊണ്ട് നിർമ്മിച്ച ഒരു കുരിശും നൽകി. ഇവ ഇപ്പോൾ പള്ളിയുടെ ധ്യാനമുറിയിൽ സൂക്ഷിച്ചിട്ടുണ്ട്.",
+  ),
+  B(
+    "The Ettunombu (eight-day Lent) feast began at the church in the time of Rev. Fr. Njanasikhamani Sasthri, who was appointed vicar in 1965. As the community of the faithful grew, a second church building was raised in 1966 with Sri. V. M. Chacko Vadakkeveettil, Sri. Varghese Baby Thoppil (Millil) and Sri. P. K. Kurian Puthenthottathil as conveners, and H.G. Mathews Mar Coorilos Metropolitan consecrated it on 13 February 1967. The present church was rebuilt in 2006, with Captain V. C. Samuel Vadakkeveettil as convener and Sri. K. P. John Puthenpurackal as joint convener. In 2010 the church was raised to the status of an international pilgrim church — a landmark in the history of the parish. The Martha Mariam meditation room was renovated in 2011 under the leadership of Sri. Varghese Mathew Thoppil (Millil), and the church itself in 2019.",
+    "1965-ൽ വികാരിയായി നിയമിതനായ റവ. ഫാ. ജ്ഞാനശിഖാമണി ശാസ്ത്രിയുടെ കാലത്ത് ഈ ദേവാലയത്തിൽ എട്ടുനോമ്പു പെരുന്നാൾ ആരംഭിച്ചു. വിശ്വാസിസമൂഹത്തിന്റെ വളർച്ചയ്ക്കനുസരിച്ച് 1966-ൽ ശ്രീ. വി. എം. ചാക്കോ വടക്കേവീട്ടിൽ, ശ്രീ. വർഗ്ഗീസ് ബേബി തോപ്പിൽ (മില്ലിൽ), ശ്രീ. പി. കെ. കുര്യൻ പുത്തൻതോട്ടത്തിൽ എന്നിവർ കൺവീനർമാരായി രണ്ടാം ദേവാലയ കെട്ടിടം നിർമ്മിക്കപ്പെട്ടു. 1967 ഫെബ്രുവരി 13-ന് അഭിവന്ദ്യ മാത്യൂസ് മാർ കൂറിലോസ് മെത്രാപ്പോലീത്ത കൂദാശാകർമ്മം നിർവഹിച്ചു. തുടർന്ന് ക്യാപ്റ്റൻ വി. സി. സാമുവൽ വടക്കേവീട്ടിൽ കൺവീനറായും, ശ്രീ. കെ. പി. ജോൺ പുത്തൻപുരയ്ക്കൽ ജോയിന്റ് കൺവീനറായും നിലവിലുള്ള ദേവാലയം 2006-ൽ പുനർനിർമ്മിക്കപ്പെട്ടു. 2010-ൽ ദേവാലയത്തിന് അന്തർദേശീയ തീർത്ഥാടന ദേവാലയ പദവി ലഭിച്ചത് ഇടവകയുടെ ചരിത്രത്തിലെ സുപ്രധാന നാഴികക്കല്ലായി മാറി. 2011-ൽ ശ്രീ. വർഗ്ഗീസ് മാത്യു തോപ്പിൽ (മില്ലിൽ) നേതൃത്വത്തിൽ മർത്തമറിയം ധ്യാനമുറിയും 2019-ൽ ദൈവാലയവും നവീകരിച്ചു.",
+  ),
+  B(
+    "Today the parish is a vibrant community of 279 families and more than 1,600 registered members, active in worship, spiritual formation, charitable work and the life of the wider Church. One Cor-Episcopa and two priests from the parish are serving the Church.",
+    "നിലവിൽ 279 കുടുംബങ്ങളും 1600-ലധികം രജിസ്റ്റർ ചെയ്ത അംഗങ്ങളും ഉൾപ്പെടുന്ന സജീവമായ വിശ്വാസി സമൂഹമാണ് ഇടവകയിലുള്ളത്. ആരാധന, ആത്മീയ രൂപീകരണം, ജീവകാരുണ്യ പ്രവർത്തനങ്ങൾ, സഭാപങ്കാളിത്തം എന്നിവയിൽ ഇടവക സജീവമായി പ്രവർത്തിച്ചുവരുന്നു. ഇടവകയിൽനിന്നുള്ള ഒരു കോർ എപ്പിസ്കോപ്പയും രണ്ട് വൈദികരും സഭയെ ശുശ്രൂഷിച്ചുകൊണ്ടിരിക്കുന്നു.",
+  ),
+  B(
+    "The parish carries on its spiritual mission under the supreme headship of H.H. Moran Mar Baselios Marthoma Mathews III Catholicos, the spiritual leadership of H.G. Dr. Geevarghese Mar Yulios, Assistant Metropolitan of the Thiruvananthapuram Diocese, and the guidance of the vicar, Rev. Fr. Varghese T. Varghese.",
+    "പരിശുദ്ധ മോറാൻ മാർ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് തൃതീയൻ കാതോലിക്ക ബാവായുടെ പരമാധ്യക്ഷതയിലും തിരുവനന്തപുരം ഭദ്രാസന സഹായ മെത്രാപ്പോലീത്ത അഭിവന്ദ്യ ഡോ. ഗീവർഗ്ഗീസ് മാർ യൂലിയോസ് തിരുമേനിയുടെ ആത്മീയ നേതൃത്വത്തിലും ബഹു. വികാരി വർഗ്ഗീസ് ടി. വർഗ്ഗീസ് അച്ചന്റെ നേതൃത്വത്തിലും ഇടവകയുടെ ആത്മീയ ദൗത്യം തുടരുന്നു.",
+  ),
+];
+
+// "ഇടവകയുടെ ദൗത്യരൂപരേഖ" — the parish mission framework.
+const missionFrameworkRaw = {
+  verse: {
+    text: B(
+      "And whether one member suffer, all the members suffer with it; or one member be honoured, all the members rejoice with it.",
+      "അതിനാൽ ഒരു അവയവം കഷ്ടം അനുഭവിക്കുന്നു എങ്കിൽ അവയവങ്ങൾ ഒക്കെയും കൂടെ കഷ്ടം അനുഭവിക്കുന്നു; ഒരു അവയവത്തിന്നു മാനം വന്നാൽ അവയവങ്ങൾ ഒക്കെയുംകൂടെ സന്തോഷിക്കുന്നു.",
+    ),
+    ref: B("1 Corinthians 12:26", "1 കൊരിന്ത്യർ 12:26"),
+  },
+  intro: B(
+    "In the light of this apostolic vision, the work of the parish's governing committees has been guided by one mission: to bring together children and elders, those who rejoice and those who are burdened, the living and the departed, in a bond of faith, care and service. This mission was not left in words alone. It was put into practice through spiritual, formative, social and charitable ministries shaped by the parish's spiritual vision and pastoral goals — planned around the needs of parishioners at every stage of life, to foster growth in faith, formation of character, participation in the Church and care for one another.",
+    "ഈ അപ്പോസ്തോലിക ദർശനത്തിന്റെ വെളിച്ചത്തിൽ, കുട്ടികളെയും മുതിർന്നവരെയും, സന്തോഷിക്കുന്നവരെയും ഭാരപ്പെടുന്നവരെയും, ജീവിച്ചിരിക്കുന്നവരെയും വാങ്ങിപ്പോയവരെയും വിശ്വാസത്തിന്റെയും കരുതലിന്റെയും സേവനത്തിന്റെയും ബന്ധത്തിൽ ഒന്നിച്ചു ചേർക്കുക എന്ന ദൗത്യമാണ് ഭരണ സമിതികളുടെ പ്രവർത്തനങ്ങൾക്ക് വഴികാട്ടിയായത്. ഈ ദൗത്യം വാക്കുകളിൽ മാത്രം ഒതുക്കാതെ, ഇടവകയുടെ ആത്മീയ ദർശനത്തിന്റെയും ഇടയപരിപാലന ലക്ഷ്യങ്ങളുടെയും അടിസ്ഥാനത്തിൽ രൂപകൽപ്പന ചെയ്ത വിവിധ ആത്മീയ, രൂപീകരണ, സാമൂഹിക, ജീവകാരുണ്യ ശുശ്രൂഷകളിലൂടെ പ്രാവർത്തികമാക്കപ്പെട്ടു. ജീവിതത്തിന്റെ വിവിധ ഘട്ടങ്ങളിലുള്ള ഇടവകാംഗങ്ങളുടെ ആവശ്യങ്ങൾ പരിഗണിച്ചുകൊണ്ട് വിശ്വാസ വളർച്ച, വ്യക്തിത്വ രൂപീകരണം, സഭാപങ്കാളിത്തം, പരസ്പര കരുതൽ എന്നിവ ലക്ഷ്യമാക്കി ഈ പ്രവർത്തനങ്ങൾ ക്രമീകരിച്ചു നടപ്പാക്കി.",
+  ),
+  pillars: [
+    {
+      icon: "Sprout",
+      title: B("Children & young people", "കുട്ടികളും യുവജനങ്ങളും"),
+      body: B(
+        "For the spiritual and personal growth of children and young people, the parish runs Aamodam — a fellowship for children, Anugraham — an educational assistance scheme, and a range of spiritual formation programmes. Their aim is to help them recognise the gifts and opportunities God has given them and grow as Good Stewards of Christ.",
+        "കുട്ടികളുടെയും യുവജനങ്ങളുടെയും ആത്മീയവും വ്യക്തിപരവുമായ വളർച്ചയ്ക്കായി ആമോദം - കുട്ടികളുടെ കൂട്ടായ്മ, അനുഗ്രഹം - വിദ്യാഭ്യാസ സഹായ പദ്ധതി, വിവിധ ആത്മീയ രൂപീകരണ പരിപാടികൾ എന്നിവ നടപ്പിലാക്കുന്നു. ദൈവം നൽകിയ കഴിവുകളും അവസരങ്ങളും തിരിച്ചറിഞ്ഞ് ക്രിസ്തുവിന്റെ നല്ല കാര്യസ്ഥന്മാരായി (Good Stewards of Christ) വളരുവാൻ അവരെ പ്രാപ്തരാക്കുക എന്നതാണ് ഈ പ്രവർത്തനങ്ങളുടെ ലക്ഷ്യം.",
+      ),
+    },
+    {
+      icon: "HandHeart",
+      title: B("Elders & the departed", "മുതിർന്നവരും വാങ്ങിപ്പോയവരും"),
+      body: B(
+        "For the elderly there are the Ashrayam pension scheme and Alambam. The life of faith is nourished through the Holy Qurbana, the daily prayers, the lents, retreats, ministries of the Word and spiritual training; and through the Aneede incense prayer and the remembrance of our forefathers, the memory of those who have fallen asleep in the faith is kept alive as part of the life of the Church.",
+        "മുതിർന്നവർക്കായി ആശ്രയം പെൻഷൻ പദ്ധതി, ആലംബം, വി. കുർബാന, നിത്യനമസ്കാരങ്ങൾ, നോമ്പുകൾ, ധ്യാനങ്ങൾ, വചനശുശ്രൂഷകൾ, ആത്മീയപരിശീലനങ്ങൾ എന്നിവയിലൂടെ വിശ്വാസ ജീവിതം പരിപോഷിപ്പിക്കുന്നതോടൊപ്പം, ആനീദേ ധൂപപ്രാർത്ഥനയും പൂർവ്വിക സ്മരണകളും വഴി വിശ്വാസത്തിൽ നിദ്രപ്രാപിച്ചവരുടെ ഓർമ്മയും സഭാജീവിതത്തിന്റെ ഭാഗമായി നിലനിർത്തുന്നു.",
+      ),
+    },
+  ],
+  closing: B(
+    "Beneath all of this lies a pastoral vision: not to wait for those in need to ask for help, but to recognise their needs and reach out to them in love. In this way the parish strives to touch each of its members at every stage of life, and to grow into a spiritual family that lives out the love, care and service of Christ.",
+    "സഹായം ആവശ്യപ്പെടുന്നവരെ കാത്തിരിക്കാതെ അവരുടെ ആവശ്യങ്ങൾ തിരിച്ചറിഞ്ഞ് അവരിലേക്ക് സ്നേഹപൂർവ്വം എത്തിച്ചേരുക എന്ന ഇടയപരിപാലന ദർശനമാണ് ഈ പ്രവർത്തനങ്ങൾക്ക് അടിസ്ഥാനം. ഇപ്രകാരം ജീവിതത്തിന്റെ വിവിധ ഘട്ടങ്ങളിൽ ഓരോ ഇടവക അംഗത്തെയും സ്പർശിക്കുകയും, ക്രിസ്തുവിന്റെ സ്നേഹവും കരുതലും സേവനവും പ്രാവർത്തികമാക്കുന്ന ആത്മീയ കുടുംബമായി വളരുവാൻ ഇടവക ഈ കാലയളവിൽ പ്രവർത്തിക്കുന്നു.",
+  ),
+};
+
 // From the parish history plaque ("ഇടവകയുടെ നാൾവഴികൾ"), unveiled 21 April 2024.
 const timelineRaw: { year: string | Bi; date?: Bi; title: Bi; body: Bi }[] = [
   { year: "1932", title: B("Sunday School begins", "സൺഡേ സ്കൂൾ ആരംഭം"), body: B("The parish Sunday School was started.", "ഇടവകയിൽ സൺഡേ സ്കൂൾ ആരംഭിച്ചു.") },
@@ -881,7 +992,7 @@ const timelineRaw: { year: string | Bi; date?: Bi; title: Bi; body: Bi }[] = [
   { year: "2019", date: B("24–25 August", "ഓഗസ്റ്റ് 24, 25"), title: B("Madbaha and Haikala renewed", "മദ്ബഹായും ഹൈക്കലായും"), body: B("H.G. Dr. Gabriel Mar Gregorios Metropolitan consecrated the renovated Madbaha (sanctuary) and Haikala (nave).", "പുനർനവീകരിച്ച മദ്ബഹായും ഹൈക്കലായും അഭി. ഡോ. ഗബ്രിയേൽ മാർ ഗ്രീഗോറിയോസ് മെത്രാപ്പോലീത്താ കൂദാശ ചെയ്തു.") },
   { year: "2024", date: B("21 April", "ഏപ്രിൽ 21"), title: B("St. Jude Chapel", "സെന്റ് ജൂഡ് ചാപ്പൽ"), body: B("H.G. Dr. Gabriel Mar Gregorios Metropolitan laid the foundation stone for the St. Jude Chapel.", "സെന്റ് ജൂഡ് ചാപ്പലിന് അഭി. ഡോ. ഗബ്രിയേൽ മാർ ഗ്രീഗോറിയോസ് മെത്രാപ്പോലീത്താ ശിലാസ്ഥാപന കർമ്മം നിർവഹിച്ചു.") },
   { year: "2026", date: B("4 September", "സെപ്റ്റംബർ 4"), title: B("Relics of St. Gregorios of Parumala enshrined", "പരുമല മാർ ഗ്രീഗോറിയോസിന്റെ തിരുശേഷിപ്പ് സ്ഥാപിച്ചു"), body: B("H.H. Baselios Marthoma Mathews III, Catholicos of the East and Malankara Metropolitan, enshrined the relics of St. Gregorios of Parumala.", "പൗരസ്ത്യ കാതോലിക്കായും മലങ്കര മെത്രാപ്പോലീത്തയുമായ പരിശുദ്ധ ബസേലിയോസ് മാർത്തോമ്മാ മാത്യൂസ് തൃതീയൻ കാതോലിക്കാ ബാവ പരുമല മാർ ഗ്രീഗോറിയോസ് തിരുമേനിയുടെ തിരുശേഷിപ്പ് സ്ഥാപിച്ചു.") },
-  { year: B("Today", "ഇന്ന്"), title: B("A living parish", "ജീവനുള്ള ഇടവക"), body: B("Home to hundreds of families and a dozen ministries, the parish continues its journey of faith and service.", "നൂറുകണക്കിന് കുടുംബങ്ങളുടെയും നിരവധി കൂട്ടായ്മകളുടെയും ഭവനമായി, ഇടവക വിശ്വാസത്തിന്റെയും സേവനത്തിന്റെയും യാത്ര തുടരുന്നു.") },
+  { year: B("Today", "ഇന്ന്"), title: B("A living parish", "ജീവനുള്ള ഇടവക"), body: B("Home to 279 families, more than 1,600 members and a dozen ministries, the parish continues its journey of faith and service.", "279 കുടുംബങ്ങളുടെയും 1600-ലധികം അംഗങ്ങളുടെയും നിരവധി കൂട്ടായ്മകളുടെയും ഭവനമായി, ഇടവക വിശ്വാസത്തിന്റെയും സേവനത്തിന്റെയും യാത്ര തുടരുന്നു.") },
 ];
 
 const patronSaintRaw = {
@@ -917,16 +1028,6 @@ const givingRaw = {
   ],
 };
 
-const prayerCategoriesRaw: Bi[] = [
-  B("Thanksgiving", "കൃതജ്ഞത"),
-  B("Healing & Health", "സൗഖ്യവും ആരോഗ്യവും"),
-  B("Family", "കുടുംബം"),
-  B("Guidance", "മാർഗ്ഗനിർദേശം"),
-  B("Departed Souls", "വാങ്ങിപ്പോയവർ"),
-  B("Vocation", "ദൈവവിളി"),
-  B("Other", "മറ്റുള്ളവ"),
-];
-
 /* ------------------------------------------------------------------ */
 /*  Localizer                                                         */
 /* ------------------------------------------------------------------ */
@@ -960,6 +1061,13 @@ export type ParishData = {
     vision: string;
     values: { title: string; body: string; icon: string }[];
   };
+  parishHistory: string[];
+  missionFramework: {
+    verse: { text: string; ref: string };
+    intro: string;
+    pillars: { icon: string; title: string; body: string }[];
+    closing: string;
+  };
   timeline: TimelineEvent[];
   patronSaint: { name: string; title: string; feast: string; image: ImageKey; body: string };
   giving: {
@@ -968,7 +1076,6 @@ export type ParishData = {
     bank: { accountName: string; accountNumber: string; bank: string; branch: string; ifsc: string };
     purposes: { title: string; body: string; icon: string }[];
   };
-  prayerCategories: string[];
 };
 
 // Cached per locale so callers get stable references (safe as effect/memo deps).
@@ -987,7 +1094,9 @@ function buildData(locale: Locale): ParishData {
     weekdayMass: weekdayMassRaw.map((s) => ({ day: L(s.day), times: s.times, note: s.note ? L(s.note) : undefined })),
     devotions: devotionsRaw.map((d) => ({ title: L(d.title), detail: L(d.detail), extra: L(d.extra), icon: d.icon })),
     specialSchedules: specialSchedulesRaw.map((s) => ({ occasion: L(s.occasion), dates: L(s.dates), detail: L(s.detail) })),
-    announcements: announcementsRaw.map((a) => ({ title: L(a.title), date: L(a.date), body: L(a.body), tag: L(a.tag) })),
+    announcements: announcementsRaw.map((a) => ({
+      title: L(a.title), date: L(a.date), body: L(a.body), tag: L(a.tag), event: a.event,
+    })),
     upcomingFeast: {
       title: L(upcomingFeastRaw.title),
       malayalam: L(upcomingFeastRaw.malayalam),
@@ -999,10 +1108,15 @@ function buildData(locale: Locale): ParishData {
       slug: e.slug, title: L(e.title), date: e.date, endDate: e.endDate,
       time: L(e.time), location: L(e.location), category: e.category,
       image: e.image, excerpt: L(e.excerpt), featured: e.featured, album: e.album,
+      details: e.details?.map(L),
+      schedule: e.schedule?.map((d) => ({
+        date: d.date,
+        items: d.items.map((i) => ({ time: i.time, title: L(i.title), lines: i.lines?.map(L) })),
+      })),
     })),
     navathiPrograms: navathiProgramsRaw.map((p) => ({
       date: p.date, endDate: p.endDate, time: p.time && L(p.time),
-      title: L(p.title), description: L(p.description), location: L(p.location),
+      title: L(p.title), description: L(p.description), location: L(p.location), event: p.event,
     })),
     prelates: prelatesRaw.map((p) => ({ name: L(p.name), title: L(p.title), image: p.image, file: p.file })),
     parishPriest: {
@@ -1045,6 +1159,13 @@ function buildData(locale: Locale): ParishData {
       vision: L(missionVisionRaw.vision),
       values: missionVisionRaw.values.map((v) => ({ title: L(v.title), body: L(v.body), icon: v.icon })),
     },
+    parishHistory: parishHistoryRaw.map(L),
+    missionFramework: {
+      verse: { text: L(missionFrameworkRaw.verse.text), ref: L(missionFrameworkRaw.verse.ref) },
+      intro: L(missionFrameworkRaw.intro),
+      pillars: missionFrameworkRaw.pillars.map((p) => ({ icon: p.icon, title: L(p.title), body: L(p.body) })),
+      closing: L(missionFrameworkRaw.closing),
+    },
     timeline: timelineRaw.map((t) => ({ year: typeof t.year === "string" ? t.year : L(t.year), date: t.date && L(t.date), title: L(t.title), body: L(t.body) })),
     patronSaint: {
       name: L(patronSaintRaw.name), title: L(patronSaintRaw.title), feast: L(patronSaintRaw.feast),
@@ -1055,6 +1176,5 @@ function buildData(locale: Locale): ParishData {
       bank: { ...givingRaw.bank, bank: L(givingRaw.bank.bank), branch: L(givingRaw.bank.branch) },
       purposes: givingRaw.purposes.map((p) => ({ title: L(p.title), body: L(p.body), icon: p.icon })),
     },
-    prayerCategories: prayerCategoriesRaw.map((c) => L(c)),
   };
 }

@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
-import { image } from "@/lib/images";
-import { site } from "@/lib/site";
+import { eventJsonLd, pageMetadata } from "@/lib/seo";
 import { getData } from "@/lib/data";
 import { EventsContent } from "./content";
 
@@ -26,27 +24,7 @@ export default function EventsPage() {
     itemListElement: upcoming.map((e, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      item: {
-        "@type": "Event",
-        name: e.title,
-        startDate: e.date,
-        ...(e.endDate ? { endDate: e.endDate } : {}),
-        description: e.excerpt,
-        image: `${site.url}${image(e.image)}`,
-        eventStatus: "https://schema.org/EventScheduled",
-        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-        location: {
-          "@type": "Place",
-          name: e.location,
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Anchal",
-            addressRegion: "Kerala",
-            addressCountry: "IN",
-          },
-        },
-        organizer: { "@type": "Organization", name: site.legalName, url: site.url },
-      },
+      item: eventJsonLd(e),
     })),
   };
 

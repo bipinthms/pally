@@ -65,7 +65,10 @@ export function EventsContent({ today }: { today: string }) {
             <RevealGroup className="mt-14 grid gap-6 md:grid-cols-3">
               {past.map((e) => (
                 <RevealItem key={e.slug}>
-                  <NewsCardLink album={e.album ? `/gallery#news-${e.slug}` : undefined}>
+                  <Link
+                    href={`/events/${e.slug}`}
+                    className="card-hover group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card"
+                  >
                     <div className="relative aspect-[16/10] overflow-hidden">
                       <Image
                         src={image(e.image, { w: 700, q: 66 })}
@@ -83,14 +86,12 @@ export function EventsContent({ today }: { today: string }) {
                       <span className="text-xs text-muted-foreground">{formatDateRange(e.date, e.endDate, locale)}</span>
                       <h3 className="mt-2 font-serif text-lg font-semibold leading-snug">{e.title}</h3>
                       <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{e.excerpt}</p>
-                      {e.album && (
-                        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
-                          {t.gallery.viewPhotos}
-                          <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                        </span>
-                      )}
+                      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
+                        {t.events.viewDetails}
+                        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                      </span>
                     </div>
-                  </NewsCardLink>
+                  </Link>
                 </RevealItem>
               ))}
             </RevealGroup>
@@ -128,27 +129,32 @@ export function EventsContent({ today }: { today: string }) {
                       {list.map((e) => {
                         const { day, month: mon } = dateParts(e.date, locale);
                         return (
-                          <li key={e.slug} className="flex items-center gap-4 border-b border-border p-4 last:border-0 transition-colors hover:bg-accent/50">
-                            <div className="flex size-14 shrink-0 flex-col items-center justify-center rounded-xl bg-primary/10 text-center">
-                              <span className="font-serif text-lg font-bold leading-none text-primary">{day}</span>
-                              <span className="text-[0.6rem] font-semibold uppercase tracking-wide text-gold-700">{mon}</span>
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <p className="truncate font-medium">{e.title}</p>
-                              <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
-                                <span className="flex items-center gap-1.5">
-                                  <Clock className="size-3.5 text-gold-500" />
-                                  {e.time}
-                                </span>
-                                <span className="flex items-center gap-1.5">
-                                  <MapPin className="size-3.5 text-gold-500" />
-                                  {e.location}
-                                </span>
+                          <li key={e.slug} className="border-b border-border last:border-0">
+                            <Link
+                              href={`/events/${e.slug}`}
+                              className="flex items-center gap-4 p-4 transition-colors hover:bg-accent/50"
+                            >
+                              <div className="flex size-14 shrink-0 flex-col items-center justify-center rounded-xl bg-primary/10 text-center">
+                                <span className="font-serif text-lg font-bold leading-none text-primary">{day}</span>
+                                <span className="text-[0.6rem] font-semibold uppercase tracking-wide text-gold-700">{mon}</span>
                               </div>
-                            </div>
-                            <Badge variant="muted" className="hidden shrink-0 sm:inline-flex">
-                              {t.cats.events[e.category] ?? e.category}
-                            </Badge>
+                              <div className="min-w-0 flex-1">
+                                <p className="truncate font-medium">{e.title}</p>
+                                <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                                  <span className="flex items-center gap-1.5">
+                                    <Clock className="size-3.5 text-gold-500" />
+                                    {e.time}
+                                  </span>
+                                  <span className="flex items-center gap-1.5">
+                                    <MapPin className="size-3.5 text-gold-500" />
+                                    {e.location}
+                                  </span>
+                                </div>
+                              </div>
+                              <Badge variant="muted" className="hidden shrink-0 sm:inline-flex">
+                                {t.cats.events[e.category] ?? e.category}
+                              </Badge>
+                            </Link>
                           </li>
                         );
                       })}
@@ -162,17 +168,5 @@ export function EventsContent({ today }: { today: string }) {
       )}
 
     </>
-  );
-}
-
-/** A news card links to its gallery album when it has one. */
-function NewsCardLink({ album, children }: { album?: string; children: React.ReactNode }) {
-  const className = "card-hover group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card";
-  return album ? (
-    <Link href={album} className={className}>
-      {children}
-    </Link>
-  ) : (
-    <article className={className}>{children}</article>
   );
 }

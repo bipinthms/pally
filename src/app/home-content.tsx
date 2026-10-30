@@ -48,7 +48,7 @@ export function HomeContent() {
 
   const stats = [
     { value: String(site.established), label: t.home.statEstablished },
-    { value: "270+", label: t.home.statFamilies },
+    { value: "279", label: t.home.statFamilies },
     { value: t.home.statQurbana, label: t.home.statQurbanaDays },
   ];
 
@@ -217,7 +217,7 @@ export function HomeContent() {
           </div>
 
           <RevealGroup className="mt-12 grid gap-6 md:grid-cols-3">
-            {d.announcements.map((a) => (
+            {d.announcements.slice(0, 3).map((a) => (
               <RevealItem key={a.title}>
                 <article className="card-hover flex h-full flex-col rounded-2xl border border-border bg-card p-6">
                   <div className="flex items-center justify-between">
@@ -226,6 +226,15 @@ export function HomeContent() {
                   </div>
                   <h3 className="mt-4 font-serif text-xl font-semibold leading-snug">{a.title}</h3>
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{a.body}</p>
+                  {a.event && (
+                    <Link
+                      href={`/events/${a.event}`}
+                      className="group mt-4 inline-flex items-center gap-1.5 self-start text-sm font-medium text-primary"
+                    >
+                      {t.events.viewDetails}
+                      <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  )}
                 </article>
               </RevealItem>
             ))}
