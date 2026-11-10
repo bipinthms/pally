@@ -69,6 +69,8 @@ export type Organization = {
   audience: string;
   /** Per-unit meeting times, for organisations that meet as several groups. */
   schedule?: { name: string; day: string; time: string }[];
+  /** Slugs of event pages for the organisation's programmes, shown with its photos in the Gallery. */
+  programmes?: string[];
 };
 export type MissionProject = { name: string; malayalam: string; tagline: string; description: string; icon: string };
 export type GalleryCategory = "Church" | "Feasts" | "Liturgy" | "Community" | "Heritage";
@@ -292,6 +294,49 @@ const eventsRaw: {
     ),
   },
   {
+    slug: "navathi-elders-honour",
+    title: B("Honouring Our Elders", "വയോജന ആദരവ്"),
+    date: "2026-11-08", time: B("After the Holy Qurbana", "വിശുദ്ധ കുർബ്ബാനയ്ക്ക് ശേഷം"),
+    location: B("Parish Church", "ഇടവക പള്ളി"),
+    category: "News", image: "eldersHonour", album: "eldersHonour",
+    excerpt: B(
+      "As part of the Navathi celebrations, parishioners who have completed 90 years of age were honoured after the Holy Qurbana on Sunday, 8 November.",
+      "ഇടവകയുടെ നവതി ആഘോഷങ്ങളുടെ ഭാഗമായി നവംബർ 8 ഞായറാഴ്ച വിശുദ്ധ കുർബ്ബാനയ്ക്ക് ശേഷം 90 വയസ്സ് പൂർത്തിയായവരെ ആദരിച്ചു.",
+    ),
+  },
+  {
+    slug: "ocym-cricket-jersey",
+    title: B("Jerseys for the OCYM Cricket Team", "OCYM ക്രിക്കറ്റ് ടീമിന് ജേഴ്‌സി വിതരണം"),
+    date: "2026-11-08", time: B("After the Holy Qurbana", "വിശുദ്ധ കുർബ്ബാനയ്ക്ക് ശേഷം"),
+    location: B("Parish Church", "ഇടവക പള്ളി"),
+    category: "News", image: "ocymCricketJersey", album: "ocymCricketJersey",
+    excerpt: B(
+      "Jerseys were distributed to the parish OCYM cricket team.",
+      "ഇടവകയുടെ OCYM ക്രിക്കറ്റ് ടീമിന് ജേഴ്‌സി വിതരണം ചെയ്തു.",
+    ),
+  },
+  {
+    slug: "qurbana-names-qr-launch",
+    title: B("QR Code Launched for Holy Qurbana Remembrances", "വിശുദ്ധ കുർബ്ബാനയിൽ ഓർക്കേണ്ട പേരുകൾക്കായി QR കോഡ് പ്രകാശനം"),
+    date: "2026-11-08", time: B("Sunday", "ഞായറാഴ്ച"),
+    location: B("Parish Church", "ഇടവക പള്ളി"),
+    category: "News", image: "qurbanaNamesQr",
+    excerpt: B(
+      "A QR code was launched on Sunday, 8 November, so that names to be remembered in the Holy Qurbana can be submitted online.",
+      "വിശുദ്ധ കുർബ്ബാനയിൽ ഓർക്കേണ്ട പേരുകൾ ഓൺലൈനായി സമർപ്പിക്കുന്നതിന് നവംബർ 8 ഞായറാഴ്ച QR കോഡ് പ്രകാശനം ചെയ്തു.",
+    ),
+    details: [
+      B(
+        "A QR code was launched on Sunday, 8 November, so that names to be remembered in the Holy Qurbana can be submitted online.",
+        "വിശുദ്ധ കുർബ്ബാനയിൽ ഓർക്കേണ്ട പേരുകൾ ഓൺലൈനായി സമർപ്പിക്കുന്നതിന് നവംബർ 8 ഞായറാഴ്ച QR കോഡ് പ്രകാശനം ചെയ്തു.",
+      ),
+      B(
+        "The same form is available on the Prayer Requests page of this website.",
+        "ഇതേ ഫോം ഈ വെബ്സൈറ്റിലെ പ്രാർത്ഥനാ അപേക്ഷകൾ പേജിലും ലഭ്യമാണ്.",
+      ),
+    ],
+  },
+  {
     slug: "st-george-feast-2027",
     title: B("Feast of St. George", "വിശുദ്ധ ഗീവർഗീസ് സഹദായുടെ പെരുന്നാൾ"),
     date: "2027-05-09", time: B("See parish notices", "ഇടവക അറിയിപ്പുകൾ കാണുക"),
@@ -446,6 +491,17 @@ const navathiProgramsRaw: {
     ),
     location: B("Parish Church", "ഇടവക പള്ളി"),
   },
+  {
+    date: "2026-11-08",
+    time: B("After the Holy Qurbana", "വിശുദ്ധ കുർബ്ബാനയ്ക്ക് ശേഷം"),
+    event: "navathi-elders-honour",
+    title: B("Honouring Our Elders", "വയോജന ആദരവ്"),
+    description: B(
+      "As part of the Navathi celebrations, parishioners who have completed 90 years of age were honoured after the Holy Qurbana on Sunday, 8 November.",
+      "ഇടവകയുടെ നവതി ആഘോഷങ്ങളുടെ ഭാഗമായി നവംബർ 8 ഞായറാഴ്ച വിശുദ്ധ കുർബ്ബാനയ്ക്ക് ശേഷം 90 വയസ്സ് പൂർത്തിയായവരെ ആദരിച്ചു.",
+    ),
+    location: B("Parish Church", "ഇടവക പള്ളി"),
+  },
 ];
 
 const prelatesRaw = [
@@ -587,6 +643,7 @@ const organizationsRaw: {
   slug: string; name: string; malayalam?: Bi; short: Bi; description: Bi;
   meeting: Bi; icon: string; image: ImageKey; photos: ImageKey[]; audience: Bi;
   schedule?: { name: Bi; day: Bi; time: string }[];
+  programmes?: string[];
 }[] = [
   {
     slug: "sunday-school", name: "Sunday School",
@@ -612,6 +669,7 @@ const organizationsRaw: {
     meeting: B("Saturdays · after Evening Prayer", "ശനിയാഴ്ചകൾ · സന്ധ്യാ നമസ്കാരത്തിനു ശേഷം"),
     icon: "Flame", image: "ocymPresentation", photos: ["ocymPresentation", "gathering", "peacefulPath"],
     audience: B("Youth (18–35)", "യുവജനം (18–35)"),
+    programmes: ["ocym-cricket-jersey"],
   },
   {
     slug: "mgocsm", name: "MGOCSM",
@@ -1146,6 +1204,7 @@ function buildData(locale: Locale): ParishData {
         short: L(o.short), description: L(o.description), meeting: L(o.meeting),
         icon: o.icon, image: o.image, photos: o.photos, audience: L(o.audience),
         schedule: o.schedule?.map((g) => ({ name: L(g.name), day: L(g.day), time: g.time })),
+        programmes: o.programmes,
       };
     }),
     missionProjects: missionProjectsRaw.map((m) => ({

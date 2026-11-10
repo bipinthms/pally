@@ -2,12 +2,14 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Play,
   ZoomIn,
   Clock,
   Newspaper,
+  ArrowRight,
 } from "lucide-react";
 
 import { album, image } from "@/lib/images";
@@ -59,6 +61,14 @@ export function GalleryClient() {
 
   const org = organizations.find((o) => o.slug === orgSlug) ?? organizations[0];
   const news = albums.find((e) => e.slug === newsSlug) ?? albums[0];
+  // The organisation's programmes, newest first; their photos follow its own.
+  const orgProgrammes = React.useMemo(
+    () =>
+      events
+        .filter((e) => org?.programmes?.includes(e.slug))
+        .sort((a, b) => b.date.localeCompare(a.date)),
+    [events, org],
+  );
 
   // Open the matching tab when arriving from an organization or parish news card.
   React.useEffect(() => {
@@ -115,11 +125,22 @@ export function GalleryClient() {
 
   const items = React.useMemo<GridItem[]>(() => {
     if (view === "orgs") {
-      return (org?.photos ?? []).map((photo) => ({
-        src: image(photo),
-        title: org.name,
-        subtitle: org.short,
-      }));
+      return [
+        ...(org?.photos ?? []).map((photo) => ({
+          src: image(photo),
+          title: org.name,
+          subtitle: org.short,
+        })),
+        ...orgProgrammes.flatMap((e) =>
+          e.album
+            ? album(e.album).map((src) => ({
+                src,
+                title: e.title,
+                subtitle: formatDateRange(e.date, e.endDate, locale),
+              }))
+            : [],
+        ),
+      ];
     }
     if (view === "news") {
       return news?.album
@@ -140,7 +161,7 @@ export function GalleryClient() {
       subtitle: t.cats.gallery[g.category] ?? g.category,
       span: g.span,
     }));
-  }, [view, org, news, category, gallery, t, locale]);
+  }, [view, org, orgProgrammes, news, category, gallery, t, locale]);
 
   return (
     <>
@@ -236,6 +257,31 @@ export function GalleryClient() {
               </span>
               <Badge variant="muted">{org.audience}</Badge>
             </div>
+            {orgProgrammes.length > 0 && (
+              <div className="mx-auto mt-6 max-w-md text-left">
+                <p className="text-center text-xs font-semibold uppercase tracking-wide text-gold-700">
+                  {t.gallery.orgProgrammes}
+                </p>
+                <ul className="mt-3 divide-y divide-border rounded-xl border border-border text-sm">
+                  {orgProgrammes.map((e) => (
+                    <li key={e.slug}>
+                      <Link
+                        href={`/events/${e.slug}`}
+                        className="group flex items-center justify-between gap-3 px-4 py-3 hover:bg-muted/50"
+                      >
+                        <span>
+                          <span className="block font-medium text-foreground">{e.title}</span>
+                          <span className="mt-0.5 block text-xs text-muted-foreground">
+                            {formatDateRange(e.date, e.endDate, locale)}
+                          </span>
+                        </span>
+                        <ArrowRight className="size-4 shrink-0 text-primary transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </motion.div>
         </>
       )}

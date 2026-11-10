@@ -25,23 +25,20 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-brown-900 text-cream/80">
+      {/* Aerial view of the church, darkened to keep the text readable */}
+      <Image
+        src={IMAGES.aerialView}
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover object-[center_65%]"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brown-900/75 via-brown-900/85 to-brown-900/95" />
       <div className="pointer-events-none absolute inset-0 bg-grain opacity-[0.06]" />
       <div className="pointer-events-none absolute -left-24 -top-24 size-72 rounded-full bg-maroon-700/30 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-24 right-0 size-72 rounded-full bg-gold-700/20 blur-3xl" />
 
-      {/* Aerial view of the church, fading into the footer */}
-      <div className="relative h-56 sm:h-72 lg:h-96">
-        <Image
-          src={IMAGES.aerialView}
-          alt={t.a11y.altAerialView}
-          fill
-          sizes="100vw"
-          className="object-cover object-[center_65%]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-brown-900" />
-      </div>
-
-      <div className="container-x relative pb-16 pt-8">
+      <div className="container-x relative py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
           {/* Brand */}
           <div>

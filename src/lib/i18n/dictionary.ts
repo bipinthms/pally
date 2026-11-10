@@ -64,7 +64,6 @@ const en = {
     altLogo: "St. Mary's Orthodox Syrian Church, Alencherry",
     altHero: "The interior of St. Mary's Orthodox Syrian Church, Alencherry",
     altChurch: "St. Mary's Orthodox Syrian Church",
-    altAerialView: "Aerial view of St. Mary's Orthodox Syrian Church among the green hills of Alencherry",
     altCandles: "Votive candles",
     altOldChurch: "An early photograph of the parish church",
     close: "Close",
@@ -295,6 +294,7 @@ const en = {
     tabNews: "Parish News",
     tabOrgs: "Organizations",
     viewPhotos: "View photos",
+    orgProgrammes: "Programmes",
   },
   events: {
     heroEyebrow: "Life of the parish",
@@ -603,7 +603,6 @@ const ml: Dict = {
     altLogo: "സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളി, ആലഞ്ചേരി",
     altHero: "ആലഞ്ചേരി സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളിയുടെ ഉൾവശം",
     altChurch: "സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളി",
-    altAerialView: "ആലഞ്ചേരിയിലെ പച്ചപ്പുനിറഞ്ഞ കുന്നുകൾക്കിടയിലെ സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളിയുടെ ആകാശദൃശ്യം",
     altCandles: "നേർച്ച മെഴുകുതിരികൾ",
     altOldChurch: "ഇടവക പള്ളിയുടെ ഒരു പഴയ ചിത്രം",
     close: "അടയ്ക്കുക",
@@ -830,6 +829,7 @@ const ml: Dict = {
     tabNews: "ഇടവക വാർത്തകൾ",
     tabOrgs: "സംഘടനകൾ",
     viewPhotos: "ചിത്രങ്ങൾ കാണുക",
+    orgProgrammes: "പരിപാടികൾ",
   },
   events: {
     heroEyebrow: "ഇടവക ജീവിതം",

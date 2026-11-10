@@ -35,6 +35,9 @@ const FILES = {
   assistantVicar: "clergy/assistant-vicar.jpg",
   committee: "committee/group.jpg",
   navathiInauguration: "events/navathi-inauguration.jpeg",
+  eldersHonour: "events/elders-honour/elders-honour-01.jpg",
+  ocymCricketJersey: "events/ocym-cricket-jersey/ocym-cricket-jersey-01.jpg",
+  qurbanaNamesQr: "events/qurbana-names-qr-launch.jpg",
   relicsStGregorios: "events/relics-st-gregorios.jpeg",
   marthaMariamPilgrimageCentre: "events/martha-mariam-pilgrimage-centre/martha-mariam-pilgrimage-centre-05.jpg",
   reception: "events/reception.jpg",
@@ -124,6 +127,9 @@ export const IMAGES = {
   celebration: f("reception"),
   eventsHero: f("lampLighting"),
   navathiInauguration: f("navathiInauguration"),
+  eldersHonour: f("eldersHonour"),
+  ocymCricketJersey: f("ocymCricketJersey"),
+  qurbanaNamesQr: f("qurbanaNamesQr"),
   relicsStGregorios: f("relicsStGregorios"),
   marthaMariamPilgrimageCentre: f("marthaMariamPilgrimageCentre"),
   parumalaPerunnal: f("parumalaPerunnal"),
@@ -184,6 +190,8 @@ const ALBUMS = {
   relicsStGregorios: { folder: "relics-st-gregorios", count: 23 },
   abunaYoosuf: { folder: "abuna-yoosuf", count: 25 },
   navathiInauguration: { folder: "navathi-inauguration", count: 18 },
+  eldersHonour: { folder: "elders-honour", count: 3 },
+  ocymCricketJersey: { folder: "ocym-cricket-jersey", count: 8 },
   marthaMariamPilgrimageCentre: { folder: "martha-mariam-pilgrimage-centre", count: 9 },
 } as const;
 
